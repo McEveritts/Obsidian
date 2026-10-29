@@ -1,0 +1,257 @@
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - MEDIA CARDS & POSTER SURFACES
+ * File: 05-cards.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Media Card Container (.card / .cardBox / .MuiCard-root)
+   Tier 1 Interactive Glass Surface with High-Contrast Specular Bevels
+   Neutralizes upstream 'contain: paint' to allow unclipped hover lift & glow
+   -------------------------------------------------------------------------- */
+.card {
+  contain: layout style !important;
+  overflow: visible !important;
+}
+
+/* Component-level containment:
+   - Desktop transform carousels (.emby-scroller:not(.scrollX)) use overflow-x: clip
+     to constrain off-screen .animatedScrollX cards without clipping vertical hover lift.
+   - Mobile/touch native scrollers (.emby-scroller.scrollX) MUST preserve overflow-x: auto
+     so horizontal touch/swipe scrolling works on Home, Libraries, and Detail views. */
+.emby-scroller:not(.scrollX) {
+  overflow-x: clip !important;
+}
+
+.emby-scroller.scrollX {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+}
+
+/* Pre-promote horizontal carousel tracks to a single composited GPU layer for 120Hz scrolling */
+.scrollSlider {
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.scrollSlider.animatedScrollX {
+  will-change: transform;
+  transition-timing-function: var(--obs-ease-out-120) !important;
+}
+
+.cardBox,
+.MuiCard-root {
+  position: relative;
+  contain: layout style !important;
+  overflow: visible !important;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  background: var(--obs-card-bg) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-card), var(--obs-chromatic-inset-card) !important;
+  transition: transform var(--obs-duration-card) var(--obs-ease-spring-120),
+              border-color var(--obs-duration-card) ease !important;
+}
+
+/* Pre-allocated composited chromatic prism rim & hover neon bloom layer
+   Renders a continuous 360-degree chromatic refraction edge around the card
+   and animates purely via GPU opacity at 120Hz on pointer hover */
+.cardBox::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none !important;
+  background: var(--obs-chromatic-edge-hover);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  box-shadow: var(--obs-shadow-card-hover);
+  opacity: 0.55;
+  backface-visibility: hidden;
+  transition: opacity var(--obs-duration-card) var(--obs-ease-out-120);
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Artwork & Poster Preservation
+   Guarantees posters stay crisp without tinting or unwanted cropping
+   -------------------------------------------------------------------------- */
+.cardScalable,
+.cardPadder,
+.cardImageContainer {
+  border-radius: calc(var(--obs-radius-2xl) - 2px) !important;
+  overflow: hidden !important;
+}
+
+.cardImage {
+  border-radius: inherit !important;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transition: transform var(--obs-duration-card) var(--obs-ease-out-120) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Hover Physics - Gated to Pointer Devices (WCAG 2.2 / Looplet Parity)
+   -------------------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .cardBox {
+    transform: translate3d(0, var(--obs-card-lift), 0) !important;
+    background: var(--obs-card-bg-hover) !important;
+    will-change: transform;
+  }
+
+  .card:hover .cardBox::after {
+    opacity: 1;
+  }
+
+  .card:hover .cardImage {
+    transform: scale3d(1.028, 1.028, 1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Remote & Keyboard Navigation Focus States (10-Foot & Accessibility)
+   -------------------------------------------------------------------------- */
+.card:focus .cardBox.visualCardBox,
+.card:focus .cardBox:not(.visualCardBox) .cardScalable,
+.card:focus-visible .cardBox,
+.cardBox:focus-visible {
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 3px !important;
+  box-shadow: var(--obs-shadow-card-hover), 0 0 24px rgba(99, 102, 241, 0.65) !important;
+  border-color: var(--obs-indigo-400) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Card Text & Titles
+   -------------------------------------------------------------------------- */
+.cardText {
+  padding: 0 0.35rem !important;
+}
+
+.cardBox > .cardText:last-child {
+  padding-bottom: 0.4rem !important;
+}
+
+.cardText-first {
+  color: var(--obs-white) !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  letter-spacing: -0.01em !important;
+  margin-top: 0.4rem !important;
+}
+
+.cardText-secondary {
+  color: var(--obs-slate-400) !important;
+  font-size: 0.825rem !important;
+  margin-top: 0.15rem !important;
+}
+
+/* --------------------------------------------------------------------------
+   Card Indicators & Badges (Played, Unplayed, Progress - Looplet Calibration)
+   -------------------------------------------------------------------------- */
+/* Unplayed Count Bubble */
+.countIndicator {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.92) 0%, rgba(79, 70, 229, 0.92) 100%) !important;
+  color: var(--obs-white) !important;
+  font-weight: 700 !important;
+  font-size: 0.72rem !important;
+  border-radius: var(--obs-radius-full) !important;
+  padding: 0.18rem 0.55rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.5) !important;
+}
+
+/* Played State Checkmark Badge */
+.playedIndicator {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.92) 0%, rgba(16, 185, 129, 0.92) 100%) !important;
+  color: var(--obs-slate-950) !important;
+  border-radius: var(--obs-radius-full) !important;
+  padding: 0.25rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 2px 10px rgba(52, 211, 153, 0.4) !important;
+}
+
+/* Resume Watch Progress Bar */
+.itemProgressBar {
+  background-color: rgba(15, 23, 42, 0.78) !important;
+  height: 4px !important;
+  border-radius: var(--obs-radius-full) !important;
+  margin: 0 0.5rem 0.5rem 0.5rem !important;
+  overflow: hidden !important;
+}
+
+.itemProgressBarForeground {
+  background: linear-gradient(90deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  border-radius: var(--obs-radius-full) !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.85) !important;
+}
+
+/* Card Hover Action Buttons Overlay
+   Uses composited alpha scrim instead of per-card backdrop-filter to sustain 120Hz */
+.cardOverlayContainer {
+  background: rgba(2, 6, 23, 0.56) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-radius: inherit !important;
+  backface-visibility: hidden;
+  transition: opacity var(--obs-duration-card) var(--obs-ease-out-120) !important;
+}
+
+.cardOverlayButton-hover {
+  transition: opacity var(--obs-duration-card) var(--obs-ease-out-120) !important;
+}
+
+.cardOverlayButton {
+  border-radius: var(--obs-radius-full) !important;
+  background-color: rgba(15, 23, 42, 0.72) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              opacity var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease !important;
+}
+
+.cardOverlayButton:not(.hide) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cardOverlayButton:hover,
+.cardOverlayContainer > .cardOverlayFab-primary:hover {
+  background: linear-gradient(135deg, var(--obs-indigo-500), var(--obs-fuchsia-500)) !important;
+  transform: scale3d(1.1, 1.1, 1) !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+}
+
+/* Horizontal Carousel Navigation Buttons */
+.emby-scrollbuttons-button {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Mobile Card Constraints (3.5" to 4.7" displays)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .card {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}

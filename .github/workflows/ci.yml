@@ -1,0 +1,27 @@
+name: Obsidian Theme Build & Verification Gate
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-verify:
+    name: CSS Build, Syntax & Determinism Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run JS Syntax & Deterministic CSS Build
+        run: npm test
+
+      - name: Verify compiled obsidian.css is up-to-date with src/ modules
+        run: git diff --exit-code obsidian.css

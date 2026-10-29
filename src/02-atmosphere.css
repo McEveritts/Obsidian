@@ -1,0 +1,154 @@
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - ATMOSPHERIC BACKGROUND ENGINE
+ * File: 02-atmosphere.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* Base Canvas Foundation on HTML Root (Pure #000000 Obsidian Contrast)
+   CRITICAL: body must remain background-color: transparent so its 100vh box
+   never paints an opaque black rectangle over body::before (z-index: -2) or
+   .backdropContainer (z-index: -1) when scrolling past 100vh. */
+html {
+  background-color: var(--obs-bg-base) !important;
+  background-image: none !important;
+  color: var(--obs-white);
+  min-height: 100vh;
+}
+
+body {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: var(--obs-white);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Punch-through transparency for verified intermediate Jellyfin 12.2 view containers
+   Ensures the cosmic aurora on body::before illuminates through without occluding user fanart */
+.mainAnimatedPages,
+.mainAnimatedPage,
+.page,
+.pageContainer,
+.libraryPage,
+.view,
+.skinBody {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* User Fanart Backdrop Support: Preserves fanart images when Backdrops preference is enabled */
+.backgroundContainer,
+.backdropContainer {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+.backdropImage {
+  opacity: 0.35 !important;
+  filter: saturate(120%) contrast(110%);
+  backface-visibility: hidden;
+  will-change: opacity;
+  transition: opacity 0.4s var(--obs-ease-out-120) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Layer 1: Seamless Black-to-Purple Gradient & Radial Aurora (body::before)
+   Fixed to the viewport at z-index: -2 so the transition from pure #000000
+   obsidian black at the top into deep royal purple/indigo/fuchsia at the
+   bottom remains 100% continuous at every scroll position without seams.
+   -------------------------------------------------------------------------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  width: 120vw;
+  height: 120vh;
+  z-index: -2;
+  pointer-events: none !important;
+  transform-origin: center center;
+
+  background:
+    /* Orb 1: Lower-Center Royal Purple & Indigo Bloom (#6d28d9 -> #4f46e5) */
+    radial-gradient(ellipse 76vw 56vh at 50% 88%, rgba(109, 40, 217, calc(var(--obs-aurora-opacity) * 0.72)) 0%, rgba(79, 70, 229, calc(var(--obs-aurora-opacity) * 0.34)) 44%, transparent 78%),
+    /* Orb 2: Mid-Left Indigo Aurora (#6366f1) */
+    radial-gradient(ellipse 62vw 52vh at 16% 68%, rgba(99, 102, 241, calc(var(--obs-aurora-opacity) * 0.54)) 0%, rgba(99, 102, 241, calc(var(--obs-aurora-opacity) * 0.20)) 42%, transparent 76%),
+    /* Orb 3: Mid-Right Fuchsia-Violet Aurora (#d946ef -> #9333ea) */
+    radial-gradient(ellipse 62vw 54vh at 84% 66%, rgba(217, 70, 239, calc(var(--obs-aurora-opacity) * 0.46)) 0%, rgba(147, 51, 234, calc(var(--obs-aurora-opacity) * 0.20)) 42%, transparent 76%),
+    /* Continuous Obsidian Black-to-Purple Vertical Base Gradient */
+    linear-gradient(180deg, #000000 0%, #020108 20%, #09041a 46%, #14082e 74%, #1e0b42 100%);
+
+  contain: strict;
+  isolation: isolate;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  animation: var(--obs-aurora-animation);
+}
+
+/* Optional Hardware-Accelerated 3D Aurora Oscillation Preset */
+@keyframes obs-aurora-shift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(2%, 3%, 0) rotate(1.5deg);
+  }
+  66% {
+    transform: translate3d(-3%, 2%, 0) rotate(-1.5deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Layer 2 & 3: Unified Tactile Micro-Grain + Spatial Edge Vignette (body::after)
+   Ported from Looplet's globals.css: combines the obsidian edge vignette and
+   SVG fractal micro-grain into a single GPU-cached fixed pseudo-element.
+   -------------------------------------------------------------------------- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none !important;
+  display: var(--obs-grain-display);
+  contain: strict;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 55%, rgba(2, 6, 23, 0.72) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.032'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 200px 200px;
+}
+
+/* --------------------------------------------------------------------------
+   Playback Canvas Isolation Rule
+   Strictly guarantees zero aurora or grain bleeding into video or subtitles
+   -------------------------------------------------------------------------- */
+.videoPlayerContainer,
+.videoPlayerContainer video,
+.videoPlayerContainer .htmlvideoplayer {
+  background-color: var(--obs-black) !important;
+}
+
+/* When video player is mounted and active, suppress background transparency & vignette */
+body:has(.videoPlayerContainer:not(.hide))::before,
+body:has(.videoPlayerContainer:not(.hide))::after {
+  opacity: 0 !important;
+  animation: none !important;
+}
+
+/* Subtitle clarity guarantee: High contrast, no filter interference */
+.libassjs-canvas-parent,
+.videoSubtitles,
+::cue {
+  background-color: transparent !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.95) !important;
+  pointer-events: none !important;
+}

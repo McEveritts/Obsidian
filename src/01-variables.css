@@ -1,0 +1,154 @@
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - CORE DESIGN TOKENS
+ * File: 01-variables.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+:root {
+  /* --- Obsidian Foundations (Pure #000000 Contrast from Looplet) --- */
+  --obs-bg-base: #000000;
+  --obs-bg-primary: #000000;
+  --obs-bg-secondary: #0f172a;
+  --obs-slate-950: #000000;
+  --obs-slate-900: #0f172a;
+  --obs-slate-800: #1e293b;
+  --obs-slate-700: #334155;
+  --obs-slate-500: #64748b;
+  --obs-slate-400: #94a3b8;
+  --obs-slate-300: #cbd5e1;
+  --obs-slate-200: #e2e8f0;
+  --obs-white: #ffffff;
+  --obs-black: #000000;
+
+  /* --- Luminescent / Holographic Accents --- */
+  --obs-accent-primary: #6366f1;
+  --obs-accent-indigo: #6366f1;
+  --obs-indigo-600: #4f46e5;
+  --obs-indigo-500: #6366f1;
+  --obs-indigo-400: #818cf8;
+  --obs-indigo-300: #a5b4fc;
+  --obs-fuchsia-500: #d946ef;
+  --obs-fuchsia-400: #e879f9;
+  --obs-emerald-400: #34d399;
+  --obs-amber-400: #fbbf24;
+  --obs-rose-500: #f43f5e;
+  --obs-sky-400: #38bdf8;
+  --obs-accent-rose: #f43f5e;
+  --obs-accent-teal: #14b8a6;
+  --obs-accent-amber: #f59e0b;
+  --obs-accent-emerald: #10b981;
+
+  /* --- Typography & Stacks --- */
+  --obs-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --obs-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* --- Geometry & Radii --- */
+  --obs-radius-sm: 0.25rem;  /* 4px */
+  --obs-radius-md: 0.5rem;   /* 8px */
+  --obs-radius-xl: 0.75rem;  /* 12px - Panels, buttons, inputs */
+  --obs-radius-2xl: 1rem;    /* 16px - Media cards, floating dock */
+  --obs-radius-full: 9999px; /* Pills, avatars, circular badges */
+
+  /* --- Directional Specular Highlights & Chromatic Glass Edges --- */
+  --obs-specular-top: rgba(255, 255, 255, 0.28);
+  --obs-specular-left: rgba(56, 189, 248, 0.38);
+  --obs-specular-subtle: rgba(255, 255, 255, 0.14);
+  --obs-glass-border: rgba(129, 140, 248, 0.34);
+  --obs-glass-border-hover: rgba(168, 85, 247, 0.68);
+  --obs-chromatic-border-cyan: rgba(56, 189, 248, 0.44);
+  --obs-chromatic-border-indigo: rgba(129, 140, 248, 0.48);
+  --obs-chromatic-border-fuchsia: rgba(217, 70, 239, 0.44);
+  --obs-chromatic-edge-gradient: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.90) 0%,
+    rgba(56, 189, 248, 0.82) 18%,
+    rgba(129, 140, 248, 0.86) 44%,
+    rgba(217, 70, 239, 0.84) 70%,
+    rgba(168, 85, 247, 0.80) 86%,
+    rgba(56, 189, 248, 0.75) 100%
+  );
+  --obs-chromatic-edge-hover: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(56, 189, 248, 0.92) 18%,
+    rgba(129, 140, 248, 0.94) 44%,
+    rgba(217, 70, 239, 0.92) 70%,
+    rgba(168, 85, 247, 0.90) 86%,
+    rgba(56, 189, 248, 0.86) 100%
+  );
+  --obs-chromatic-inset:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.44),
+    inset 1.5px 0 3px 0 rgba(56, 189, 248, 0.38),
+    inset -1.5px 0 3px 0 rgba(217, 70, 239, 0.38),
+    inset 0 -1.5px 3px 0 rgba(129, 140, 248, 0.42);
+  --obs-chromatic-inset-card:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.36),
+    inset 1px 0 2px 0 rgba(56, 189, 248, 0.30),
+    inset -1px 0 2px 0 rgba(217, 70, 239, 0.30),
+    inset 0 -1px 2px 0 rgba(129, 140, 248, 0.34);
+
+  /* --- Glass Surface Elevations --- */
+  --obs-card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(99, 102, 241, 0.03) 55%, rgba(217, 70, 239, 0.025) 100%);
+  --obs-card-bg-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(99, 102, 241, 0.06) 55%, rgba(217, 70, 239, 0.05) 100%);
+  --obs-panel-bg: linear-gradient(180deg, rgba(16, 18, 38, 0.80) 0%, rgba(12, 10, 30, 0.86) 100%);
+  --obs-hero-bg: linear-gradient(180deg, rgba(10, 12, 26, 0.72) 0%, rgba(16, 14, 38, 0.78) 55%, rgba(24, 12, 48, 0.76) 100%);
+  --obs-input-bg: rgba(0, 0, 0, 0.45);
+  --obs-input-bg-focus: rgba(0, 0, 0, 0.65);
+
+  /* --- Optical Depth Shadows --- */
+  --obs-shadow-card: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 16px rgba(99, 102, 241, 0.12);
+  --obs-shadow-card-hover: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 28px rgba(99, 102, 241, 0.32), 0 0 14px rgba(217, 70, 239, 0.24);
+  --obs-shadow-panel: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 28px rgba(99, 102, 241, 0.18);
+  --obs-shadow-button-primary: 0 4px 20px rgba(99, 102, 241, 0.35);
+  --obs-shadow-button-hover: 0 6px 28px rgba(217, 70, 239, 0.45);
+  --obs-shadow-glow-indigo: 0 0 24px rgba(99, 102, 241, 0.35);
+  --obs-shadow-glow-fuchsia: 0 0 24px rgba(217, 70, 239, 0.35);
+
+  /* --- Semantic Shell Layout Dimensions --- */
+  --obs-shell-header-height-mobile: 65px;
+  --obs-shell-sidebar-width-desktop: 15rem; /* 240px matching Jellyfin 12.2 DRAWER_WIDTH */
+  --obs-shell-bottom-nav-height: 4rem;      /* 64px */
+  --obs-shell-rail-width-tablet: 68px;      /* 68px */
+  --obs-content-max-width: 112.5rem;        /* 1800px */
+
+  /* --- 120Hz High-Refresh Motion Curves & Atmospheric Tuning --- */
+  --obs-ease-out-120: cubic-bezier(0.22, 1, 0.36, 1);
+  --obs-ease-spring-120: cubic-bezier(0.25, 1, 0.5, 1);
+  --obs-duration-fast: 160ms;
+  --obs-duration-card: 200ms;
+
+  /* --- Tunable Switches & Controls (Default: Static 120Hz Hardware-Cached Obsidian Mode) --- */
+  --obs-glass-blur: 16px;
+  --obs-card-blur: 0px;
+  --obs-glass-blur-heavy: 24px;
+  --obs-glass-saturation: saturate(160%);
+  --obs-aurora-opacity: 0.55;
+  --obs-aurora-animation: none;
+  --obs-grain-display: block;
+  --obs-card-lift: -4px;
+
+  /* --- Jellyfin 12.2 Material UI (@mui/material & --jf-palette CSS Variables Bridge) --- */
+  --mui-palette-primary-main: #6366f1 !important;
+  --mui-palette-primary-mainChannel: 99 102 241 !important;
+  --mui-palette-primary-light: #818cf8 !important;
+  --mui-palette-primary-dark: #4f46e5 !important;
+  --mui-palette-secondary-main: #d946ef !important;
+  --mui-palette-secondary-mainChannel: 217 70 239 !important;
+  --mui-palette-background-default: #000000 !important;
+  --mui-palette-background-defaultChannel: 0 0 0 !important;
+  --mui-palette-background-paper: rgba(12, 16, 28, 0.82) !important;
+  --mui-palette-background-paperChannel: 12 16 28 !important;
+  --mui-palette-AppBar-defaultBg: rgba(2, 6, 23, 0.78) !important;
+  --mui-palette-starIcon-main: #fbbf24 !important;
+  --mui-palette-error-main: #f43f5e !important;
+  --mui-fontFamily-body: var(--obs-font-sans) !important;
+  --jf-palette-primary-main: #6366f1 !important;
+  --jf-palette-primary-mainChannel: 99 102 241 !important;
+  --jf-palette-secondary-main: #d946ef !important;
+  --jf-palette-background-default: #000000 !important;
+  --jf-palette-background-defaultImage: none !important;
+  --jf-palette-background-paper: rgba(12, 16, 28, 0.82) !important;
+  --jf-palette-AppBar-defaultBg: rgba(2, 6, 23, 0.78) !important;
+}

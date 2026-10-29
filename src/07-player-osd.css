@@ -1,0 +1,412 @@
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - PLAYBACK OSD & AUDIO DOCK
+ * File: 07-player-osd.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Video Playback OSD Header & Jellyfin 12.2 Modern .videoOsd-appBar (.osdHeader)
+   -------------------------------------------------------------------------- */
+.osdHeader {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.82) 0%, transparent 100%) !important;
+  padding: 1rem 1.75rem !important;
+}
+
+.videoOsd-appBar {
+  background: transparent !important;
+}
+
+.osdTitle,
+.videoOsd-appBar .MuiTypography-root {
+  color: var(--obs-white) !important;
+  font-weight: 700 !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Video Playback Controls: Floating Dynamic Dock (.videoOsdBottom)
+   Modeled after Looplet & Palate's Floating Dynamic Dock
+   -------------------------------------------------------------------------- */
+.videoOsdBottom,
+.videoOsdBottom.videoOsdBottom-maincontrols,
+.videoOsdBottom-maincontrols {
+  background: transparent !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-end !important;
+  padding: 0 1rem max(1rem, env(safe-area-inset-bottom)) 1rem !important;
+  pointer-events: none !important;
+  z-index: 1000 !important;
+}
+
+/* Single Frosted Obsidian Dock Surface (Owned exclusively by .osdControls) */
+.videoOsdBottom .osdControls,
+.videoOsdBottom-maincontrols .osdControls {
+  position: relative !important;
+  pointer-events: auto !important;
+  background: rgba(12, 16, 28, 0.86) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.72), var(--obs-chromatic-inset) !important;
+  padding: 0.65rem 1.25rem 0.75rem 1.25rem !important;
+  max-width: 1040px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.25rem !important;
+  box-sizing: border-box !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.videoOsdBottom .osdControls::after,
+.videoOsdBottom-maincontrols .osdControls::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: var(--obs-chromatic-edge-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none !important;
+  z-index: 2;
+}
+
+@media (min-width: 1024px) {
+  .videoOsdBottom .osdControls,
+  .videoOsdBottom-maincontrols .osdControls {
+    border-radius: 1.75rem !important;
+    padding: 0.7rem 1.5rem 0.8rem 1.5rem !important;
+  }
+}
+
+/* Collapse empty title/status rows so they do not create a blank forehead above the scrub bar */
+.videoOsdBottom .osdMainTextContainer:not(:has(.osdTitle:not(:empty))):not(:has(.osdMediaStatus:not(.hide))),
+.videoOsdBottom .osdSecondaryMediaInfo:empty,
+.videoOsdBottom .osdSecondaryMediaInfo.hide {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.videoOsdBottom .osdMainTextContainer,
+.videoOsdBottom .osdSecondaryMediaInfo {
+  margin-bottom: 0.15rem !important;
+  padding-left: 0.25rem !important;
+}
+
+/* Scrub timeline row & tabular timestamps */
+.videoOsdBottom .startTimeText,
+.videoOsdBottom .endTimeText,
+.videoOsdBottom .osdPositionText,
+.videoOsdBottom .osdDurationText {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: var(--obs-font-mono) !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums !important;
+  color: var(--obs-slate-200) !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+.videoOsdBottom .osdControls > .flex > .sliderContainer {
+  margin: 0 0.75rem !important;
+}
+
+/* Transport & Utility Controls Row (.buttons) */
+.videoOsdBottom .buttons {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.2rem !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (min-width: 640px) {
+  .videoOsdBottom .buttons {
+    flex-wrap: nowrap !important;
+  }
+}
+
+.videoOsdBottom .buttons > div[dir="ltr"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.2rem !important;
+  flex-shrink: 0 !important;
+}
+
+.videoOsdBottom .osdTimeText {
+  margin: 0 auto 0 0.75rem !important;
+  padding: 0 0.5rem 0 0 !important;
+  white-space: nowrap !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: var(--obs-slate-300) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.videoOsdBottom .volumeButtons {
+  margin: 0 0.25rem !important;
+  display: inline-flex;
+  align-items: center !important;
+  gap: 0.2rem !important;
+  flex-shrink: 1 !important;
+  min-width: 0 !important;
+}
+
+.videoOsdBottom .osdVolumeSliderContainer {
+  width: clamp(80px, 7vw, 124px) !important;
+  flex-grow: 0 !important;
+  margin: 0 !important;
+}
+
+.videoOsdBottom,
+.osdHeader {
+  transition: opacity var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+/* Preserve Jellyfin Native Hidden States */
+.videoOsdBottom.videoOsdBottom-hidden,
+.osdHeader.osdHeader-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* Elevate Subtitles When Floating Bottom OSD Dock Is Visible */
+body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles {
+  transform: translate3d(0, -4.5rem, 0) !important;
+  transition: transform var(--obs-duration-card) var(--obs-ease-out-120) !important;
+}
+
+/* Timeline Scrub Slider Base Styles (Supports emby-slider and mdl-slider) */
+.videoOsdBottom .mdl-slider-container,
+.videoOsdBottom .sliderContainer,
+.videoOsdBottom .mdl-slider {
+  min-height: 44px !important;
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+.videoOsdBottom .mdl-slider-background-lower {
+  background: linear-gradient(90deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.85) !important;
+  height: 4px !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+.videoOsdBottom input[is="emby-slider"]::-webkit-slider-thumb,
+.videoOsdBottom .mdl-slider::-webkit-slider-thumb {
+  background: var(--obs-white) !important;
+  border: 2px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 0 12px rgba(217, 70, 239, 0.9) !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+/* Keyboard Focus Visibility for Player Controls */
+.videoOsdBottom .paper-icon-button-light:focus-visible,
+.videoOsdBottom input[is="emby-slider"]:focus-visible {
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.6) !important;
+}
+
+/* Scrub Time Bubble Tooltip */
+.sliderBubble {
+  background: rgba(12, 16, 28, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  color: var(--obs-white) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  box-shadow: var(--obs-shadow-card) !important;
+  font-family: var(--obs-font-mono) !important;
+  font-weight: 600 !important;
+}
+
+/* Play/Pause Central Trigger Button Base Styles (Targets .btnPause, .btnPlay, .btnPlayPause) */
+.videoOsdBottom .btnPlay:not(.hide),
+.videoOsdBottom .btnPause:not(.hide),
+.videoOsdBottom .btnPlayPause:not(.hide) {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: var(--obs-radius-full) !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  margin: 0 0.15rem !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+  display: inline-flex;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-spring-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+  will-change: transform;
+}
+
+.videoOsdBottom .btnPlay:hover,
+.videoOsdBottom .btnPause:hover,
+.videoOsdBottom .btnPlayPause:hover {
+  transform: scale3d(1.08, 1.08, 1) !important;
+  box-shadow: var(--obs-shadow-button-hover) !important;
+}
+
+/* Universal .hide safeguard */
+.videoOsdBottom .hide,
+.videoOsdBottom .paper-icon-button-light.hide {
+  display: none !important;
+}
+
+/* Secondary Playback Buttons (Universal 44px Target Size for WCAG 2.2 AAA Enhanced) */
+.videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause) {
+  border-radius: var(--obs-radius-full) !important;
+  color: var(--obs-slate-300) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+  display: inline-flex;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  transition: color var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              transform var(--obs-duration-fast) var(--obs-ease-spring-120) !important;
+}
+
+.videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause):hover {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Playback Popups & Menus (Subtitle Action Sheet, Playback Settings) */
+.videoOsdBottom ~ .actionSheetContent,
+.videoOsdBottom .actionSheetContent {
+  background: rgba(12, 16, 28, 0.94) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Short-Landscape Compact Viewport Optimizations (<= 500px Height - Looplet)
+   Maintains 44px interactive hit targets while scaling inner visual glyphs
+   -------------------------------------------------------------------------- */
+@media (max-height: 500px) and (orientation: landscape) {
+  .videoOsdBottom {
+    padding: 0 0.5rem 0.25rem 0.5rem !important;
+  }
+
+  .videoOsdBottom .osdControls,
+  .videoOsdBottom-maincontrols .osdControls {
+    padding: 0.2rem 0.75rem !important;
+    max-width: 720px !important;
+    gap: 0.15rem !important;
+  }
+
+  .videoOsdBottom .osdMainTextContainer,
+  .videoOsdBottom .osdSecondaryMediaInfo {
+    display: none !important;
+  }
+
+  .videoOsdBottom .volumeButtons {
+    display: none !important;
+  }
+
+  .videoOsdBottom .buttons {
+    flex-wrap: nowrap !important;
+    padding: 0 !important;
+  }
+
+  .videoOsdBottom .btnPlay:not(.hide),
+  .videoOsdBottom .btnPause:not(.hide),
+  .videoOsdBottom .btnPlayPause:not(.hide) {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+
+  .videoOsdBottom .mdl-slider-container,
+  .videoOsdBottom .sliderContainer,
+  .videoOsdBottom .mdl-slider {
+    height: 28px !important;
+    min-height: 28px !important;
+    margin: 0 !important;
+  }
+
+  .videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause) {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+
+  /* Compact visual icons inside the 44px hit targets */
+  .videoOsdBottom .paper-icon-button-light .material-icons,
+  .videoOsdBottom .paper-icon-button-light .xlargePaperIconButton,
+  .videoOsdBottom .paper-icon-button-light .largePaperIconButton {
+    font-size: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Audio Now-Playing Docked Bottom Bar (.nowPlayingBar)
+   -------------------------------------------------------------------------- */
+.nowPlayingBar {
+  background: rgba(2, 6, 23, 0.88) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6) !important;
+  padding-bottom: max(6px, env(safe-area-inset-bottom)) !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.nowPlayingImage {
+  border-radius: var(--obs-radius-md) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+}
+
+.nowPlayingBarText {
+  color: var(--obs-white) !important;
+  font-weight: 600 !important;
+}

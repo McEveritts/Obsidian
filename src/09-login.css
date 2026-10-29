@@ -1,0 +1,103 @@
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - LOGIN SCREEN HERO
+ * File: 09-login.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Centered Glass Hero Login Container (#loginPage)
+   -------------------------------------------------------------------------- */
+#loginPage:not(.hide) {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 100vh !important;
+}
+
+#loginPage.hide {
+  display: none !important;
+}
+
+/* Glass Login Box */
+#loginPage .visualLoginForm,
+#loginPage .manualLoginForm {
+  position: relative !important;
+  background: var(--obs-panel-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset), 0 0 60px rgba(99, 102, 241, 0.22) !important;
+  padding: 2.5rem 2rem !important;
+  max-width: 440px !important;
+  width: 90% !important;
+  margin: 0 auto !important;
+}
+
+#loginPage .visualLoginForm::after,
+#loginPage .manualLoginForm::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: var(--obs-chromatic-edge-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none !important;
+  z-index: 2;
+}
+
+/* User Profile Cards on Visual Login */
+#loginPage .card.squareCard .cardBox {
+  border-radius: var(--obs-radius-2xl) !important;
+  padding: 0.75rem !important;
+}
+
+#loginPage .card.squareCard .cardImageContainer {
+  border-radius: var(--obs-radius-full) !important;
+  border: 2px solid var(--obs-glass-border) !important;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Sign In Submit Button */
+#loginPage .raised.emby-button,
+#loginPage .button-submit {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  color: var(--obs-white) !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+  padding: 0.75rem !important;
+  min-height: 44px !important;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-spring-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+  will-change: transform;
+}
+
+#loginPage .raised.emby-button:hover,
+#loginPage .button-submit:hover {
+  transform: scale3d(1.02, 1.02, 1) !important;
+  box-shadow: var(--obs-shadow-button-hover) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Narrow-Screen Login Container Fitting (<= 360px - Looplet Pocket Viewport)
+   Corrects horizontal document overflow on compact viewports
+   -------------------------------------------------------------------------- */
+@media (max-width: 360px) {
+  #loginPage .visualLoginForm,
+  #loginPage .manualLoginForm {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    padding: 2rem 1.25rem !important;
+  }
+}

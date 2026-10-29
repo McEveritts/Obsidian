@@ -1,0 +1,156 @@
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - PERFORMANCE PRESETS, 120HZ PRIMITIVES & ACCESSIBILITY
+ * File: 10-presets.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Looplet 120Hz GPU Primitives, Touch Targets & Connection Beacons
+   -------------------------------------------------------------------------- */
+.obs-gpu-120hz-rail {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: width, transform;
+  transition: width 180ms var(--obs-ease-out-120),
+              transform 180ms var(--obs-ease-out-120),
+              background-color 180ms var(--obs-ease-out-120),
+              border-color 180ms var(--obs-ease-out-120);
+}
+
+.obs-gpu-120hz-interactive {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              opacity var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120);
+}
+
+.obs-touch-target-huge {
+  min-height: 64px;
+  min-width: 64px;
+}
+
+.obs-touch-target-large {
+  min-height: 52px;
+  min-width: 52px;
+}
+
+.obs-touch-target-standard {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.obs-beacon-live {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--obs-accent-emerald);
+  box-shadow: 0 0 10px var(--obs-accent-emerald), 0 0 20px var(--obs-accent-emerald);
+}
+
+.obs-beacon-reconnecting {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--obs-accent-amber);
+  box-shadow: 0 0 10px var(--obs-accent-amber);
+}
+
+.obs-beacon-danger {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--obs-accent-rose);
+  box-shadow: 0 0 12px var(--obs-accent-rose);
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion Accessibility (WCAG 2.2 Phase 4 & Looplet Parity)
+   Stops continuous GPU animation loops and eliminates kinetic hover jumps
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --obs-aurora-animation: none !important;
+    --obs-card-lift: 0px !important;
+  }
+
+  body::before {
+    animation: none !important;
+  }
+
+  .card:hover .cardBox,
+  .card:focus-visible .cardBox,
+  .btnPlay:hover,
+  .videoOsdBottom .btnPlay:hover,
+  .videoOsdBottom .btnPause:hover,
+  .videoOsdBottom .btnPlayPause:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .cardBox::after {
+    transition: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* Touch and slow-refresh devices keep static glass, but skip continuous
+   full-screen aurora animation. */
+@media (hover: none), (pointer: coarse), (update: slow) {
+  :root {
+    --obs-card-blur: 0px;
+    --obs-aurora-animation: none;
+  }
+
+  .cardBox {
+    transition: border-color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Unsupported Backdrop-Filter Fallbacks (Legacy Browsers / Hardware)
+   Switches from transparent blur to opaque obsidian container layers
+   -------------------------------------------------------------------------- */
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+  :root {
+    --obs-card-bg: rgba(15, 23, 42, 0.94) !important;
+    --obs-panel-bg: rgba(2, 6, 23, 0.96) !important;
+    --obs-hero-bg: rgba(15, 23, 42, 0.96) !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Windows High Contrast / Forced Colors Mode
+   -------------------------------------------------------------------------- */
+@media (forced-colors: active) {
+  .cardBox,
+  .MuiCard-root,
+  .dialog,
+  .formDialog,
+  .MuiDialog-paper,
+  .skinHeader,
+  .MuiAppBar-root,
+  .btnPlay,
+  .emby-input,
+  .emby-select,
+  .MuiFilledInput-root,
+  .MuiOutlinedInput-root {
+    border: 1.5px solid CanvasText !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    box-shadow: none !important;
+  }
+
+  .emby-tab-button-active,
+  .navMenuOption-selected,
+  .MuiAppBar-root .MuiButton-colorPrimary,
+  .MuiDrawer-paper .MuiListItemButton-root.Mui-selected {
+    border: 2px solid Highlight !important;
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+}

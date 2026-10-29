@@ -1,0 +1,587 @@
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - ITEM DETAIL PAGE (CINEMATIC HERO)
+ * File: 06-item-detail.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Item Detail Viewport & Backdrop Vignette
+   Dark gradient scrim over fanart to enhance text legibility
+   -------------------------------------------------------------------------- */
+.itemDetailPage {
+  background-color: transparent !important;
+}
+
+/* Cinematic Dark-to-Purple Gradient Mask over Fanart
+   The native wrapper starts below the artwork hero. Painting the gradient on
+   that box created a visible horizontal seam, so the scrim is viewport-bound
+   and kept behind the detail content instead. */
+.detailPageWrapperContainer,
+.noBackdropTransparency .detailPageWrapperContainer {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  position: relative !important;
+}
+
+.itemBackdrop {
+  -webkit-mask-image: linear-gradient(180deg, #000000 60%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000000 60%, transparent 100%);
+}
+
+.detailPageWrapperContainer::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(8, 4, 22, 0.62) 52%,
+    rgba(20, 8, 46, 0.80) 100%
+  ) !important;
+  z-index: 0;
+}
+
+.detailPageWrapperContainer > .detailPagePrimaryContainer,
+.detailPageWrapperContainer > .detailPageSecondaryContainer {
+  position: relative !important;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Focal Hero Panel (.detailPagePrimaryContainer / .detailRibbon)
+   Tier 3 Glass Hero with Prismatic Chromatic Edge & Inset Luminescence
+   -------------------------------------------------------------------------- */
+.detailRibbon {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.detailPagePrimaryContainer,
+.noBackdropTransparency .detailPagePrimaryContainer {
+  position: relative !important;
+  background: var(--obs-hero-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  padding: 1.75rem !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset) !important;
+  margin-top: 1.5rem !important;
+}
+
+/* Prismatic Chromatic Refraction Rim around the Glass Hero Window */
+.detailPagePrimaryContainer::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.75px;
+  background: var(--obs-chromatic-edge-hover);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none !important;
+  z-index: 4;
+}
+
+/* Let backdrop artwork and viewport scrim remain continuous behind lower carousels */
+.detailPageSecondaryContainer,
+.noBackdropTransparency .detailPageSecondaryContainer {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Detail Poster Thumbnail (Looplet .af-poster-frame parity with Chromatic Rim) */
+.detailImageContainer .cardBox {
+  border-radius: var(--obs-radius-2xl) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.75), var(--obs-chromatic-inset-card) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+}
+
+/* Item Name / Title */
+.itemName {
+  font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.75rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  margin-bottom: 0.75rem !important;
+  color: var(--obs-white) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Primary Action Button: Obsidian .glass-button-primary (.btnPlay)
+   Dual-tone Indigo-Fuchsia gradient with neon halo
+   -------------------------------------------------------------------------- */
+.btnPlay {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.88) 0%, rgba(217, 70, 239, 0.88) 100%) !important;
+  color: var(--obs-white) !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+  padding: 0.65rem 1.4rem !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+  min-height: 44px !important;
+}
+
+.btnPlay:hover {
+  transform: scale3d(1.03, 1.03, 1) !important;
+  border-color: rgba(255, 255, 255, 0.48) !important;
+  box-shadow: var(--obs-shadow-button-hover) !important;
+}
+
+.btnPlay:focus-visible {
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 3px !important;
+}
+
+/* Secondary Detail Buttons (Trailer, Favorite, Played, More) */
+.mainDetailButtons .emby-button:not(.btnPlay) {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--obs-slate-200) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease !important;
+}
+
+.mainDetailButtons .emby-button:not(.btnPlay):hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-glass-border-hover) !important;
+  transform: translate3d(0, -2px, 0);
+}
+
+/* --------------------------------------------------------------------------
+   Frosted Holographic Metadata Badges (Rating, Year, Resolution, Runtime)
+   -------------------------------------------------------------------------- */
+.itemMiscInfo:not(.hide),
+.itemMiscInfo-primary:not(.hide) {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.45rem !important;
+  align-items: center !important;
+  margin-bottom: 1rem !important;
+}
+
+.mediaInfoItem:not(.mediaInfoIconItem) {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: var(--obs-radius-full) !important;
+  padding: 0.2rem 0.65rem !important;
+  font-size: 0.825rem !important;
+  font-weight: 600 !important;
+  color: var(--obs-slate-300) !important;
+}
+
+/* Critic & Star Rating Accents */
+.starRatingContainer {
+  color: var(--obs-amber-400) !important;
+}
+
+/* Jellyfin 12.2 ItemDetailsMetadataList React Component (.detailsGroupItem) */
+.detailsGroupItem:not(.hide) {
+  display: flex;
+  flex-wrap: wrap !important;
+  align-items: baseline !important;
+  gap: 0.35rem 0.65rem !important;
+  margin-bottom: 0.45rem !important;
+}
+
+.detailsGroupItem .label {
+  color: var(--obs-slate-400) !important;
+  font-weight: 600 !important;
+  min-width: 5.5rem;
+}
+
+.detailsGroupItem .button-link {
+  color: var(--obs-slate-200) !important;
+  transition: color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.detailsGroupItem .button-link:hover {
+  color: var(--obs-indigo-300) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile & Ultrawide Responsive Item Detail Layout (Jellyfin 12.2 Contract)
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .itemDetailPage {
+    --obs-detail-art-width: clamp(200px, 15vw, 300px);
+    --obs-detail-landscape-width: clamp(260px, 22vw, 400px);
+    --obs-detail-art-gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+
+  .itemDetailPage .itemBackdrop {
+    height: clamp(160px, 25vh, 300px) !important;
+  }
+
+  .itemDetailPage .detailLogo {
+    top: clamp(4.25rem, 5.5vh, 5.25rem) !important;
+    height: clamp(64px, 13vh, 136px) !important;
+  }
+
+  /* Contained 2-column Glass Hero Grid:
+     Col 1: Poster/Episode Artwork (.detailImageContainer.hide-mobile)
+     Col 2: Title/Actions (.detailRibbon) + Metadata/Overview/Credits
+     Row 6+: Full-width Next Up / Seasons / Episode lists spanning 1 / -1 */
+  .itemDetailPage .detailPagePrimaryContainer {
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto auto 1fr !important;
+    column-gap: var(--obs-detail-art-gap) !important;
+    row-gap: 0 !important;
+    align-items: start !important;
+    box-sizing: border-box !important;
+    width: calc(100% - clamp(2rem, 4vw, 5rem)) !important;
+    max-width: 1800px !important;
+    margin: 1rem auto 0 auto !important;
+    padding: clamp(1.5rem, 2.5vw, 2.25rem) !important;
+  }
+
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    column-gap: 0 !important;
+  }
+
+  .itemDetailPage .detailImageContainer.hide-mobile {
+    grid-column: 1 !important;
+    grid-row: 1 / 6 !important;
+    align-self: start !important;
+    display: block !important;
+    float: none !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 3 !important;
+  }
+
+  .itemDetailPage .detailImageContainer.hide-mobile:empty {
+    display: none !important;
+  }
+
+  .itemDetailPage .infoWrapper > .detailImageContainer {
+    display: none !important;
+  }
+
+  .itemDetailPage .detailImageContainer.hide-mobile .card {
+    position: relative !important;
+    float: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    width: var(--obs-detail-art-width) !important;
+    max-width: var(--obs-detail-art-width) !important;
+    max-height: none !important;
+  }
+
+  .itemDetailPage .detailImageContainer.hide-mobile .card.backdropCard,
+  .itemDetailPage .detailImageContainer.hide-mobile .card.bannerCard {
+    width: var(--obs-detail-landscape-width) !important;
+    max-width: var(--obs-detail-landscape-width) !important;
+  }
+
+  .itemDetailPage .detailImageContainer.hide-mobile .cardBox {
+    margin: 0 !important;
+  }
+
+  .itemDetailPage .detailPagePrimaryContent,
+  .itemDetailPage .detailSection {
+    display: contents !important;
+  }
+
+  .itemDetailPage .detailRibbon {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    position: relative !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 0.75rem 1.5rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 0 0.75rem 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .itemDetailPage .detailRibbon .infoWrapper {
+    flex: 1 1 260px !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  .itemDetailPage .detailRibbon .parentName,
+  .itemDetailPage .detailRibbon .itemName,
+  .itemDetailPage .detailRibbon .itemMiscInfo {
+    text-align: left !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+
+  .itemDetailPage .detailRibbon .itemName {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    word-break: break-word !important;
+  }
+
+  .itemDetailPage .detailRibbon .mainDetailButtons {
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    align-self: center !important;
+    justify-content: flex-start !important;
+  }
+
+  .itemDetailPage .detailSection > .trackSelections {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    width: 100% !important;
+    margin: 0 0 0.85rem 0 !important;
+  }
+
+  .itemDetailPage .detailSection > .recordingFields {
+    grid-column: 2 !important;
+    grid-row: 3 !important;
+    width: 100% !important;
+    margin: 0 0 0.85rem 0 !important;
+  }
+
+  .itemDetailPage .detailSection > .detailSectionContent {
+    grid-column: 2 !important;
+    grid-row: 4 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+  .itemDetailPage .detailSection > .itemDetailsGroup {
+    grid-column: 2 !important;
+    grid-row: 5 !important;
+    align-self: start !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0.85rem 0 0 0 !important;
+  }
+
+  .itemDetailPage .detailSection > .itemDetailsGroup:not(:has(> .detailsGroupItem:not(.hide))) {
+    margin: 0 !important;
+  }
+
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailRibbon,
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailSection > .trackSelections,
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailSection > .recordingFields,
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailSection > .detailSectionContent,
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailSection > .itemDetailsGroup {
+    grid-column: 1 !important;
+  }
+
+  /* Full-width child collections & episode lists span across both columns below poster */
+  .itemDetailPage .detailSection > #seriesTimerScheduleSection,
+  .itemDetailPage .detailSection > .collectionItems,
+  .itemDetailPage .detailSection > .nextUpSection,
+  .itemDetailPage .detailSection > .programGuideSection,
+  .itemDetailPage .detailSection > #listChildrenCollapsible {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 1.5rem 0 0 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* In Jellyfin 12.2, .detailPageSecondaryContainer directly wraps lower sections
+     (replacing the removed .detailPageContent wrapper from 10.11) */
+  .itemDetailPage .detailPageSecondaryContainer {
+    box-sizing: border-box !important;
+    width: calc(100% - clamp(2rem, 4vw, 5rem)) !important;
+    max-width: 1800px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .detailPageWrapperContainer,
+  .detailPagePrimaryContainer,
+  .detailPageSecondaryContainer {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 0.75rem !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .detailPagePrimaryContainer {
+    padding: 1rem 0.75rem !important;
+    margin-top: 0.5rem !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  .detailImageContainer {
+    position: static !important;
+    width: 160px !important;
+    max-width: 55vw !important;
+    margin: 0 auto 1rem auto !important;
+    flex-shrink: 0 !important;
+    left: auto !important;
+    top: auto !important;
+    float: none !important;
+  }
+
+  .detailImageContainer .card {
+    position: relative !important;
+    float: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .detailImageContainer .cardBox {
+    margin: 0 auto !important;
+  }
+
+  .infoWrapper {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    left: auto !important;
+    top: auto !important;
+    float: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    box-sizing: border-box !important;
+  }
+
+  .detailRibbon {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    left: auto !important;
+  }
+
+  .itemName {
+    font-size: 1.5rem !important;
+    line-height: 1.25 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    white-space: normal !important;
+    text-align: left !important;
+    width: 100% !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .itemMiscInfo,
+  .itemMiscInfo-primary,
+  .mediaInfoStream {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .mainDetailButtons {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .mainDetailButtons .btnPlay {
+    flex-grow: 1 !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .mainDetailButtons .emby-button:not(.btnPlay) {
+    flex-shrink: 0 !important;
+  }
+
+  /* Episode list, stream selectors, & series templates */
+  .detailSection,
+  .detailVerticalSection,
+  .detailSectionContent,
+  .itemDetailsGroup,
+  .trackSelections {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .selectContainer {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .overview {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 0.925rem !important;
+    line-height: 1.55 !important;
+    margin-top: 0.5rem !important;
+  }
+}

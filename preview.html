@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obsidian Jellyfin 12.2 Skin - Design Demonstrator</title>
+  
+  <!-- Core Standalone Production Theme -->
+  <link rel="stylesheet" href="obsidian.css">
+
+  <style>
+    /* ==========================================================================
+       PREVIEW-ONLY HARNESS HELPERS
+       (Clearly isolated from production Jellyfin CSS)
+       ========================================================================== */
+    .preview-toolbar {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 10000;
+      background: rgba(12, 16, 28, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 13px;
+    }
+    .preview-toolbar span {
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 10px;
+      margin-right: 4px;
+    }
+    .preview-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .preview-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+    .preview-btn.active {
+      background: linear-gradient(135deg, #6366f1, #d946ef);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+    }
+    .preview-view {
+      display: none;
+    }
+    .preview-view.active {
+      display: block;
+    }
+    
+    /* Synthetic artwork gradients for testing without external image requests */
+    .mock-art-movie-1 { background: linear-gradient(135deg, #1e1b4b, #4338ca); }
+    .mock-art-movie-2 { background: linear-gradient(135deg, #311042, #a21caf); }
+    .mock-art-movie-3 { background: linear-gradient(135deg, #064e3b, #047857); }
+    .mock-art-movie-4 { background: linear-gradient(135deg, #7c2d12, #c2410c); }
+    .mock-art-episode { background: linear-gradient(135deg, #172554, #1d4ed8); }
+    .mock-art-album { background: linear-gradient(135deg, #3b0764, #7e22ce); }
+    .mock-art-bright-fanart {
+      background: linear-gradient(135deg, #f59e0b, #ec4899, #6366f1);
+      background-size: cover;
+    }
+  </style>
+</head>
+<body class="mainAnimatedPages">
+
+  <!-- ========================================================================
+       PREVIEW SWITCHER TOOLBAR
+       Allows testing Home Grid, Detail View, Video OSD, Dialogs, and Presets
+       ======================================================================== -->
+  <aside class="preview-toolbar" aria-label="Obsidian Preview Controls">
+    <span>View:</span>
+    <button class="preview-btn active" onclick="switchView('homeView', this)">Home Grid</button>
+    <button class="preview-btn" onclick="switchView('detailView', this)">Item Detail</button>
+    <button class="preview-btn" onclick="switchView('osdView', this)">Video OSD</button>
+    <button class="preview-btn" onclick="switchView('loginView', this)">Login Hero</button>
+    <button class="preview-btn" onclick="switchView('dialogView', this)">Dialog</button>
+    <span>Preset:</span>
+    <button class="preview-btn active" onclick="switchPreset('full', this)">Full</button>
+    <button class="preview-btn" onclick="switchPreset('balanced', this)">Balanced</button>
+    <button class="preview-btn" onclick="switchPreset('lite', this)">Lite</button>
+  </aside>
+
+  <!-- ========================================================================
+       JELLYFIN APP SHELL: FLOATING HEADER & MAIN DRAWER
+       ======================================================================== -->
+  <div class="skinHeader skinHeader-withBackground flex align-items-center">
+    <div class="headerTop flex align-items-center" style="width: 100%; padding: 0.5rem 1rem; display: flex; justify-content: space-between;">
+      <div class="headerLeft flex align-items-center" style="display: flex; gap: 12px; align-items: center;">
+        <button class="headerButton paper-icon-button-light" aria-label="Menu" style="border: none; background: transparent; cursor: pointer;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <span class="pageTitle" style="font-size: 1.25rem; font-weight: 800; background: linear-gradient(135deg, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">JELLYFIN</span>
+      </div>
+
+      <div class="headerTabs sectionTabs" style="display: flex; gap: 8px;">
+        <button class="emby-tab-button emby-tab-button-active" style="border: none; cursor: pointer;">Home</button>
+        <button class="emby-tab-button" style="border: none; cursor: pointer; background: transparent;">Movies</button>
+        <button class="emby-tab-button" style="border: none; cursor: pointer; background: transparent;">TV Shows</button>
+        <button class="emby-tab-button" style="border: none; cursor: pointer; background: transparent;">Music</button>
+        <button class="emby-tab-button" style="border: none; cursor: pointer; background: transparent;">Favorites</button>
+      </div>
+
+      <div class="headerRight flex align-items-center" style="display: flex; gap: 8px; align-items: center;">
+        <button class="headerButton paper-icon-button-light" aria-label="Search" style="border: none; background: transparent; cursor: pointer;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button class="headerButton paper-icon-button-light" aria-label="Cast" style="border: none; background: transparent; cursor: pointer;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6"></path><line x1="2" y1="20" x2="2.01" y2="20"></line></svg>
+        </button>
+        <div class="headerUserAvatar" style="width: 34px; height: 34px; background: linear-gradient(135deg, #6366f1, #d946ef); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; cursor: pointer; border-radius: 9999px;">A</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       VIEW 1: HOME MEDIA CARD GRID
+       ======================================================================== -->
+  <main id="homeView" class="preview-view active page" style="padding: 90px clamp(1rem, 3vw, 2rem) 4rem clamp(1rem, 3vw, 2rem); max-width: 1600px; margin: 0 auto;">
+    
+    <!-- Section 1: Continue Watching (Horizontal Landscape Cards) -->
+    <h2 class="sectionTitle">Continue Watching</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+      
+      <!-- Card: Blade Runner 2049 (In-Progress with Progress Bar) -->
+      <div class="card backdropCard" tabindex="0">
+        <div class="cardBox visualCardBox">
+          <div class="cardScalable" style="aspect-ratio: 16/9; position: relative;">
+            <div class="cardImageContainer mock-art-episode" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="white" opacity="0.3"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </div>
+            <!-- Indicator Progress -->
+            <div class="itemProgressBar" style="position: absolute; bottom: 0; left: 0; right: 0;">
+              <div class="itemProgressBarForeground" style="width: 65%; height: 100%;"></div>
+            </div>
+          </div>
+          <div class="cardText">
+            <div class="cardText-first">Blade Runner 2049</div>
+            <div class="cardText-secondary">1h 12m remaining • 4K HDR</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Severance Episode with Unplayed Badge -->
+      <div class="card backdropCard" tabindex="0">
+        <div class="cardBox visualCardBox">
+          <div class="cardScalable" style="aspect-ratio: 16/9; position: relative;">
+            <div class="cardImageContainer mock-art-movie-1" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+              <span style="font-weight: 700; opacity: 0.4;">SEVERANCE</span>
+            </div>
+            <div class="countIndicator" style="position: absolute; top: 10px; right: 10px;">S1:E9</div>
+          </div>
+          <div class="cardText">
+            <div class="cardText-first">Severance - The We We Are</div>
+            <div class="cardText-secondary">Episode 9 • 1080p</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Recently Added Movies (Portrait Cards with Specular Bevels) -->
+    <h2 class="sectionTitle">Recently Added Movies</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+      
+      <!-- Portrait Card 1: Dune Part Two -->
+      <div class="card portraitCard" tabindex="0">
+        <div class="cardBox visualCardBox">
+          <div class="cardScalable" style="aspect-ratio: 2/3; position: relative;">
+            <div class="cardImageContainer mock-art-movie-2" style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1rem;">
+              <span style="font-weight: 800; font-size: 1.1rem;">DUNE</span>
+              <span style="font-size: 0.8rem; color: #cbd5e1;">PART TWO</span>
+            </div>
+            <div class="playedIndicator" style="position: absolute; top: 8px; right: 8px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+          <div class="cardText">
+            <div class="cardText-first">Dune: Part Two</div>
+            <div class="cardText-secondary">2024 • Sci-Fi</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portrait Card 2: Interstellar -->
+      <div class="card portraitCard" tabindex="0">
+        <div class="cardBox visualCardBox">
+          <div class="cardScalable" style="aspect-ratio: 2/3; position: relative;">
+            <div class="cardImageContainer mock-art-movie-3" style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+              <span style="font-weight: 800;">INTERSTELLAR</span>
+            </div>
+          </div>
+          <div class="cardText">
+            <div class="cardText-first">Interstellar</div>
+            <div class="cardText-secondary">2014 • 4K UHD</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portrait Card 3: Oppenheimer -->
+      <div class="card portraitCard" tabindex="0">
+        <div class="cardBox visualCardBox">
+          <div class="cardScalable" style="aspect-ratio: 2/3; position: relative;">
+            <div class="cardImageContainer mock-art-movie-4" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+              <span style="font-weight: 800;">OPPENHEIMER</span>
+            </div>
+          </div>
+          <div class="cardText">
+            <div class="cardText-first" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Oppenheimer (Collector's IMAX Edition)</div>
+            <div class="cardText-secondary">2023 • Biography</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portrait Card 4: Missing Poster Artwork -->
+      <div class="card portraitCard" tabindex="0">
+        <div class="cardBox visualCardBox">
+          <div class="cardScalable" style="aspect-ratio: 2/3; position: relative; background: rgba(15, 23, 42, 0.6); display: flex; align-items: center; justify-content: center; flex-direction: column; color: #64748b;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            <span style="font-size: 11px; margin-top: 8px;">No Poster</span>
+          </div>
+          <div class="cardText">
+            <div class="cardText-first">Indie Project 2026</div>
+            <div class="cardText-secondary">2026 • Drama</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Square Card: Music Album -->
+      <div class="card squareCard" tabindex="0">
+        <div class="cardBox visualCardBox">
+          <div class="cardScalable" style="aspect-ratio: 1/1; position: relative;">
+            <div class="cardImageContainer mock-art-album" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+              <span style="font-weight: 700;">CHROMA</span>
+            </div>
+          </div>
+          <div class="cardText">
+            <div class="cardText-first">Obsidian Beats</div>
+            <div class="cardText-secondary">Sage Soundscapes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       VIEW 2: ITEM DETAIL PAGE (JELLYFIN 12.2 CINEMATIC HERO)
+       ======================================================================== -->
+  <main id="detailView" class="preview-view itemDetailPage" style="padding-top: 80px; min-height: 100vh;">
+    <div class="detailPageWrapperContainer" style="padding: clamp(1rem, 3vw, 2rem); max-width: 1400px; margin: 0 auto;">
+      
+      <!-- Focal Tier 3 Glass Hero Panel -->
+      <div class="detailPagePrimaryContainer" style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start;">
+        
+        <!-- Framed Poster Thumbnail with Specular Border -->
+        <div class="detailImageContainer" style="width: 240px; flex-shrink: 0;">
+          <div class="cardBox visualCardBox">
+            <div style="aspect-ratio: 2/3;" class="mock-art-movie-1 flex items-center justify-center">
+              <div style="height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; color: #fff;">
+                CYBERPUNK
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metadata & Actions Column -->
+        <div class="detailSection" style="flex: 1; min-width: min(280px, 100%);">
+          <div class="detailRibbon">
+            <div class="infoWrapper">
+              <h1 class="itemName">Cyberpunk: Edgerunners</h1>
+              
+              <!-- Frosted Metadata Holographic Pills -->
+              <div class="itemMiscInfo">
+                <span class="mediaInfoItem">2022</span>
+                <span class="mediaInfoItem">TV-MA</span>
+                <span class="mediaInfoItem">1 Season</span>
+                <span class="mediaInfoItem starRatingContainer">★ 8.6</span>
+                <span class="mediaInfoItem">4K UHD</span>
+                <span class="mediaInfoItem">Dolby Atmos</span>
+              </div>
+            </div>
+
+            <!-- Primary Play Button & Secondary Actions -->
+            <div class="mainDetailButtons" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+              <button class="btnPlay emby-button button-accent" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Play S1:E1</span>
+              </button>
+
+              <button class="emby-button" style="cursor: pointer; padding: 0.65rem 1rem;">Trailer</button>
+              <button class="emby-button" style="cursor: pointer; padding: 0.65rem 1rem;">Mark Played</button>
+              <button class="emby-button" style="cursor: pointer; padding: 0.65rem 1rem;">Favorite</button>
+            </div>
+          </div>
+
+          <div class="detailSectionContent">
+            <p class="overview" style="max-width: 780px; margin-bottom: 1.5rem;">
+              In a dystopia riddled with corruption and cybernetic implants, a talented but reckless street kid striving to become an edgerunner: a mercenary outlaw also known as a cyberpunk.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       VIEW 3: VIDEO PLAYBACK OSD (FLOATING DYNAMIC DOCK)
+       ======================================================================== -->
+  <div id="osdView" class="preview-view videoOsd" style="position: fixed; inset: 0; z-index: 500; display: none; flex-direction: column; justify-content: space-between; background: rgba(0,0,0,0.85);">
+    
+    <!-- Top Header Bar -->
+    <div class="osdHeader flex align-items-center" style="display: flex; justify-content: space-between; align-items: center;">
+      <button class="headerButton paper-icon-button-light" style="border: none; background: transparent; cursor: pointer; color: white;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      </button>
+      <div style="text-align: center;">
+        <div class="osdTitle" style="font-size: 1.1rem;">Blade Runner 2049</div>
+        <div style="font-size: 0.85rem; color: #94a3b8;">4K HDR • Direct Play • English 7.1</div>
+      </div>
+      <div style="width: 40px;"></div>
+    </div>
+
+    <!-- Center Playback Canvas Placeholder -->
+    <div style="display: flex; align-items: center; justify-content: center; flex: 1;">
+      <div style="padding: 1rem 2rem; background: rgba(2, 6, 23, 0.6); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); color: #94a3b8; font-size: 14px;">
+        Video Canvas (Active Player Isolated - Zero Aurora Bleed)
+      </div>
+    </div>
+
+    <!-- Bottom Floating Dynamic Dock -->
+    <div class="videoOsdBottom">
+      <div class="videoOsdBottom-maincontrols osdControls" style="display: flex; flex-direction: column; gap: 8px;">
+        
+        <!-- Scrub Progress Track & Time bubble -->
+        <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
+          <span style="font-size: 12px; font-family: monospace; color: #94a3b8;">01:14:22</span>
+          <div style="flex: 1; position: relative; height: 6px; background: rgba(255,255,255,0.15); border-radius: 9999px;">
+            <div style="width: 45%; height: 100%; background: linear-gradient(90deg, #6366f1, #d946ef); border-radius: 9999px; box-shadow: 0 0 10px rgba(99, 102, 241, 0.8);"></div>
+            <div style="position: absolute; left: 45%; top: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: white; border: 2px solid #818cf8; border-radius: 50%; box-shadow: 0 0 10px #d946ef;"></div>
+          </div>
+          <span style="font-size: 12px; font-family: monospace; color: #94a3b8;">02:43:55</span>
+        </div>
+
+        <!-- Controls Cluster -->
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+          <div style="display: flex; gap: 6px;">
+            <button class="paper-icon-button-light" style="border: none; background: transparent; cursor: pointer;">⏮</button>
+            <button class="paper-icon-button-light" style="border: none; background: transparent; cursor: pointer;">⏪</button>
+          </div>
+
+          <!-- Central Primary Play/Pause Trigger -->
+          <button class="btnPlayPause" style="border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          </button>
+
+          <div style="display: flex; gap: 6px;">
+            <button class="paper-icon-button-light" style="border: none; background: transparent; cursor: pointer;">⏩</button>
+            <button class="paper-icon-button-light" style="border: none; background: transparent; cursor: pointer;">💬</button>
+            <button class="paper-icon-button-light" style="border: none; background: transparent; cursor: pointer;">⛶</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       VIEW 4: CENTERED GLASS HERO LOGIN SCREEN
+       ======================================================================== -->
+  <main id="loginView" class="preview-view" style="padding-top: 100px;">
+    <div id="loginPage">
+      <div class="visualLoginForm">
+        <h2 style="font-size: 1.5rem; font-weight: 800; text-align: center; margin-bottom: 0.5rem; color: #fff;">Welcome to Jellyfin</h2>
+        <p style="text-align: center; color: #94a3b8; font-size: 0.9rem; margin-bottom: 2rem;">Select a profile to continue</p>
+
+        <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem;">
+          <div class="card squareCard" style="width: 100px; text-align: center; cursor: pointer;">
+            <div class="cardBox visualCardBox">
+              <div class="cardScalable">
+                <div class="cardImageContainer" style="width: 80px; height: 80px; margin: 0 auto; background: linear-gradient(135deg, #6366f1, #d946ef); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800;">A</div>
+              </div>
+              <div class="cardText-first" style="margin-top: 8px;">Admin</div>
+            </div>
+          </div>
+
+          <div class="card squareCard" style="width: 100px; text-align: center; cursor: pointer;">
+            <div class="cardBox visualCardBox">
+              <div class="cardScalable">
+                <div class="cardImageContainer" style="width: 80px; height: 80px; margin: 0 auto; background: linear-gradient(135deg, #34d399, #059669); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800;">G</div>
+              </div>
+              <div class="cardText-first" style="margin-top: 8px;">Guest</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <input type="password" class="emby-input" placeholder="Enter PIN or Password" style="width: 100%; box-sizing: border-box;">
+          <button class="raised emby-button button-submit" style="width: 100%; border: none; cursor: pointer;">Sign In</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       VIEW 5: MODAL DIALOG / ACTION SHEET
+       ======================================================================== -->
+  <main id="dialogView" class="preview-view" style="padding-top: 120px; max-width: 520px; margin: 0 auto;">
+    <div class="dialog formDialog" style="position: relative; padding: 1.75rem;">
+      <h3 class="formDialogHeaderTitle" style="margin-top: 0; font-size: 1.25rem;">Playback Settings</h3>
+      <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem;">Configure audio stream and subtitle rendering options.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <label style="display: block; font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.35rem;">Audio Stream</label>
+          <select class="emby-select" style="width: 100%;">
+            <option>English - Dolby TrueHD / Atmos 7.1 (Default)</option>
+            <option>English - AC3 5.1 (Compatibility)</option>
+            <option>Director's Commentary</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.35rem;">Subtitles</label>
+          <select class="emby-select" style="width: 100%;">
+            <option>Off</option>
+            <option>English [SDH] (ASS)</option>
+            <option>English (SRT)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="emby-button" style="border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1rem; cursor: pointer; border-radius: 8px; background: transparent; color: #cbd5e1;">Cancel</button>
+        <button class="btnPlay emby-button button-accent" style="padding: 0.5rem 1.25rem; border: none; cursor: pointer;">Save</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       INTERACTIVE DEMO SCRIPT (Switch views and performance presets)
+       ======================================================================== -->
+  <script>
+    function switchView(viewId, btn) {
+      document.querySelectorAll('.preview-view').forEach(el => {
+        el.classList.remove('active');
+        if (el.id === 'osdView') el.style.display = 'none';
+      });
+      const target = document.getElementById(viewId);
+      if (target) {
+        target.classList.add('active');
+        if (viewId === 'osdView') {
+          target.style.display = 'flex';
+        }
+      }
+      if (btn) {
+        btn.parentElement.querySelectorAll('button').forEach(b => {
+          if (['Home Grid', 'Item Detail', 'Video OSD', 'Login Hero', 'Dialog'].includes(b.innerText)) {
+            b.classList.remove('active');
+          }
+        });
+        btn.classList.add('active');
+      }
+    }
+
+    function switchPreset(preset, btn) {
+      const root = document.documentElement;
+      if (preset === 'full') {
+        root.style.setProperty('--obs-glass-blur', '16px');
+        root.style.setProperty('--obs-glass-blur-heavy', '24px');
+        root.style.setProperty('--obs-aurora-opacity', '0.55');
+        root.style.setProperty('--obs-aurora-animation', 'none');
+        root.style.setProperty('--obs-grain-display', 'block');
+        root.style.setProperty('--obs-card-lift', '-4px');
+      } else if (preset === 'balanced') {
+        root.style.setProperty('--obs-glass-blur', '10px');
+        root.style.setProperty('--obs-glass-blur-heavy', '16px');
+        root.style.setProperty('--obs-aurora-opacity', '0.25');
+        root.style.setProperty('--obs-aurora-animation', 'none');
+        root.style.setProperty('--obs-grain-display', 'none');
+        root.style.setProperty('--obs-card-lift', '-2px');
+      } else if (preset === 'lite') {
+        root.style.setProperty('--obs-glass-blur', '0px');
+        root.style.setProperty('--obs-glass-blur-heavy', '0px');
+        root.style.setProperty('--obs-aurora-opacity', '0');
+        root.style.setProperty('--obs-aurora-animation', 'none');
+        root.style.setProperty('--obs-grain-display', 'none');
+        root.style.setProperty('--obs-card-lift', '0px');
+      }
+      if (btn) {
+        btn.parentElement.querySelectorAll('button').forEach(b => {
+          if (['Full', 'Balanced', 'Lite'].includes(b.innerText)) {
+            b.classList.remove('active');
+          }
+        });
+        btn.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>

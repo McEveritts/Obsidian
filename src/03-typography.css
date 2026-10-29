@@ -1,0 +1,163 @@
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - TYPOGRAPHY & SCROLLBAR ENGINE
+ * File: 03-typography.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Typography Hierarchy & Fluid Sizing
+   Covers both Jellyfin 12.2 Material UI and Legacy Emby elements
+   -------------------------------------------------------------------------- */
+
+body,
+.emby-input,
+.emby-textarea,
+.emby-select,
+.emby-button,
+.MuiTypography-root,
+.MuiButton-root,
+.MuiIconButton-root,
+.MuiListItemButton-root,
+.MuiMenuItem-root,
+.MuiInputBase-root {
+  font-family: var(--obs-font-sans) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Titles and Headers */
+.pageTitle,
+.sectionTitle,
+.itemName,
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3 {
+  color: var(--obs-white) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Section Titles with Subtle Optical Tracking
+   Preserves upstream .padded-left (max(3.3%, env(safe-area-inset-left))) so
+   non-link section headers ("Media Libraries", "Continue Watching", etc.)
+   align directly with .emby-scroller cards and .sectionTitleContainer rows. */
+.sectionTitle {
+  font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.45rem) !important;
+  margin-bottom: 0.75rem !important;
+}
+
+div:not(.sectionTitleContainer-cards) > .sectionTitle-cards {
+  padding-top: 1.25rem !important;
+  padding-bottom: 0 !important;
+}
+
+/* Rename Home "My Media" section heading to "Media Libraries" */
+.homeSectionsContainer .verticalSection:has(.itemsContainer:not([data-monitor])) > .sectionTitle.sectionTitle-cards {
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+.homeSectionsContainer .verticalSection:has(.itemsContainer:not([data-monitor])) > .sectionTitle.sectionTitle-cards::before {
+  content: "Media Libraries";
+  font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.45rem) !important;
+  line-height: 1.35 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--obs-white) !important;
+  display: inline-block;
+}
+
+/* Primary Reading Text (Item details, overviews) */
+.itemOverview,
+.detailPagePrimaryContainer .overview {
+  color: var(--obs-slate-200) !important;
+  line-height: 1.65 !important;
+  font-size: clamp(0.925rem, 0.88rem + 0.2vw, 1.05rem) !important;
+  font-weight: 400 !important;
+}
+
+/* Luminescent Prose Effect */
+.itemName,
+.detailPagePrimaryContainer .itemName {
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
+}
+
+/* Secondary Metadata & Subtitles */
+.cardText-secondary,
+.itemMiscInfo,
+.secondaryText {
+  color: var(--obs-slate-400) !important;
+  font-weight: 500 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Desktop Sleek Thin Glass Scrollbars (from Looplet globals.css)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.08) rgba(15, 23, 42, 0.3);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.3);
+    border-radius: var(--obs-radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--obs-radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Multi-Tier Studio Display & 4K TV Fluid Typography Scaling (Looplet Contract)
+   -------------------------------------------------------------------------- */
+/* 24-Inch to 27-Inch Full HD & Wide Studio Displays (>= 1920px) */
+@media (min-width: 1920px) {
+  :root {
+    --obs-content-max-width: 105rem;
+  }
+}
+
+/* 27-Inch to 32-Inch QHD Studio Displays (>= 2560px) */
+@media (min-width: 2560px) {
+  html {
+    font-size: clamp(17.5px, 0.35vw + 10px, 22px) !important;
+  }
+
+  :root {
+    --obs-content-max-width: 140rem;
+    --obs-shell-sidebar-width-desktop: 20rem;
+  }
+}
+
+/* 42-Inch 4K Large-Format Studio Displays (>= 3200px, including 3840x2160) */
+@media (min-width: 3200px) {
+  html {
+    font-size: clamp(19px, 0.4vw + 10px, 24px) !important;
+  }
+
+  :root {
+    --obs-content-max-width: 184rem;
+    --obs-shell-sidebar-width-desktop: 22rem;
+  }
+}
+
+.layout-tv {
+  /* Dedicated 10-foot leanback scaling for TV viewing distance (6-10 feet) */
+  font-size: clamp(18px, 0.6vw + 12px, 28px) !important;
+}

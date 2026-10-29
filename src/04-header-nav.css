@@ -1,0 +1,326 @@
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - HEADER & NAVIGATION SHELL
+ * File: 04-header-nav.css
+ * Covers Jellyfin 12.2 Modern MUI Shell (OffsetAppBar, AppToolbar, LibraryToolbar,
+ * AppDrawer, Dashboard) AND Legacy Emby Header/Drawer
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   1. Jellyfin 12.2 Modern MUI AppBar & Toolbars (.MuiAppBar-root, .MuiToolbar-root)
+   -------------------------------------------------------------------------- */
+.MuiAppBar-root:not(.osdHeader):not(:empty) {
+  background: rgba(2, 6, 23, 0.78) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-bottom: 1px solid var(--obs-chromatic-border-indigo) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.55),
+              inset 0 -1px 0 rgba(217, 70, 239, 0.28),
+              inset 0 1px 0 rgba(56, 189, 248, 0.18) !important;
+  transition: background-color 0.25s var(--obs-ease-out-120),
+              border-color 0.25s var(--obs-ease-out-120),
+              box-shadow 0.25s var(--obs-ease-out-120) !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Collapse empty OffsetAppBar / header shells on #/video so no 1px border or shadow bar renders over video playback */
+.MuiAppBar-root:empty,
+.skinHeader:empty,
+body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+.MuiAppBar-root .MuiToolbar-root,
+.dashboard-appBar {
+  min-height: 52px !important;
+  gap: 0.35rem;
+}
+
+/* Modern Top Bar Navigation Pills (UserViewNav & LibraryViewMenu buttons) */
+.MuiAppBar-root .MuiButton-root {
+  border-radius: var(--obs-radius-full) !important;
+  min-height: 44px !important;
+  padding: 0.4rem 1rem !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  color: var(--obs-slate-300) !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+.MuiAppBar-root .MuiButton-root:hover,
+.MuiAppBar-root .MuiButton-root:focus-visible {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+/* Active Library Pill in Modern AppBar (.MuiButton-colorPrimary) */
+.MuiAppBar-root .MuiButton-colorPrimary {
+  color: var(--obs-white) !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.24) 0%, rgba(217, 70, 239, 0.14) 100%) !important;
+  border: 1px solid var(--obs-glass-border-hover) !important;
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.32) !important;
+}
+
+/* Modern AppBar Icon Buttons (Drawer Toggle, Search, SyncPlay, RemotePlay, Avatar) */
+.MuiAppBar-root .MuiIconButton-root {
+  border-radius: var(--obs-radius-full) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  color: var(--obs-slate-300) !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease !important;
+}
+
+.MuiAppBar-root .MuiIconButton-root:hover,
+.MuiAppBar-root .MuiIconButton-root:focus-visible {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  transform: scale3d(1.04, 1.04, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Jellyfin 12.2 Modern & Dashboard Left Drawer (.MuiDrawer-paper)
+   -------------------------------------------------------------------------- */
+.MuiDrawer-root .MuiDrawer-paper {
+  background: linear-gradient(180deg, rgba(12, 16, 28, 0.92) 0%, rgba(0, 0, 0, 0.96) 100%) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-right: 1px solid var(--obs-glass-border) !important;
+  box-shadow: var(--obs-shadow-panel) !important;
+  color: var(--obs-slate-200) !important;
+}
+
+.MuiDrawer-paper .MuiListItemButton-root {
+  border-radius: var(--obs-radius-xl) !important;
+  margin: 0.2rem 0.5rem !important;
+  min-height: 44px !important;
+  color: var(--obs-slate-300) !important;
+  border: 1px solid transparent !important;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease !important;
+}
+
+.MuiDrawer-paper .MuiListItemButton-root:hover,
+.MuiDrawer-paper .MuiListItemButton-root:focus-visible {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  transform: translate3d(4px, 0, 0);
+}
+
+.MuiDrawer-paper .MuiListItemButton-root.Mui-selected {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(217, 70, 239, 0.12) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(129, 140, 248, 0.45) !important;
+  border-left: 3px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25) !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Legacy Edge-to-Edge Frosted Glass Header (.skinHeader)
+   -------------------------------------------------------------------------- */
+.skinHeader:not(.osdHeader):not(:empty) {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  background: rgba(2, 6, 23, 0.78) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-bottom: 1px solid var(--obs-chromatic-border-indigo) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5),
+              inset 0 -1px 0 rgba(217, 70, 239, 0.28),
+              inset 0 1px 0 rgba(56, 189, 248, 0.18) !important;
+  transition: background-color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease !important;
+  contain: layout style !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  z-index: 1000 !important;
+}
+
+/* Restore native TV positioning for navigation header (exempting playback OSD header) */
+.layout-tv .skinHeader:not(.osdHeader):not(:empty) {
+  position: relative !important;
+}
+
+/* Prevent video playback OSD header from inheriting navigation styling */
+.skinHeader.osdHeader {
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.85) 0%, transparent 100%) !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+/* Header Buttons (Search, Cast, User Profile, Drawer Toggle) */
+.headerButton {
+  border-radius: var(--obs-radius-full) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  color: var(--obs-slate-300) !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease !important;
+}
+
+.headerButton:hover,
+.headerButton:focus-visible {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  transform: scale3d(1.04, 1.04, 1);
+}
+
+.headerUserButtonRound {
+  border-radius: var(--obs-radius-full) !important;
+  border: 1.5px solid var(--obs-glass-border) !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.25) !important;
+}
+
+/* Auxiliary Navigation & Paging Controls (Filter, Sort, Paging, View Mode) */
+.btnSort.paper-icon-button-light,
+.btnFilter.paper-icon-button-light,
+.btnPlayAll.paper-icon-button-light,
+.btnSelectView.paper-icon-button-light,
+.btnPreviousPage.paper-icon-button-light,
+.btnNextPage.paper-icon-button-light {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. Header Navigation Tabs (.emby-tab-button)
+   -------------------------------------------------------------------------- */
+.headerTabs {
+  margin-top: 0.25rem !important;
+}
+
+.emby-tab-button {
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  color: var(--obs-slate-400) !important;
+  padding: 0.5rem 1.15rem !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  border-radius: var(--obs-radius-full) !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease !important;
+  position: relative !important;
+}
+
+.emby-tab-button:not(.hide) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.emby-tab-button:hover {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Active Tab with Luminescent Indicator (Looplet .af-tab-pill-active parity) */
+.emby-tab-button-active {
+  color: var(--obs-white) !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.24) 0%, rgba(217, 70, 239, 0.14) 100%) !important;
+  border: 1px solid rgba(129, 140, 248, 0.50) !important;
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.32) !important;
+}
+
+.emby-tab-button-active::after {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Legacy Left Drawer Navigation Shell (.mainDrawer)
+   -------------------------------------------------------------------------- */
+.mainDrawer {
+  background-color: rgba(2, 6, 23, 0.92) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-right: 1px solid var(--obs-glass-border) !important;
+  box-shadow: var(--obs-shadow-panel) !important;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.mainDrawer.touch-menu-la.transition {
+  transition: transform 0.24s var(--obs-ease-out-120) !important;
+}
+
+.mainDrawer-scrollContainer {
+  padding: 1.25rem 0.75rem !important;
+}
+
+.navMenuOption {
+  border-radius: var(--obs-radius-xl) !important;
+  margin: 0.25rem 0.25rem !important;
+  padding: 0.65rem 0.9rem !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  color: var(--obs-slate-300) !important;
+  font-weight: 500 !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease !important;
+  border: 1px solid transparent !important;
+}
+
+.navMenuOption:not(.hide) {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.navMenuOption:hover,
+.navMenuOption:focus-visible {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  transform: translate3d(4px, 0, 0);
+}
+
+/* Selected Drawer Item with Holographic Indigo Tone */
+.navMenuOption-selected {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(217, 70, 239, 0.12) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(99, 102, 241, 0.35) !important;
+  border-left: 3px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25) !important;
+}
+
+.navMenuOptionIcon {
+  color: var(--obs-indigo-400) !important;
+}
+

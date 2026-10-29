@@ -1,0 +1,167 @@
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - DIALOGS, MODALS, MENUS & FORM WELLS
+ * File: 08-dialogs-inputs.css
+ * Covers Jellyfin 12.2 Material UI Surfaces & Legacy Emby Dialogs/Inputs
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Tier 2 Glass Panels: Modal Dialogs, Popovers, Menus & Action Sheets
+   -------------------------------------------------------------------------- */
+.dialog,
+.formDialog,
+.actionSheetContent,
+.paperList,
+.MuiDialog-paper,
+.MuiPopover-paper,
+.MuiMenu-paper,
+.MuiPaper-root:not(.MuiAppBar-root):not(.MuiDrawer-paper):not(.MuiAlert-root) {
+  background: var(--obs-panel-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset), inset 0 0 40px rgba(255, 255, 255, 0.02) !important;
+  color: var(--obs-slate-200) !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.dialog:not(.actionSheet)::after,
+.formDialog::after,
+.actionSheetContent::after,
+.MuiDialog-paper::after,
+.MuiPopover-paper::after,
+.MuiMenu-paper::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: var(--obs-chromatic-edge-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none !important;
+  z-index: 2;
+}
+
+/* Ensure actionSheet dialog wrapper delegates surface styling to .actionSheetContent */
+.dialog.actionSheet {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Dialog Header */
+.formDialogHeaderTitle {
+  color: var(--obs-white) !important;
+  font-weight: 700 !important;
+}
+
+/* Action Sheet & Material UI Menu Items */
+.actionSheetMenuItem,
+.MuiMenuItem-root {
+  border-radius: var(--obs-radius-md) !important;
+  margin: 0.2rem 0.4rem !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+@media (pointer: coarse) {
+  .actionSheetMenuItem:not(.hide),
+  .MuiMenuItem-root:not(.hide) {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+}
+
+.actionSheetMenuItem:hover,
+.MuiMenuItem-root:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: var(--obs-white) !important;
+}
+
+.MuiMenuItem-root.Mui-selected {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(217, 70, 239, 0.12) 100%) !important;
+  color: var(--obs-white) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Tier 4 Glass Inputs & Recessed Dark Wells (Looplet .glass-input parity)
+   -------------------------------------------------------------------------- */
+.emby-input,
+.emby-textarea,
+.emby-select,
+.MuiFilledInput-root,
+.MuiOutlinedInput-root {
+  background: var(--obs-input-bg) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.35) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  color: var(--obs-slate-200) !important;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  transition: border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.emby-input,
+.emby-textarea,
+.emby-select {
+  padding: 0.65rem 1rem !important;
+}
+
+.emby-input:focus,
+.emby-textarea:focus,
+.emby-select:focus,
+.MuiFilledInput-root.Mui-focused,
+.MuiOutlinedInput-root.Mui-focused {
+  border-color: var(--obs-indigo-400) !important;
+  background: var(--obs-input-bg-focus) !important;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.35) !important;
+  outline: none !important;
+}
+
+/* Dropdown Options */
+.emby-select option {
+  background-color: var(--obs-slate-900) !important;
+  color: var(--obs-white) !important;
+}
+
+/* Checkbox & Switch Styling */
+.emby-checkbox:checked + span + .checkboxOutline {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  border-color: transparent !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5) !important;
+}
+
+.MuiCheckbox-root.Mui-checked,
+.MuiSwitch-switchBase.Mui-checked {
+  color: var(--obs-indigo-400) !important;
+}
+
+.checkboxOutline {
+  border-radius: var(--obs-radius-sm) !important;
+  border: 1.5px solid var(--obs-slate-500) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Profile Preferences Responsive Form Containment
+   Prevents fixed flex row from blowing out 320px compact mobile viewports
+   -------------------------------------------------------------------------- */
+#userProfilePage .readOnlyContent {
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+}
+
+#userProfilePage .readOnlyContent > div {
+  margin: 0.5em !important;
+}

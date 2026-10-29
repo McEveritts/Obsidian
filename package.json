@@ -1,0 +1,33 @@
+{
+  "name": "jellyfin-obsidian",
+  "version": "2.0.0",
+  "description": "Obsidian — A Spatial 120Hz Glassmorphic Theme for Jellyfin Web 12.2+ and Jellyfin Media Player",
+  "main": "obsidian.css",
+  "scripts": {
+    "build": "node build.js",
+    "audit:selectors": "node scripts/precise_audit.js",
+    "check:syntax": "node scripts/checkSyntax.js",
+    "test": "node scripts/checkSyntax.js && node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/McEveritts/Obsidian.git"
+  },
+  "homepage": "https://github.com/McEveritts/Obsidian#readme",
+  "bugs": {
+    "url": "https://github.com/McEveritts/Obsidian/issues"
+  },
+  "keywords": [
+    "jellyfin",
+    "jellyfin-theme",
+    "jellyfin-skin",
+    "jellyfin-css",
+    "obsidian",
+    "glassmorphism",
+    "spatial-ui",
+    "mui",
+    "jellyfin-12"
+  ],
+  "author": "McEveritts",
+  "license": "MIT"
+}

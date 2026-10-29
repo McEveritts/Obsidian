@@ -1,0 +1,2528 @@
+/**
+ * ============================================================================
+ * JELLYFIN OBSIDIAN THEME (Looplet Obsidian Design System)
+ * Version: 2.0.0
+ * Architecture: Pure #000000 Obsidian Glassmorphism & 120Hz Hardware-Cached Aurora
+ * Compatibility: Jellyfin Web 12.2.x+ (Modern MUI & Legacy Views), 10.11.x; JMP
+ *
+ * Grounded in the Looplet Obsidian CSS Specification
+ * ============================================================================
+ *
+ * OPTIONAL ENHANCEMENT:
+ * To load Inter directly from Google Fonts, uncomment the following line.
+ * (Note: Deployed theme defaults to offline system fonts without external calls)
+ *
+ * @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+ *
+ * ============================================================================
+ */
+
+
+/* >>> MODULE: 01-variables.css <<< */
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - CORE DESIGN TOKENS
+ * File: 01-variables.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+:root {
+  /* --- Obsidian Foundations (Pure #000000 Contrast from Looplet) --- */
+  --obs-bg-base: #000000;
+  --obs-bg-primary: #000000;
+  --obs-bg-secondary: #0f172a;
+  --obs-slate-950: #000000;
+  --obs-slate-900: #0f172a;
+  --obs-slate-800: #1e293b;
+  --obs-slate-700: #334155;
+  --obs-slate-500: #64748b;
+  --obs-slate-400: #94a3b8;
+  --obs-slate-300: #cbd5e1;
+  --obs-slate-200: #e2e8f0;
+  --obs-white: #ffffff;
+  --obs-black: #000000;
+
+  /* --- Luminescent / Holographic Accents --- */
+  --obs-accent-primary: #6366f1;
+  --obs-accent-indigo: #6366f1;
+  --obs-indigo-600: #4f46e5;
+  --obs-indigo-500: #6366f1;
+  --obs-indigo-400: #818cf8;
+  --obs-indigo-300: #a5b4fc;
+  --obs-fuchsia-500: #d946ef;
+  --obs-fuchsia-400: #e879f9;
+  --obs-emerald-400: #34d399;
+  --obs-amber-400: #fbbf24;
+  --obs-rose-500: #f43f5e;
+  --obs-sky-400: #38bdf8;
+  --obs-accent-rose: #f43f5e;
+  --obs-accent-teal: #14b8a6;
+  --obs-accent-amber: #f59e0b;
+  --obs-accent-emerald: #10b981;
+
+  /* --- Typography & Stacks --- */
+  --obs-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --obs-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* --- Geometry & Radii --- */
+  --obs-radius-sm: 0.25rem;  /* 4px */
+  --obs-radius-md: 0.5rem;   /* 8px */
+  --obs-radius-xl: 0.75rem;  /* 12px - Panels, buttons, inputs */
+  --obs-radius-2xl: 1rem;    /* 16px - Media cards, floating dock */
+  --obs-radius-full: 9999px; /* Pills, avatars, circular badges */
+
+  /* --- Directional Specular Highlights & Chromatic Glass Edges --- */
+  --obs-specular-top: rgba(255, 255, 255, 0.28);
+  --obs-specular-left: rgba(56, 189, 248, 0.38);
+  --obs-specular-subtle: rgba(255, 255, 255, 0.14);
+  --obs-glass-border: rgba(129, 140, 248, 0.34);
+  --obs-glass-border-hover: rgba(168, 85, 247, 0.68);
+  --obs-chromatic-border-cyan: rgba(56, 189, 248, 0.44);
+  --obs-chromatic-border-indigo: rgba(129, 140, 248, 0.48);
+  --obs-chromatic-border-fuchsia: rgba(217, 70, 239, 0.44);
+  --obs-chromatic-edge-gradient: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.90) 0%,
+    rgba(56, 189, 248, 0.82) 18%,
+    rgba(129, 140, 248, 0.86) 44%,
+    rgba(217, 70, 239, 0.84) 70%,
+    rgba(168, 85, 247, 0.80) 86%,
+    rgba(56, 189, 248, 0.75) 100%
+  );
+  --obs-chromatic-edge-hover: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(56, 189, 248, 0.92) 18%,
+    rgba(129, 140, 248, 0.94) 44%,
+    rgba(217, 70, 239, 0.92) 70%,
+    rgba(168, 85, 247, 0.90) 86%,
+    rgba(56, 189, 248, 0.86) 100%
+  );
+  --obs-chromatic-inset:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.44),
+    inset 1.5px 0 3px 0 rgba(56, 189, 248, 0.38),
+    inset -1.5px 0 3px 0 rgba(217, 70, 239, 0.38),
+    inset 0 -1.5px 3px 0 rgba(129, 140, 248, 0.42);
+  --obs-chromatic-inset-card:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.36),
+    inset 1px 0 2px 0 rgba(56, 189, 248, 0.30),
+    inset -1px 0 2px 0 rgba(217, 70, 239, 0.30),
+    inset 0 -1px 2px 0 rgba(129, 140, 248, 0.34);
+
+  /* --- Glass Surface Elevations --- */
+  --obs-card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(99, 102, 241, 0.03) 55%, rgba(217, 70, 239, 0.025) 100%);
+  --obs-card-bg-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(99, 102, 241, 0.06) 55%, rgba(217, 70, 239, 0.05) 100%);
+  --obs-panel-bg: linear-gradient(180deg, rgba(16, 18, 38, 0.80) 0%, rgba(12, 10, 30, 0.86) 100%);
+  --obs-hero-bg: linear-gradient(180deg, rgba(10, 12, 26, 0.72) 0%, rgba(16, 14, 38, 0.78) 55%, rgba(24, 12, 48, 0.76) 100%);
+  --obs-input-bg: rgba(0, 0, 0, 0.45);
+  --obs-input-bg-focus: rgba(0, 0, 0, 0.65);
+
+  /* --- Optical Depth Shadows --- */
+  --obs-shadow-card: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 16px rgba(99, 102, 241, 0.12);
+  --obs-shadow-card-hover: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 28px rgba(99, 102, 241, 0.32), 0 0 14px rgba(217, 70, 239, 0.24);
+  --obs-shadow-panel: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 28px rgba(99, 102, 241, 0.18);
+  --obs-shadow-button-primary: 0 4px 20px rgba(99, 102, 241, 0.35);
+  --obs-shadow-button-hover: 0 6px 28px rgba(217, 70, 239, 0.45);
+  --obs-shadow-glow-indigo: 0 0 24px rgba(99, 102, 241, 0.35);
+  --obs-shadow-glow-fuchsia: 0 0 24px rgba(217, 70, 239, 0.35);
+
+  /* --- Semantic Shell Layout Dimensions --- */
+  --obs-shell-header-height-mobile: 65px;
+  --obs-shell-sidebar-width-desktop: 15rem; /* 240px matching Jellyfin 12.2 DRAWER_WIDTH */
+  --obs-shell-bottom-nav-height: 4rem;      /* 64px */
+  --obs-shell-rail-width-tablet: 68px;      /* 68px */
+  --obs-content-max-width: 112.5rem;        /* 1800px */
+
+  /* --- 120Hz High-Refresh Motion Curves & Atmospheric Tuning --- */
+  --obs-ease-out-120: cubic-bezier(0.22, 1, 0.36, 1);
+  --obs-ease-spring-120: cubic-bezier(0.25, 1, 0.5, 1);
+  --obs-duration-fast: 160ms;
+  --obs-duration-card: 200ms;
+
+  /* --- Tunable Switches & Controls (Default: Static 120Hz Hardware-Cached Obsidian Mode) --- */
+  --obs-glass-blur: 16px;
+  --obs-card-blur: 0px;
+  --obs-glass-blur-heavy: 24px;
+  --obs-glass-saturation: saturate(160%);
+  --obs-aurora-opacity: 0.55;
+  --obs-aurora-animation: none;
+  --obs-grain-display: block;
+  --obs-card-lift: -4px;
+
+  /* --- Jellyfin 12.2 Material UI (@mui/material & --jf-palette CSS Variables Bridge) --- */
+  --mui-palette-primary-main: #6366f1 !important;
+  --mui-palette-primary-mainChannel: 99 102 241 !important;
+  --mui-palette-primary-light: #818cf8 !important;
+  --mui-palette-primary-dark: #4f46e5 !important;
+  --mui-palette-secondary-main: #d946ef !important;
+  --mui-palette-secondary-mainChannel: 217 70 239 !important;
+  --mui-palette-background-default: #000000 !important;
+  --mui-palette-background-defaultChannel: 0 0 0 !important;
+  --mui-palette-background-paper: rgba(12, 16, 28, 0.82) !important;
+  --mui-palette-background-paperChannel: 12 16 28 !important;
+  --mui-palette-AppBar-defaultBg: rgba(2, 6, 23, 0.78) !important;
+  --mui-palette-starIcon-main: #fbbf24 !important;
+  --mui-palette-error-main: #f43f5e !important;
+  --mui-fontFamily-body: var(--obs-font-sans) !important;
+  --jf-palette-primary-main: #6366f1 !important;
+  --jf-palette-primary-mainChannel: 99 102 241 !important;
+  --jf-palette-secondary-main: #d946ef !important;
+  --jf-palette-background-default: #000000 !important;
+  --jf-palette-background-defaultImage: none !important;
+  --jf-palette-background-paper: rgba(12, 16, 28, 0.82) !important;
+  --jf-palette-AppBar-defaultBg: rgba(2, 6, 23, 0.78) !important;
+}
+
+
+/* >>> MODULE: 02-atmosphere.css <<< */
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - ATMOSPHERIC BACKGROUND ENGINE
+ * File: 02-atmosphere.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* Base Canvas Foundation on HTML Root (Pure #000000 Obsidian Contrast)
+   CRITICAL: body must remain background-color: transparent so its 100vh box
+   never paints an opaque black rectangle over body::before (z-index: -2) or
+   .backdropContainer (z-index: -1) when scrolling past 100vh. */
+html {
+  background-color: var(--obs-bg-base) !important;
+  background-image: none !important;
+  color: var(--obs-white);
+  min-height: 100vh;
+}
+
+body {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: var(--obs-white);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Punch-through transparency for verified intermediate Jellyfin 12.2 view containers
+   Ensures the cosmic aurora on body::before illuminates through without occluding user fanart */
+.mainAnimatedPages,
+.mainAnimatedPage,
+.page,
+.pageContainer,
+.libraryPage,
+.view,
+.skinBody {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* User Fanart Backdrop Support: Preserves fanart images when Backdrops preference is enabled */
+.backgroundContainer,
+.backdropContainer {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+.backdropImage {
+  opacity: 0.35 !important;
+  filter: saturate(120%) contrast(110%);
+  backface-visibility: hidden;
+  will-change: opacity;
+  transition: opacity 0.4s var(--obs-ease-out-120) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Layer 1: Seamless Black-to-Purple Gradient & Radial Aurora (body::before)
+   Fixed to the viewport at z-index: -2 so the transition from pure #000000
+   obsidian black at the top into deep royal purple/indigo/fuchsia at the
+   bottom remains 100% continuous at every scroll position without seams.
+   -------------------------------------------------------------------------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  width: 120vw;
+  height: 120vh;
+  z-index: -2;
+  pointer-events: none !important;
+  transform-origin: center center;
+
+  background:
+    /* Orb 1: Lower-Center Royal Purple & Indigo Bloom (#6d28d9 -> #4f46e5) */
+    radial-gradient(ellipse 76vw 56vh at 50% 88%, rgba(109, 40, 217, calc(var(--obs-aurora-opacity) * 0.72)) 0%, rgba(79, 70, 229, calc(var(--obs-aurora-opacity) * 0.34)) 44%, transparent 78%),
+    /* Orb 2: Mid-Left Indigo Aurora (#6366f1) */
+    radial-gradient(ellipse 62vw 52vh at 16% 68%, rgba(99, 102, 241, calc(var(--obs-aurora-opacity) * 0.54)) 0%, rgba(99, 102, 241, calc(var(--obs-aurora-opacity) * 0.20)) 42%, transparent 76%),
+    /* Orb 3: Mid-Right Fuchsia-Violet Aurora (#d946ef -> #9333ea) */
+    radial-gradient(ellipse 62vw 54vh at 84% 66%, rgba(217, 70, 239, calc(var(--obs-aurora-opacity) * 0.46)) 0%, rgba(147, 51, 234, calc(var(--obs-aurora-opacity) * 0.20)) 42%, transparent 76%),
+    /* Continuous Obsidian Black-to-Purple Vertical Base Gradient */
+    linear-gradient(180deg, #000000 0%, #020108 20%, #09041a 46%, #14082e 74%, #1e0b42 100%);
+
+  contain: strict;
+  isolation: isolate;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  animation: var(--obs-aurora-animation);
+}
+
+/* Optional Hardware-Accelerated 3D Aurora Oscillation Preset */
+@keyframes obs-aurora-shift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(2%, 3%, 0) rotate(1.5deg);
+  }
+  66% {
+    transform: translate3d(-3%, 2%, 0) rotate(-1.5deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Layer 2 & 3: Unified Tactile Micro-Grain + Spatial Edge Vignette (body::after)
+   Ported from Looplet's globals.css: combines the obsidian edge vignette and
+   SVG fractal micro-grain into a single GPU-cached fixed pseudo-element.
+   -------------------------------------------------------------------------- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none !important;
+  display: var(--obs-grain-display);
+  contain: strict;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 55%, rgba(2, 6, 23, 0.72) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.032'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 200px 200px;
+}
+
+/* --------------------------------------------------------------------------
+   Playback Canvas Isolation Rule
+   Strictly guarantees zero aurora or grain bleeding into video or subtitles
+   -------------------------------------------------------------------------- */
+.videoPlayerContainer,
+.videoPlayerContainer video,
+.videoPlayerContainer .htmlvideoplayer {
+  background-color: var(--obs-black) !important;
+}
+
+/* When video player is mounted and active, suppress background transparency & vignette */
+body:has(.videoPlayerContainer:not(.hide))::before,
+body:has(.videoPlayerContainer:not(.hide))::after {
+  opacity: 0 !important;
+  animation: none !important;
+}
+
+/* Subtitle clarity guarantee: High contrast, no filter interference */
+.libassjs-canvas-parent,
+.videoSubtitles,
+::cue {
+  background-color: transparent !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.95) !important;
+  pointer-events: none !important;
+}
+
+
+/* >>> MODULE: 03-typography.css <<< */
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - TYPOGRAPHY & SCROLLBAR ENGINE
+ * File: 03-typography.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Typography Hierarchy & Fluid Sizing
+   Covers both Jellyfin 12.2 Material UI and Legacy Emby elements
+   -------------------------------------------------------------------------- */
+
+body,
+.emby-input,
+.emby-textarea,
+.emby-select,
+.emby-button,
+.MuiTypography-root,
+.MuiButton-root,
+.MuiIconButton-root,
+.MuiListItemButton-root,
+.MuiMenuItem-root,
+.MuiInputBase-root {
+  font-family: var(--obs-font-sans) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Titles and Headers */
+.pageTitle,
+.sectionTitle,
+.itemName,
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3 {
+  color: var(--obs-white) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Section Titles with Subtle Optical Tracking
+   Preserves upstream .padded-left (max(3.3%, env(safe-area-inset-left))) so
+   non-link section headers ("Media Libraries", "Continue Watching", etc.)
+   align directly with .emby-scroller cards and .sectionTitleContainer rows. */
+.sectionTitle {
+  font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.45rem) !important;
+  margin-bottom: 0.75rem !important;
+}
+
+div:not(.sectionTitleContainer-cards) > .sectionTitle-cards {
+  padding-top: 1.25rem !important;
+  padding-bottom: 0 !important;
+}
+
+/* Rename Home "My Media" section heading to "Media Libraries" */
+.homeSectionsContainer .verticalSection:has(.itemsContainer:not([data-monitor])) > .sectionTitle.sectionTitle-cards {
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+.homeSectionsContainer .verticalSection:has(.itemsContainer:not([data-monitor])) > .sectionTitle.sectionTitle-cards::before {
+  content: "Media Libraries";
+  font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.45rem) !important;
+  line-height: 1.35 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--obs-white) !important;
+  display: inline-block;
+}
+
+/* Primary Reading Text (Item details, overviews) */
+.itemOverview,
+.detailPagePrimaryContainer .overview {
+  color: var(--obs-slate-200) !important;
+  line-height: 1.65 !important;
+  font-size: clamp(0.925rem, 0.88rem + 0.2vw, 1.05rem) !important;
+  font-weight: 400 !important;
+}
+
+/* Luminescent Prose Effect */
+.itemName,
+.detailPagePrimaryContainer .itemName {
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
+}
+
+/* Secondary Metadata & Subtitles */
+.cardText-secondary,
+.itemMiscInfo,
+.secondaryText {
+  color: var(--obs-slate-400) !important;
+  font-weight: 500 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Desktop Sleek Thin Glass Scrollbars (from Looplet globals.css)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.08) rgba(15, 23, 42, 0.3);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.3);
+    border-radius: var(--obs-radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--obs-radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Multi-Tier Studio Display & 4K TV Fluid Typography Scaling (Looplet Contract)
+   -------------------------------------------------------------------------- */
+/* 24-Inch to 27-Inch Full HD & Wide Studio Displays (>= 1920px) */
+@media (min-width: 1920px) {
+  :root {
+    --obs-content-max-width: 105rem;
+  }
+}
+
+/* 27-Inch to 32-Inch QHD Studio Displays (>= 2560px) */
+@media (min-width: 2560px) {
+  html {
+    font-size: clamp(17.5px, 0.35vw + 10px, 22px) !important;
+  }
+
+  :root {
+    --obs-content-max-width: 140rem;
+    --obs-shell-sidebar-width-desktop: 20rem;
+  }
+}
+
+/* 42-Inch 4K Large-Format Studio Displays (>= 3200px, including 3840x2160) */
+@media (min-width: 3200px) {
+  html {
+    font-size: clamp(19px, 0.4vw + 10px, 24px) !important;
+  }
+
+  :root {
+    --obs-content-max-width: 184rem;
+    --obs-shell-sidebar-width-desktop: 22rem;
+  }
+}
+
+.layout-tv {
+  /* Dedicated 10-foot leanback scaling for TV viewing distance (6-10 feet) */
+  font-size: clamp(18px, 0.6vw + 12px, 28px) !important;
+}
+
+
+/* >>> MODULE: 04-header-nav.css <<< */
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - HEADER & NAVIGATION SHELL
+ * File: 04-header-nav.css
+ * Covers Jellyfin 12.2 Modern MUI Shell (OffsetAppBar, AppToolbar, LibraryToolbar,
+ * AppDrawer, Dashboard) AND Legacy Emby Header/Drawer
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   1. Jellyfin 12.2 Modern MUI AppBar & Toolbars (.MuiAppBar-root, .MuiToolbar-root)
+   -------------------------------------------------------------------------- */
+.MuiAppBar-root:not(.osdHeader):not(:empty) {
+  background: rgba(2, 6, 23, 0.78) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-bottom: 1px solid var(--obs-chromatic-border-indigo) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.55),
+              inset 0 -1px 0 rgba(217, 70, 239, 0.28),
+              inset 0 1px 0 rgba(56, 189, 248, 0.18) !important;
+  transition: background-color 0.25s var(--obs-ease-out-120),
+              border-color 0.25s var(--obs-ease-out-120),
+              box-shadow 0.25s var(--obs-ease-out-120) !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Collapse empty OffsetAppBar / header shells on #/video so no 1px border or shadow bar renders over video playback */
+.MuiAppBar-root:empty,
+.skinHeader:empty,
+body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+.MuiAppBar-root .MuiToolbar-root,
+.dashboard-appBar {
+  min-height: 52px !important;
+  gap: 0.35rem;
+}
+
+/* Modern Top Bar Navigation Pills (UserViewNav & LibraryViewMenu buttons) */
+.MuiAppBar-root .MuiButton-root {
+  border-radius: var(--obs-radius-full) !important;
+  min-height: 44px !important;
+  padding: 0.4rem 1rem !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  color: var(--obs-slate-300) !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+.MuiAppBar-root .MuiButton-root:hover,
+.MuiAppBar-root .MuiButton-root:focus-visible {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+/* Active Library Pill in Modern AppBar (.MuiButton-colorPrimary) */
+.MuiAppBar-root .MuiButton-colorPrimary {
+  color: var(--obs-white) !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.24) 0%, rgba(217, 70, 239, 0.14) 100%) !important;
+  border: 1px solid var(--obs-glass-border-hover) !important;
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.32) !important;
+}
+
+/* Modern AppBar Icon Buttons (Drawer Toggle, Search, SyncPlay, RemotePlay, Avatar) */
+.MuiAppBar-root .MuiIconButton-root {
+  border-radius: var(--obs-radius-full) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  color: var(--obs-slate-300) !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease !important;
+}
+
+.MuiAppBar-root .MuiIconButton-root:hover,
+.MuiAppBar-root .MuiIconButton-root:focus-visible {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  transform: scale3d(1.04, 1.04, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Jellyfin 12.2 Modern & Dashboard Left Drawer (.MuiDrawer-paper)
+   -------------------------------------------------------------------------- */
+.MuiDrawer-root .MuiDrawer-paper {
+  background: linear-gradient(180deg, rgba(12, 16, 28, 0.92) 0%, rgba(0, 0, 0, 0.96) 100%) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-right: 1px solid var(--obs-glass-border) !important;
+  box-shadow: var(--obs-shadow-panel) !important;
+  color: var(--obs-slate-200) !important;
+}
+
+.MuiDrawer-paper .MuiListItemButton-root {
+  border-radius: var(--obs-radius-xl) !important;
+  margin: 0.2rem 0.5rem !important;
+  min-height: 44px !important;
+  color: var(--obs-slate-300) !important;
+  border: 1px solid transparent !important;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease !important;
+}
+
+.MuiDrawer-paper .MuiListItemButton-root:hover,
+.MuiDrawer-paper .MuiListItemButton-root:focus-visible {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  transform: translate3d(4px, 0, 0);
+}
+
+.MuiDrawer-paper .MuiListItemButton-root.Mui-selected {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(217, 70, 239, 0.12) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(129, 140, 248, 0.45) !important;
+  border-left: 3px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25) !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Legacy Edge-to-Edge Frosted Glass Header (.skinHeader)
+   -------------------------------------------------------------------------- */
+.skinHeader:not(.osdHeader):not(:empty) {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  background: rgba(2, 6, 23, 0.78) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-bottom: 1px solid var(--obs-chromatic-border-indigo) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5),
+              inset 0 -1px 0 rgba(217, 70, 239, 0.28),
+              inset 0 1px 0 rgba(56, 189, 248, 0.18) !important;
+  transition: background-color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease !important;
+  contain: layout style !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  z-index: 1000 !important;
+}
+
+/* Restore native TV positioning for navigation header (exempting playback OSD header) */
+.layout-tv .skinHeader:not(.osdHeader):not(:empty) {
+  position: relative !important;
+}
+
+/* Prevent video playback OSD header from inheriting navigation styling */
+.skinHeader.osdHeader {
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.85) 0%, transparent 100%) !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+/* Header Buttons (Search, Cast, User Profile, Drawer Toggle) */
+.headerButton {
+  border-radius: var(--obs-radius-full) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  color: var(--obs-slate-300) !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease !important;
+}
+
+.headerButton:hover,
+.headerButton:focus-visible {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  transform: scale3d(1.04, 1.04, 1);
+}
+
+.headerUserButtonRound {
+  border-radius: var(--obs-radius-full) !important;
+  border: 1.5px solid var(--obs-glass-border) !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.25) !important;
+}
+
+/* Auxiliary Navigation & Paging Controls (Filter, Sort, Paging, View Mode) */
+.btnSort.paper-icon-button-light,
+.btnFilter.paper-icon-button-light,
+.btnPlayAll.paper-icon-button-light,
+.btnSelectView.paper-icon-button-light,
+.btnPreviousPage.paper-icon-button-light,
+.btnNextPage.paper-icon-button-light {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. Header Navigation Tabs (.emby-tab-button)
+   -------------------------------------------------------------------------- */
+.headerTabs {
+  margin-top: 0.25rem !important;
+}
+
+.emby-tab-button {
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  color: var(--obs-slate-400) !important;
+  padding: 0.5rem 1.15rem !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  border-radius: var(--obs-radius-full) !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease !important;
+  position: relative !important;
+}
+
+.emby-tab-button:not(.hide) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.emby-tab-button:hover {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Active Tab with Luminescent Indicator (Looplet .af-tab-pill-active parity) */
+.emby-tab-button-active {
+  color: var(--obs-white) !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.24) 0%, rgba(217, 70, 239, 0.14) 100%) !important;
+  border: 1px solid rgba(129, 140, 248, 0.50) !important;
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.32) !important;
+}
+
+.emby-tab-button-active::after {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Legacy Left Drawer Navigation Shell (.mainDrawer)
+   -------------------------------------------------------------------------- */
+.mainDrawer {
+  background-color: rgba(2, 6, 23, 0.92) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-right: 1px solid var(--obs-glass-border) !important;
+  box-shadow: var(--obs-shadow-panel) !important;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.mainDrawer.touch-menu-la.transition {
+  transition: transform 0.24s var(--obs-ease-out-120) !important;
+}
+
+.mainDrawer-scrollContainer {
+  padding: 1.25rem 0.75rem !important;
+}
+
+.navMenuOption {
+  border-radius: var(--obs-radius-xl) !important;
+  margin: 0.25rem 0.25rem !important;
+  padding: 0.65rem 0.9rem !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  color: var(--obs-slate-300) !important;
+  font-weight: 500 !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease !important;
+  border: 1px solid transparent !important;
+}
+
+.navMenuOption:not(.hide) {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.navMenuOption:hover,
+.navMenuOption:focus-visible {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  transform: translate3d(4px, 0, 0);
+}
+
+/* Selected Drawer Item with Holographic Indigo Tone */
+.navMenuOption-selected {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(217, 70, 239, 0.12) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(99, 102, 241, 0.35) !important;
+  border-left: 3px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25) !important;
+}
+
+.navMenuOptionIcon {
+  color: var(--obs-indigo-400) !important;
+}
+
+
+
+/* >>> MODULE: 05-cards.css <<< */
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - MEDIA CARDS & POSTER SURFACES
+ * File: 05-cards.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Media Card Container (.card / .cardBox / .MuiCard-root)
+   Tier 1 Interactive Glass Surface with High-Contrast Specular Bevels
+   Neutralizes upstream 'contain: paint' to allow unclipped hover lift & glow
+   -------------------------------------------------------------------------- */
+.card {
+  contain: layout style !important;
+  overflow: visible !important;
+}
+
+/* Component-level containment:
+   - Desktop transform carousels (.emby-scroller:not(.scrollX)) use overflow-x: clip
+     to constrain off-screen .animatedScrollX cards without clipping vertical hover lift.
+   - Mobile/touch native scrollers (.emby-scroller.scrollX) MUST preserve overflow-x: auto
+     so horizontal touch/swipe scrolling works on Home, Libraries, and Detail views. */
+.emby-scroller:not(.scrollX) {
+  overflow-x: clip !important;
+}
+
+.emby-scroller.scrollX {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+}
+
+/* Pre-promote horizontal carousel tracks to a single composited GPU layer for 120Hz scrolling */
+.scrollSlider {
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.scrollSlider.animatedScrollX {
+  will-change: transform;
+  transition-timing-function: var(--obs-ease-out-120) !important;
+}
+
+.cardBox,
+.MuiCard-root {
+  position: relative;
+  contain: layout style !important;
+  overflow: visible !important;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  background: var(--obs-card-bg) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-card), var(--obs-chromatic-inset-card) !important;
+  transition: transform var(--obs-duration-card) var(--obs-ease-spring-120),
+              border-color var(--obs-duration-card) ease !important;
+}
+
+/* Pre-allocated composited chromatic prism rim & hover neon bloom layer
+   Renders a continuous 360-degree chromatic refraction edge around the card
+   and animates purely via GPU opacity at 120Hz on pointer hover */
+.cardBox::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none !important;
+  background: var(--obs-chromatic-edge-hover);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  box-shadow: var(--obs-shadow-card-hover);
+  opacity: 0.55;
+  backface-visibility: hidden;
+  transition: opacity var(--obs-duration-card) var(--obs-ease-out-120);
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Artwork & Poster Preservation
+   Guarantees posters stay crisp without tinting or unwanted cropping
+   -------------------------------------------------------------------------- */
+.cardScalable,
+.cardPadder,
+.cardImageContainer {
+  border-radius: calc(var(--obs-radius-2xl) - 2px) !important;
+  overflow: hidden !important;
+}
+
+.cardImage {
+  border-radius: inherit !important;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transition: transform var(--obs-duration-card) var(--obs-ease-out-120) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Hover Physics - Gated to Pointer Devices (WCAG 2.2 / Looplet Parity)
+   -------------------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .cardBox {
+    transform: translate3d(0, var(--obs-card-lift), 0) !important;
+    background: var(--obs-card-bg-hover) !important;
+    will-change: transform;
+  }
+
+  .card:hover .cardBox::after {
+    opacity: 1;
+  }
+
+  .card:hover .cardImage {
+    transform: scale3d(1.028, 1.028, 1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Remote & Keyboard Navigation Focus States (10-Foot & Accessibility)
+   -------------------------------------------------------------------------- */
+.card:focus .cardBox.visualCardBox,
+.card:focus .cardBox:not(.visualCardBox) .cardScalable,
+.card:focus-visible .cardBox,
+.cardBox:focus-visible {
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 3px !important;
+  box-shadow: var(--obs-shadow-card-hover), 0 0 24px rgba(99, 102, 241, 0.65) !important;
+  border-color: var(--obs-indigo-400) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Card Text & Titles
+   -------------------------------------------------------------------------- */
+.cardText {
+  padding: 0 0.35rem !important;
+}
+
+.cardBox > .cardText:last-child {
+  padding-bottom: 0.4rem !important;
+}
+
+.cardText-first {
+  color: var(--obs-white) !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  letter-spacing: -0.01em !important;
+  margin-top: 0.4rem !important;
+}
+
+.cardText-secondary {
+  color: var(--obs-slate-400) !important;
+  font-size: 0.825rem !important;
+  margin-top: 0.15rem !important;
+}
+
+/* --------------------------------------------------------------------------
+   Card Indicators & Badges (Played, Unplayed, Progress - Looplet Calibration)
+   -------------------------------------------------------------------------- */
+/* Unplayed Count Bubble */
+.countIndicator {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.92) 0%, rgba(79, 70, 229, 0.92) 100%) !important;
+  color: var(--obs-white) !important;
+  font-weight: 700 !important;
+  font-size: 0.72rem !important;
+  border-radius: var(--obs-radius-full) !important;
+  padding: 0.18rem 0.55rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.5) !important;
+}
+
+/* Played State Checkmark Badge */
+.playedIndicator {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.92) 0%, rgba(16, 185, 129, 0.92) 100%) !important;
+  color: var(--obs-slate-950) !important;
+  border-radius: var(--obs-radius-full) !important;
+  padding: 0.25rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 2px 10px rgba(52, 211, 153, 0.4) !important;
+}
+
+/* Resume Watch Progress Bar */
+.itemProgressBar {
+  background-color: rgba(15, 23, 42, 0.78) !important;
+  height: 4px !important;
+  border-radius: var(--obs-radius-full) !important;
+  margin: 0 0.5rem 0.5rem 0.5rem !important;
+  overflow: hidden !important;
+}
+
+.itemProgressBarForeground {
+  background: linear-gradient(90deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  border-radius: var(--obs-radius-full) !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.85) !important;
+}
+
+/* Card Hover Action Buttons Overlay
+   Uses composited alpha scrim instead of per-card backdrop-filter to sustain 120Hz */
+.cardOverlayContainer {
+  background: rgba(2, 6, 23, 0.56) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-radius: inherit !important;
+  backface-visibility: hidden;
+  transition: opacity var(--obs-duration-card) var(--obs-ease-out-120) !important;
+}
+
+.cardOverlayButton-hover {
+  transition: opacity var(--obs-duration-card) var(--obs-ease-out-120) !important;
+}
+
+.cardOverlayButton {
+  border-radius: var(--obs-radius-full) !important;
+  background-color: rgba(15, 23, 42, 0.72) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              opacity var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease !important;
+}
+
+.cardOverlayButton:not(.hide) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cardOverlayButton:hover,
+.cardOverlayContainer > .cardOverlayFab-primary:hover {
+  background: linear-gradient(135deg, var(--obs-indigo-500), var(--obs-fuchsia-500)) !important;
+  transform: scale3d(1.1, 1.1, 1) !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+}
+
+/* Horizontal Carousel Navigation Buttons */
+.emby-scrollbuttons-button {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Mobile Card Constraints (3.5" to 4.7" displays)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .card {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+
+/* >>> MODULE: 06-item-detail.css <<< */
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - ITEM DETAIL PAGE (CINEMATIC HERO)
+ * File: 06-item-detail.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Item Detail Viewport & Backdrop Vignette
+   Dark gradient scrim over fanart to enhance text legibility
+   -------------------------------------------------------------------------- */
+.itemDetailPage {
+  background-color: transparent !important;
+}
+
+/* Cinematic Dark-to-Purple Gradient Mask over Fanart
+   The native wrapper starts below the artwork hero. Painting the gradient on
+   that box created a visible horizontal seam, so the scrim is viewport-bound
+   and kept behind the detail content instead. */
+.detailPageWrapperContainer,
+.noBackdropTransparency .detailPageWrapperContainer {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  position: relative !important;
+}
+
+.itemBackdrop {
+  -webkit-mask-image: linear-gradient(180deg, #000000 60%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000000 60%, transparent 100%);
+}
+
+.detailPageWrapperContainer::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(8, 4, 22, 0.62) 52%,
+    rgba(20, 8, 46, 0.80) 100%
+  ) !important;
+  z-index: 0;
+}
+
+.detailPageWrapperContainer > .detailPagePrimaryContainer,
+.detailPageWrapperContainer > .detailPageSecondaryContainer {
+  position: relative !important;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Focal Hero Panel (.detailPagePrimaryContainer / .detailRibbon)
+   Tier 3 Glass Hero with Prismatic Chromatic Edge & Inset Luminescence
+   -------------------------------------------------------------------------- */
+.detailRibbon {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.detailPagePrimaryContainer,
+.noBackdropTransparency .detailPagePrimaryContainer {
+  position: relative !important;
+  background: var(--obs-hero-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  padding: 1.75rem !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset) !important;
+  margin-top: 1.5rem !important;
+}
+
+/* Prismatic Chromatic Refraction Rim around the Glass Hero Window */
+.detailPagePrimaryContainer::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.75px;
+  background: var(--obs-chromatic-edge-hover);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none !important;
+  z-index: 4;
+}
+
+/* Let backdrop artwork and viewport scrim remain continuous behind lower carousels */
+.detailPageSecondaryContainer,
+.noBackdropTransparency .detailPageSecondaryContainer {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Detail Poster Thumbnail (Looplet .af-poster-frame parity with Chromatic Rim) */
+.detailImageContainer .cardBox {
+  border-radius: var(--obs-radius-2xl) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.75), var(--obs-chromatic-inset-card) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+}
+
+/* Item Name / Title */
+.itemName {
+  font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.75rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  margin-bottom: 0.75rem !important;
+  color: var(--obs-white) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Primary Action Button: Obsidian .glass-button-primary (.btnPlay)
+   Dual-tone Indigo-Fuchsia gradient with neon halo
+   -------------------------------------------------------------------------- */
+.btnPlay {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.88) 0%, rgba(217, 70, 239, 0.88) 100%) !important;
+  color: var(--obs-white) !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+  padding: 0.65rem 1.4rem !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+  min-height: 44px !important;
+}
+
+.btnPlay:hover {
+  transform: scale3d(1.03, 1.03, 1) !important;
+  border-color: rgba(255, 255, 255, 0.48) !important;
+  box-shadow: var(--obs-shadow-button-hover) !important;
+}
+
+.btnPlay:focus-visible {
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 3px !important;
+}
+
+/* Secondary Detail Buttons (Trailer, Favorite, Played, More) */
+.mainDetailButtons .emby-button:not(.btnPlay) {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--obs-slate-200) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease !important;
+}
+
+.mainDetailButtons .emby-button:not(.btnPlay):hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-glass-border-hover) !important;
+  transform: translate3d(0, -2px, 0);
+}
+
+/* --------------------------------------------------------------------------
+   Frosted Holographic Metadata Badges (Rating, Year, Resolution, Runtime)
+   -------------------------------------------------------------------------- */
+.itemMiscInfo:not(.hide),
+.itemMiscInfo-primary:not(.hide) {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.45rem !important;
+  align-items: center !important;
+  margin-bottom: 1rem !important;
+}
+
+.mediaInfoItem:not(.mediaInfoIconItem) {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: var(--obs-radius-full) !important;
+  padding: 0.2rem 0.65rem !important;
+  font-size: 0.825rem !important;
+  font-weight: 600 !important;
+  color: var(--obs-slate-300) !important;
+}
+
+/* Critic & Star Rating Accents */
+.starRatingContainer {
+  color: var(--obs-amber-400) !important;
+}
+
+/* Jellyfin 12.2 ItemDetailsMetadataList React Component (.detailsGroupItem) */
+.detailsGroupItem:not(.hide) {
+  display: flex;
+  flex-wrap: wrap !important;
+  align-items: baseline !important;
+  gap: 0.35rem 0.65rem !important;
+  margin-bottom: 0.45rem !important;
+}
+
+.detailsGroupItem .label {
+  color: var(--obs-slate-400) !important;
+  font-weight: 600 !important;
+  min-width: 5.5rem;
+}
+
+.detailsGroupItem .button-link {
+  color: var(--obs-slate-200) !important;
+  transition: color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.detailsGroupItem .button-link:hover {
+  color: var(--obs-indigo-300) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile & Ultrawide Responsive Item Detail Layout (Jellyfin 12.2 Contract)
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .itemDetailPage {
+    --obs-detail-art-width: clamp(200px, 15vw, 300px);
+    --obs-detail-landscape-width: clamp(260px, 22vw, 400px);
+    --obs-detail-art-gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+
+  .itemDetailPage .itemBackdrop {
+    height: clamp(160px, 25vh, 300px) !important;
+  }
+
+  .itemDetailPage .detailLogo {
+    top: clamp(4.25rem, 5.5vh, 5.25rem) !important;
+    height: clamp(64px, 13vh, 136px) !important;
+  }
+
+  /* Contained 2-column Glass Hero Grid:
+     Col 1: Poster/Episode Artwork (.detailImageContainer.hide-mobile)
+     Col 2: Title/Actions (.detailRibbon) + Metadata/Overview/Credits
+     Row 6+: Full-width Next Up / Seasons / Episode lists spanning 1 / -1 */
+  .itemDetailPage .detailPagePrimaryContainer {
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto auto 1fr !important;
+    column-gap: var(--obs-detail-art-gap) !important;
+    row-gap: 0 !important;
+    align-items: start !important;
+    box-sizing: border-box !important;
+    width: calc(100% - clamp(2rem, 4vw, 5rem)) !important;
+    max-width: 1800px !important;
+    margin: 1rem auto 0 auto !important;
+    padding: clamp(1.5rem, 2.5vw, 2.25rem) !important;
+  }
+
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    column-gap: 0 !important;
+  }
+
+  .itemDetailPage .detailImageContainer.hide-mobile {
+    grid-column: 1 !important;
+    grid-row: 1 / 6 !important;
+    align-self: start !important;
+    display: block !important;
+    float: none !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 3 !important;
+  }
+
+  .itemDetailPage .detailImageContainer.hide-mobile:empty {
+    display: none !important;
+  }
+
+  .itemDetailPage .infoWrapper > .detailImageContainer {
+    display: none !important;
+  }
+
+  .itemDetailPage .detailImageContainer.hide-mobile .card {
+    position: relative !important;
+    float: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    width: var(--obs-detail-art-width) !important;
+    max-width: var(--obs-detail-art-width) !important;
+    max-height: none !important;
+  }
+
+  .itemDetailPage .detailImageContainer.hide-mobile .card.backdropCard,
+  .itemDetailPage .detailImageContainer.hide-mobile .card.bannerCard {
+    width: var(--obs-detail-landscape-width) !important;
+    max-width: var(--obs-detail-landscape-width) !important;
+  }
+
+  .itemDetailPage .detailImageContainer.hide-mobile .cardBox {
+    margin: 0 !important;
+  }
+
+  .itemDetailPage .detailPagePrimaryContent,
+  .itemDetailPage .detailSection {
+    display: contents !important;
+  }
+
+  .itemDetailPage .detailRibbon {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    position: relative !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 0.75rem 1.5rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 0 0.75rem 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .itemDetailPage .detailRibbon .infoWrapper {
+    flex: 1 1 260px !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  .itemDetailPage .detailRibbon .parentName,
+  .itemDetailPage .detailRibbon .itemName,
+  .itemDetailPage .detailRibbon .itemMiscInfo {
+    text-align: left !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+
+  .itemDetailPage .detailRibbon .itemName {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    word-break: break-word !important;
+  }
+
+  .itemDetailPage .detailRibbon .mainDetailButtons {
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    align-self: center !important;
+    justify-content: flex-start !important;
+  }
+
+  .itemDetailPage .detailSection > .trackSelections {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    width: 100% !important;
+    margin: 0 0 0.85rem 0 !important;
+  }
+
+  .itemDetailPage .detailSection > .recordingFields {
+    grid-column: 2 !important;
+    grid-row: 3 !important;
+    width: 100% !important;
+    margin: 0 0 0.85rem 0 !important;
+  }
+
+  .itemDetailPage .detailSection > .detailSectionContent {
+    grid-column: 2 !important;
+    grid-row: 4 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+  .itemDetailPage .detailSection > .itemDetailsGroup {
+    grid-column: 2 !important;
+    grid-row: 5 !important;
+    align-self: start !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0.85rem 0 0 0 !important;
+  }
+
+  .itemDetailPage .detailSection > .itemDetailsGroup:not(:has(> .detailsGroupItem:not(.hide))) {
+    margin: 0 !important;
+  }
+
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailRibbon,
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailSection > .trackSelections,
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailSection > .recordingFields,
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailSection > .detailSectionContent,
+  .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailSection > .itemDetailsGroup {
+    grid-column: 1 !important;
+  }
+
+  /* Full-width child collections & episode lists span across both columns below poster */
+  .itemDetailPage .detailSection > #seriesTimerScheduleSection,
+  .itemDetailPage .detailSection > .collectionItems,
+  .itemDetailPage .detailSection > .nextUpSection,
+  .itemDetailPage .detailSection > .programGuideSection,
+  .itemDetailPage .detailSection > #listChildrenCollapsible {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 1.5rem 0 0 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* In Jellyfin 12.2, .detailPageSecondaryContainer directly wraps lower sections
+     (replacing the removed .detailPageContent wrapper from 10.11) */
+  .itemDetailPage .detailPageSecondaryContainer {
+    box-sizing: border-box !important;
+    width: calc(100% - clamp(2rem, 4vw, 5rem)) !important;
+    max-width: 1800px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .detailPageWrapperContainer,
+  .detailPagePrimaryContainer,
+  .detailPageSecondaryContainer {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 0.75rem !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .detailPagePrimaryContainer {
+    padding: 1rem 0.75rem !important;
+    margin-top: 0.5rem !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  .detailImageContainer {
+    position: static !important;
+    width: 160px !important;
+    max-width: 55vw !important;
+    margin: 0 auto 1rem auto !important;
+    flex-shrink: 0 !important;
+    left: auto !important;
+    top: auto !important;
+    float: none !important;
+  }
+
+  .detailImageContainer .card {
+    position: relative !important;
+    float: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .detailImageContainer .cardBox {
+    margin: 0 auto !important;
+  }
+
+  .infoWrapper {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    left: auto !important;
+    top: auto !important;
+    float: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    box-sizing: border-box !important;
+  }
+
+  .detailRibbon {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    left: auto !important;
+  }
+
+  .itemName {
+    font-size: 1.5rem !important;
+    line-height: 1.25 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    white-space: normal !important;
+    text-align: left !important;
+    width: 100% !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .itemMiscInfo,
+  .itemMiscInfo-primary,
+  .mediaInfoStream {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .mainDetailButtons {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .mainDetailButtons .btnPlay {
+    flex-grow: 1 !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .mainDetailButtons .emby-button:not(.btnPlay) {
+    flex-shrink: 0 !important;
+  }
+
+  /* Episode list, stream selectors, & series templates */
+  .detailSection,
+  .detailVerticalSection,
+  .detailSectionContent,
+  .itemDetailsGroup,
+  .trackSelections {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .selectContainer {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .overview {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 0.925rem !important;
+    line-height: 1.55 !important;
+    margin-top: 0.5rem !important;
+  }
+}
+
+
+/* >>> MODULE: 07-player-osd.css <<< */
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - PLAYBACK OSD & AUDIO DOCK
+ * File: 07-player-osd.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Video Playback OSD Header & Jellyfin 12.2 Modern .videoOsd-appBar (.osdHeader)
+   -------------------------------------------------------------------------- */
+.osdHeader {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.82) 0%, transparent 100%) !important;
+  padding: 1rem 1.75rem !important;
+}
+
+.videoOsd-appBar {
+  background: transparent !important;
+}
+
+.osdTitle,
+.videoOsd-appBar .MuiTypography-root {
+  color: var(--obs-white) !important;
+  font-weight: 700 !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Video Playback Controls: Floating Dynamic Dock (.videoOsdBottom)
+   Modeled after Looplet & Palate's Floating Dynamic Dock
+   -------------------------------------------------------------------------- */
+.videoOsdBottom,
+.videoOsdBottom.videoOsdBottom-maincontrols,
+.videoOsdBottom-maincontrols {
+  background: transparent !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-end !important;
+  padding: 0 1rem max(1rem, env(safe-area-inset-bottom)) 1rem !important;
+  pointer-events: none !important;
+  z-index: 1000 !important;
+}
+
+/* Single Frosted Obsidian Dock Surface (Owned exclusively by .osdControls) */
+.videoOsdBottom .osdControls,
+.videoOsdBottom-maincontrols .osdControls {
+  position: relative !important;
+  pointer-events: auto !important;
+  background: rgba(12, 16, 28, 0.86) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.72), var(--obs-chromatic-inset) !important;
+  padding: 0.65rem 1.25rem 0.75rem 1.25rem !important;
+  max-width: 1040px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.25rem !important;
+  box-sizing: border-box !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.videoOsdBottom .osdControls::after,
+.videoOsdBottom-maincontrols .osdControls::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: var(--obs-chromatic-edge-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none !important;
+  z-index: 2;
+}
+
+@media (min-width: 1024px) {
+  .videoOsdBottom .osdControls,
+  .videoOsdBottom-maincontrols .osdControls {
+    border-radius: 1.75rem !important;
+    padding: 0.7rem 1.5rem 0.8rem 1.5rem !important;
+  }
+}
+
+/* Collapse empty title/status rows so they do not create a blank forehead above the scrub bar */
+.videoOsdBottom .osdMainTextContainer:not(:has(.osdTitle:not(:empty))):not(:has(.osdMediaStatus:not(.hide))),
+.videoOsdBottom .osdSecondaryMediaInfo:empty,
+.videoOsdBottom .osdSecondaryMediaInfo.hide {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.videoOsdBottom .osdMainTextContainer,
+.videoOsdBottom .osdSecondaryMediaInfo {
+  margin-bottom: 0.15rem !important;
+  padding-left: 0.25rem !important;
+}
+
+/* Scrub timeline row & tabular timestamps */
+.videoOsdBottom .startTimeText,
+.videoOsdBottom .endTimeText,
+.videoOsdBottom .osdPositionText,
+.videoOsdBottom .osdDurationText {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: var(--obs-font-mono) !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums !important;
+  color: var(--obs-slate-200) !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+.videoOsdBottom .osdControls > .flex > .sliderContainer {
+  margin: 0 0.75rem !important;
+}
+
+/* Transport & Utility Controls Row (.buttons) */
+.videoOsdBottom .buttons {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.2rem !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (min-width: 640px) {
+  .videoOsdBottom .buttons {
+    flex-wrap: nowrap !important;
+  }
+}
+
+.videoOsdBottom .buttons > div[dir="ltr"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.2rem !important;
+  flex-shrink: 0 !important;
+}
+
+.videoOsdBottom .osdTimeText {
+  margin: 0 auto 0 0.75rem !important;
+  padding: 0 0.5rem 0 0 !important;
+  white-space: nowrap !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: var(--obs-slate-300) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.videoOsdBottom .volumeButtons {
+  margin: 0 0.25rem !important;
+  display: inline-flex;
+  align-items: center !important;
+  gap: 0.2rem !important;
+  flex-shrink: 1 !important;
+  min-width: 0 !important;
+}
+
+.videoOsdBottom .osdVolumeSliderContainer {
+  width: clamp(80px, 7vw, 124px) !important;
+  flex-grow: 0 !important;
+  margin: 0 !important;
+}
+
+.videoOsdBottom,
+.osdHeader {
+  transition: opacity var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+/* Preserve Jellyfin Native Hidden States */
+.videoOsdBottom.videoOsdBottom-hidden,
+.osdHeader.osdHeader-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* Elevate Subtitles When Floating Bottom OSD Dock Is Visible */
+body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles {
+  transform: translate3d(0, -4.5rem, 0) !important;
+  transition: transform var(--obs-duration-card) var(--obs-ease-out-120) !important;
+}
+
+/* Timeline Scrub Slider Base Styles (Supports emby-slider and mdl-slider) */
+.videoOsdBottom .mdl-slider-container,
+.videoOsdBottom .sliderContainer,
+.videoOsdBottom .mdl-slider {
+  min-height: 44px !important;
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+.videoOsdBottom .mdl-slider-background-lower {
+  background: linear-gradient(90deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.85) !important;
+  height: 4px !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+.videoOsdBottom input[is="emby-slider"]::-webkit-slider-thumb,
+.videoOsdBottom .mdl-slider::-webkit-slider-thumb {
+  background: var(--obs-white) !important;
+  border: 2px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 0 12px rgba(217, 70, 239, 0.9) !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+/* Keyboard Focus Visibility for Player Controls */
+.videoOsdBottom .paper-icon-button-light:focus-visible,
+.videoOsdBottom input[is="emby-slider"]:focus-visible {
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.6) !important;
+}
+
+/* Scrub Time Bubble Tooltip */
+.sliderBubble {
+  background: rgba(12, 16, 28, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  color: var(--obs-white) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  box-shadow: var(--obs-shadow-card) !important;
+  font-family: var(--obs-font-mono) !important;
+  font-weight: 600 !important;
+}
+
+/* Play/Pause Central Trigger Button Base Styles (Targets .btnPause, .btnPlay, .btnPlayPause) */
+.videoOsdBottom .btnPlay:not(.hide),
+.videoOsdBottom .btnPause:not(.hide),
+.videoOsdBottom .btnPlayPause:not(.hide) {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: var(--obs-radius-full) !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  margin: 0 0.15rem !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+  display: inline-flex;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-spring-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+  will-change: transform;
+}
+
+.videoOsdBottom .btnPlay:hover,
+.videoOsdBottom .btnPause:hover,
+.videoOsdBottom .btnPlayPause:hover {
+  transform: scale3d(1.08, 1.08, 1) !important;
+  box-shadow: var(--obs-shadow-button-hover) !important;
+}
+
+/* Universal .hide safeguard */
+.videoOsdBottom .hide,
+.videoOsdBottom .paper-icon-button-light.hide {
+  display: none !important;
+}
+
+/* Secondary Playback Buttons (Universal 44px Target Size for WCAG 2.2 AAA Enhanced) */
+.videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause) {
+  border-radius: var(--obs-radius-full) !important;
+  color: var(--obs-slate-300) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+  display: inline-flex;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  transition: color var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              transform var(--obs-duration-fast) var(--obs-ease-spring-120) !important;
+}
+
+.videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause):hover {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Playback Popups & Menus (Subtitle Action Sheet, Playback Settings) */
+.videoOsdBottom ~ .actionSheetContent,
+.videoOsdBottom .actionSheetContent {
+  background: rgba(12, 16, 28, 0.94) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Short-Landscape Compact Viewport Optimizations (<= 500px Height - Looplet)
+   Maintains 44px interactive hit targets while scaling inner visual glyphs
+   -------------------------------------------------------------------------- */
+@media (max-height: 500px) and (orientation: landscape) {
+  .videoOsdBottom {
+    padding: 0 0.5rem 0.25rem 0.5rem !important;
+  }
+
+  .videoOsdBottom .osdControls,
+  .videoOsdBottom-maincontrols .osdControls {
+    padding: 0.2rem 0.75rem !important;
+    max-width: 720px !important;
+    gap: 0.15rem !important;
+  }
+
+  .videoOsdBottom .osdMainTextContainer,
+  .videoOsdBottom .osdSecondaryMediaInfo {
+    display: none !important;
+  }
+
+  .videoOsdBottom .volumeButtons {
+    display: none !important;
+  }
+
+  .videoOsdBottom .buttons {
+    flex-wrap: nowrap !important;
+    padding: 0 !important;
+  }
+
+  .videoOsdBottom .btnPlay:not(.hide),
+  .videoOsdBottom .btnPause:not(.hide),
+  .videoOsdBottom .btnPlayPause:not(.hide) {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+
+  .videoOsdBottom .mdl-slider-container,
+  .videoOsdBottom .sliderContainer,
+  .videoOsdBottom .mdl-slider {
+    height: 28px !important;
+    min-height: 28px !important;
+    margin: 0 !important;
+  }
+
+  .videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause) {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+
+  /* Compact visual icons inside the 44px hit targets */
+  .videoOsdBottom .paper-icon-button-light .material-icons,
+  .videoOsdBottom .paper-icon-button-light .xlargePaperIconButton,
+  .videoOsdBottom .paper-icon-button-light .largePaperIconButton {
+    font-size: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Audio Now-Playing Docked Bottom Bar (.nowPlayingBar)
+   -------------------------------------------------------------------------- */
+.nowPlayingBar {
+  background: rgba(2, 6, 23, 0.88) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6) !important;
+  padding-bottom: max(6px, env(safe-area-inset-bottom)) !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.nowPlayingImage {
+  border-radius: var(--obs-radius-md) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+}
+
+.nowPlayingBarText {
+  color: var(--obs-white) !important;
+  font-weight: 600 !important;
+}
+
+
+/* >>> MODULE: 08-dialogs-inputs.css <<< */
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - DIALOGS, MODALS, MENUS & FORM WELLS
+ * File: 08-dialogs-inputs.css
+ * Covers Jellyfin 12.2 Material UI Surfaces & Legacy Emby Dialogs/Inputs
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Tier 2 Glass Panels: Modal Dialogs, Popovers, Menus & Action Sheets
+   -------------------------------------------------------------------------- */
+.dialog,
+.formDialog,
+.actionSheetContent,
+.paperList,
+.MuiDialog-paper,
+.MuiPopover-paper,
+.MuiMenu-paper,
+.MuiPaper-root:not(.MuiAppBar-root):not(.MuiDrawer-paper):not(.MuiAlert-root) {
+  background: var(--obs-panel-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset), inset 0 0 40px rgba(255, 255, 255, 0.02) !important;
+  color: var(--obs-slate-200) !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.dialog:not(.actionSheet)::after,
+.formDialog::after,
+.actionSheetContent::after,
+.MuiDialog-paper::after,
+.MuiPopover-paper::after,
+.MuiMenu-paper::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: var(--obs-chromatic-edge-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none !important;
+  z-index: 2;
+}
+
+/* Ensure actionSheet dialog wrapper delegates surface styling to .actionSheetContent */
+.dialog.actionSheet {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Dialog Header */
+.formDialogHeaderTitle {
+  color: var(--obs-white) !important;
+  font-weight: 700 !important;
+}
+
+/* Action Sheet & Material UI Menu Items */
+.actionSheetMenuItem,
+.MuiMenuItem-root {
+  border-radius: var(--obs-radius-md) !important;
+  margin: 0.2rem 0.4rem !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+@media (pointer: coarse) {
+  .actionSheetMenuItem:not(.hide),
+  .MuiMenuItem-root:not(.hide) {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+}
+
+.actionSheetMenuItem:hover,
+.MuiMenuItem-root:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: var(--obs-white) !important;
+}
+
+.MuiMenuItem-root.Mui-selected {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(217, 70, 239, 0.12) 100%) !important;
+  color: var(--obs-white) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Tier 4 Glass Inputs & Recessed Dark Wells (Looplet .glass-input parity)
+   -------------------------------------------------------------------------- */
+.emby-input,
+.emby-textarea,
+.emby-select,
+.MuiFilledInput-root,
+.MuiOutlinedInput-root {
+  background: var(--obs-input-bg) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.35) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  color: var(--obs-slate-200) !important;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  transition: border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.emby-input,
+.emby-textarea,
+.emby-select {
+  padding: 0.65rem 1rem !important;
+}
+
+.emby-input:focus,
+.emby-textarea:focus,
+.emby-select:focus,
+.MuiFilledInput-root.Mui-focused,
+.MuiOutlinedInput-root.Mui-focused {
+  border-color: var(--obs-indigo-400) !important;
+  background: var(--obs-input-bg-focus) !important;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.35) !important;
+  outline: none !important;
+}
+
+/* Dropdown Options */
+.emby-select option {
+  background-color: var(--obs-slate-900) !important;
+  color: var(--obs-white) !important;
+}
+
+/* Checkbox & Switch Styling */
+.emby-checkbox:checked + span + .checkboxOutline {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  border-color: transparent !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5) !important;
+}
+
+.MuiCheckbox-root.Mui-checked,
+.MuiSwitch-switchBase.Mui-checked {
+  color: var(--obs-indigo-400) !important;
+}
+
+.checkboxOutline {
+  border-radius: var(--obs-radius-sm) !important;
+  border: 1.5px solid var(--obs-slate-500) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Profile Preferences Responsive Form Containment
+   Prevents fixed flex row from blowing out 320px compact mobile viewports
+   -------------------------------------------------------------------------- */
+#userProfilePage .readOnlyContent {
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+}
+
+#userProfilePage .readOnlyContent > div {
+  margin: 0.5em !important;
+}
+
+
+/* >>> MODULE: 09-login.css <<< */
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - LOGIN SCREEN HERO
+ * File: 09-login.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Centered Glass Hero Login Container (#loginPage)
+   -------------------------------------------------------------------------- */
+#loginPage:not(.hide) {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 100vh !important;
+}
+
+#loginPage.hide {
+  display: none !important;
+}
+
+/* Glass Login Box */
+#loginPage .visualLoginForm,
+#loginPage .manualLoginForm {
+  position: relative !important;
+  background: var(--obs-panel-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset), 0 0 60px rgba(99, 102, 241, 0.22) !important;
+  padding: 2.5rem 2rem !important;
+  max-width: 440px !important;
+  width: 90% !important;
+  margin: 0 auto !important;
+}
+
+#loginPage .visualLoginForm::after,
+#loginPage .manualLoginForm::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: var(--obs-chromatic-edge-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none !important;
+  z-index: 2;
+}
+
+/* User Profile Cards on Visual Login */
+#loginPage .card.squareCard .cardBox {
+  border-radius: var(--obs-radius-2xl) !important;
+  padding: 0.75rem !important;
+}
+
+#loginPage .card.squareCard .cardImageContainer {
+  border-radius: var(--obs-radius-full) !important;
+  border: 2px solid var(--obs-glass-border) !important;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Sign In Submit Button */
+#loginPage .raised.emby-button,
+#loginPage .button-submit {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  color: var(--obs-white) !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+  padding: 0.75rem !important;
+  min-height: 44px !important;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-spring-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+  will-change: transform;
+}
+
+#loginPage .raised.emby-button:hover,
+#loginPage .button-submit:hover {
+  transform: scale3d(1.02, 1.02, 1) !important;
+  box-shadow: var(--obs-shadow-button-hover) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Narrow-Screen Login Container Fitting (<= 360px - Looplet Pocket Viewport)
+   Corrects horizontal document overflow on compact viewports
+   -------------------------------------------------------------------------- */
+@media (max-width: 360px) {
+  #loginPage .visualLoginForm,
+  #loginPage .manualLoginForm {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    padding: 2rem 1.25rem !important;
+  }
+}
+
+
+/* >>> MODULE: 10-presets.css <<< */
+/**
+ * ============================================================================
+ * OBSIDIAN DESIGN SYSTEM - PERFORMANCE PRESETS, 120HZ PRIMITIVES & ACCESSIBILITY
+ * File: 10-presets.css
+ * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   Looplet 120Hz GPU Primitives, Touch Targets & Connection Beacons
+   -------------------------------------------------------------------------- */
+.obs-gpu-120hz-rail {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: width, transform;
+  transition: width 180ms var(--obs-ease-out-120),
+              transform 180ms var(--obs-ease-out-120),
+              background-color 180ms var(--obs-ease-out-120),
+              border-color 180ms var(--obs-ease-out-120);
+}
+
+.obs-gpu-120hz-interactive {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              opacity var(--obs-duration-fast) var(--obs-ease-out-120),
+              background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120);
+}
+
+.obs-touch-target-huge {
+  min-height: 64px;
+  min-width: 64px;
+}
+
+.obs-touch-target-large {
+  min-height: 52px;
+  min-width: 52px;
+}
+
+.obs-touch-target-standard {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.obs-beacon-live {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--obs-accent-emerald);
+  box-shadow: 0 0 10px var(--obs-accent-emerald), 0 0 20px var(--obs-accent-emerald);
+}
+
+.obs-beacon-reconnecting {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--obs-accent-amber);
+  box-shadow: 0 0 10px var(--obs-accent-amber);
+}
+
+.obs-beacon-danger {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--obs-accent-rose);
+  box-shadow: 0 0 12px var(--obs-accent-rose);
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion Accessibility (WCAG 2.2 Phase 4 & Looplet Parity)
+   Stops continuous GPU animation loops and eliminates kinetic hover jumps
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --obs-aurora-animation: none !important;
+    --obs-card-lift: 0px !important;
+  }
+
+  body::before {
+    animation: none !important;
+  }
+
+  .card:hover .cardBox,
+  .card:focus-visible .cardBox,
+  .btnPlay:hover,
+  .videoOsdBottom .btnPlay:hover,
+  .videoOsdBottom .btnPause:hover,
+  .videoOsdBottom .btnPlayPause:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .cardBox::after {
+    transition: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* Touch and slow-refresh devices keep static glass, but skip continuous
+   full-screen aurora animation. */
+@media (hover: none), (pointer: coarse), (update: slow) {
+  :root {
+    --obs-card-blur: 0px;
+    --obs-aurora-animation: none;
+  }
+
+  .cardBox {
+    transition: border-color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Unsupported Backdrop-Filter Fallbacks (Legacy Browsers / Hardware)
+   Switches from transparent blur to opaque obsidian container layers
+   -------------------------------------------------------------------------- */
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+  :root {
+    --obs-card-bg: rgba(15, 23, 42, 0.94) !important;
+    --obs-panel-bg: rgba(2, 6, 23, 0.96) !important;
+    --obs-hero-bg: rgba(15, 23, 42, 0.96) !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Windows High Contrast / Forced Colors Mode
+   -------------------------------------------------------------------------- */
+@media (forced-colors: active) {
+  .cardBox,
+  .MuiCard-root,
+  .dialog,
+  .formDialog,
+  .MuiDialog-paper,
+  .skinHeader,
+  .MuiAppBar-root,
+  .btnPlay,
+  .emby-input,
+  .emby-select,
+  .MuiFilledInput-root,
+  .MuiOutlinedInput-root {
+    border: 1.5px solid CanvasText !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    box-shadow: none !important;
+  }
+
+  .emby-tab-button-active,
+  .navMenuOption-selected,
+  .MuiAppBar-root .MuiButton-colorPrimary,
+  .MuiDrawer-paper .MuiListItemButton-root.Mui-selected {
+    border: 2px solid Highlight !important;
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+}
+
