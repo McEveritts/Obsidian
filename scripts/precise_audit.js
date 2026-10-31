@@ -69,6 +69,7 @@ const MUI_COMPONENT_MAP = {
   MuiMenu: 'Menu',
   MuiMenuItem: 'MenuItem',
   MuiPaper: 'Paper',
+  MuiAccordion: 'Accordion',
   MuiCard: 'Card',
   MuiAlert: 'Alert',
   MuiButtonBase: 'Button',

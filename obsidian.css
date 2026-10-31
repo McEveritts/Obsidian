@@ -2111,7 +2111,7 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
 .MuiDialog-paper,
 .MuiPopover-paper,
 .MuiMenu-paper,
-.MuiPaper-root:not(.MuiAppBar-root):not(.MuiDrawer-paper):not(.MuiAlert-root) {
+.MuiPaper-root:not(.MuiAppBar-root):not(.MuiDrawer-paper):not(.MuiAlert-root):not(.MuiAccordion-root) {
   background: var(--obs-panel-bg) !important;
   backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
   -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
@@ -2152,6 +2152,11 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   box-shadow: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+}
+
+#filter-popover .MuiAccordion-root {
+  background: transparent !important;
+  color: inherit !important;
 }
 
 /* Dialog Header */
