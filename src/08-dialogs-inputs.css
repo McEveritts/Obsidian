@@ -39,7 +39,7 @@
 .MuiMenu-paper::after {
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: 0;
   border-radius: inherit;
   padding: 1.5px;
   background: var(--obs-chromatic-edge-gradient);
