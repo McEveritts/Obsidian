@@ -160,3 +160,69 @@
     filter: none;
   }
 }
+
+.homeSectionsContainer .emby-scroller:has(> .scrollSlider > a[is="emby-linkbutton"].raised[href*="/livetv"]) {
+  padding-left: max(1.5rem, 3.3%, env(safe-area-inset-left)) !important;
+  padding-right: max(1.5rem, 3.3%, env(safe-area-inset-right)) !important;
+}
+
+.homeSectionsContainer .focuscontainer-x:has(> a[is="emby-linkbutton"].raised[href*="/livetv"]) {
+  padding-block: 1.5rem !important;
+}
+
+.homeSectionsContainer a[is="emby-linkbutton"].raised[href*="/livetv"] {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.65rem 1.15rem;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: var(--obs-panel-bg) !important;
+  color: var(--obs-slate-200) !important;
+  box-shadow: var(--obs-chromatic-inset) !important;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  vertical-align: middle;
+  transition: border-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+.homeSectionsContainer a[is="emby-linkbutton"].raised[href*="/livetv"]:focus {
+  border-color: var(--obs-indigo-300) !important;
+  color: var(--obs-white) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+}
+
+@media (hover: hover) and (pointer: fine) and (forced-colors: none) {
+  .homeSectionsContainer a[is="emby-linkbutton"].raised[href*="/livetv"]:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.24), rgba(217, 70, 239, 0.14)) !important;
+    border-color: var(--obs-glass-border-hover) !important;
+    color: var(--obs-white) !important;
+    box-shadow: var(--obs-chromatic-inset), 0 0 16px rgba(217, 70, 239, 0.45) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homeSectionsContainer a[is="emby-linkbutton"].raised[href*="/livetv"] {
+    transition: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .homeSectionsContainer a[is="emby-linkbutton"].raised[href*="/livetv"],
+  .homeSectionsContainer a[is="emby-linkbutton"].raised[href*="/livetv"]:hover {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border-color: ButtonText !important;
+    box-shadow: none !important;
+  }
+
+  .homeSectionsContainer a[is="emby-linkbutton"].raised[href*="/livetv"]:focus {
+    outline-color: Highlight !important;
+  }
+}
