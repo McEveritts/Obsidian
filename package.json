@@ -7,7 +7,8 @@
     "build": "node build.js",
     "audit:selectors": "node scripts/precise_audit.js",
     "check:syntax": "node scripts/checkSyntax.js",
-    "test": "node scripts/checkSyntax.js && node build.js"
+    "test": "node scripts/checkSyntax.js && node build.js",
+    "test:live-tv": "node --test scripts/testLiveTv.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,8 @@
     "jellyfin-12"
   ],
   "author": "McEveritts",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "playwright": "1.59.1"
+  }
 }

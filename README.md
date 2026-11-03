@@ -174,7 +174,7 @@ body::after {
 
 ## 🛠️ Building from Source
 
-Obsidian is authored as 10 modular CSS files in [`src/`](./src) and compiled into a single validated stylesheet via [`build.js`](./build.js).
+Obsidian is authored as 11 modular CSS files in [`src/`](./src) and compiled into a single validated stylesheet via [`build.js`](./build.js). [`11-live-tv.css`](./src/11-live-tv.css) aligns the Guide timeline with its program grid and provides contained channel logos, two-line titles, and equal-height metadata rows without changing playback or schedule geometry.
 
 ```text
 Obsidian/
@@ -186,7 +186,8 @@ Obsidian/
 ├── docs/                         # Architecture, preset guides, & screenshot gallery
 ├── scripts/
 │   ├── checkSyntax.js            # JS syntax validation runner
-│   └── precise_audit.js          # Upstream jellyfin-web 12.2 selector contract auditor
+│   ├── precise_audit.js          # Upstream jellyfin-web 12.2 selector contract auditor
+│   └── testLiveTv.js             # Responsive Guide, channel & accessibility regressions
 └── src/
     ├── 01-variables.css          # --obs-* tokens & --mui-palette-* bridge
     ├── 02-atmosphere.css         # 120Hz radial aurora orbs, vignette & inline SVG grain
@@ -197,7 +198,8 @@ Obsidian/
     ├── 07-player-osd.css         # Floating Dynamic Dock OSD & glowing scrub slider
     ├── 08-dialogs-inputs.css     # Frosted modals, action sheets & dark-glass inputs
     ├── 09-login.css              # Centered glass hero login screen
-    └── 10-presets.css            # Reduced-motion, forced-colors & GPU compositor rules
+    ├── 10-presets.css            # Reduced-motion, forced-colors & GPU compositor rules
+    └── 11-live-tv.css            # Aligned Guide timeline & contained channel artwork
 ```
 
 ```bash

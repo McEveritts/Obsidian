@@ -9,9 +9,28 @@
 Running `npm test` (`node scripts/checkSyntax.js && node build.js`) enforces four compile-time invariants before `obsidian.css` is emitted:
 
 1. **JavaScript Tooling Syntax Gate (`scripts/checkSyntax.js`):** Validates all build and audit scripts via `node --check`.
-2. **CSS Brace, Parenthesis & Comment Balance (`build.js`):** Parses every line across all 10 `src/*.css` modules to guarantee zero unclosed blocks, unbalanced `calc()`/`rgba()` parentheses, or unterminated comments.
+2. **CSS Brace, Parenthesis & Comment Balance (`build.js`):** Parses every line across all 11 `src/*.css` modules to guarantee zero unclosed blocks, unbalanced `calc()`/`rgba()` parentheses, or unterminated comments.
 3. **Zero External HTTP Dependency Gate (`build.js`):** Strips CSS comments and scans every rule for active `@import` statements or external `url(http://...)` / `url(https://...)` calls. Guarantees 100% offline LAN operation with zero external network dependencies.
-4. **Upstream Jellyfin 12.2 Selector Existence Contract (`scripts/precise_audit.js`):** Extracts every CSS class and ID token from `src/01-*.css` through `src/10-*.css` and verifies whole-token existence (`rg -P`) against the upstream `jellyfin-web 12.2` source tree and `@mui/material` component mappings (**0 dead selectors**).
+4. **Upstream Jellyfin 12.2 Selector Existence Contract (`scripts/precise_audit.js`):** Extracts every CSS class and ID token from `src/01-*.css` through `src/11-*.css` and verifies whole-token existence (`rg -P`) against the upstream `jellyfin-web 12.2` source tree and `@mui/material` component mappings (**0 dead selectors**).
+
+---
+
+### Live TV Regression Gate (Jellyfin 12.4.0)
+
+Run the deterministic build followed by the Chromium fixture suite:
+
+```bash
+npm ci
+npm test
+npx playwright install chromium
+npm run test:live-tv
+```
+
+The seven browser checks cover `320x480`, `390x844`, `844x390`, `1656x1269`, `1920x1080`, and `3840x2160`, plus forced colors with reduced motion. They assert aligned Guide headers and rows before and after scrolling, native schedule geometry, consistent card heights with missing or partial EPG data, two-line channel names, contained logos on an opaque backing, non-overlapping 44px actions, unchanged non-channel artwork, visible focus, and zero document overflow. The original production stylesheet fails the same regression suite.
+
+The candidate stylesheet was also checked against real Jellyfin 12.4.0 Guide and Channels views at `1656x1269` and `320x480`: the timeline and grid have identical x origins, native horizontal scroll synchronization remains intact, and all 86 channel cards have equal heights. These are emulated Chromium viewports, not physical mobile or TV hardware. The change uses only CSS and does not replace playback links, API requests, or program scheduling logic.
+
+`OBSIDIAN_CHROMIUM_PATH` can select an existing Chromium executable; `OBSIDIAN_STYLESHEET` can select an alternate stylesheet for a regression negative control. Browser dependencies are development-only and are not needed to load the compiled theme.
 
 ---
 

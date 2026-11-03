@@ -50,7 +50,7 @@ flowchart TD
 
 ## 3. Modular Source Pipeline
 
-All styling is authored across 10 ordered modules in [`src/`](../src) and compiled into [`obsidian.css`](../obsidian.css) via [`build.js`](../build.js):
+All styling is authored across 11 ordered modules in [`src/`](../src) and compiled into [`obsidian.css`](../obsidian.css) via [`build.js`](../build.js):
 
 | Module | Responsibility |
 | :--- | :--- |
@@ -64,3 +64,4 @@ All styling is authored across 10 ordered modules in [`src/`](../src) and compil
 | [`08-dialogs-inputs.css`](../src/08-dialogs-inputs.css) | `.MuiDialog-paper`, `.dialog`, `.actionSheetContent`, recessed dark-glass inputs & `<select>` menus |
 | [`09-login.css`](../src/09-login.css) | Centered glass hero authentication card (`#loginPage`), glowing focus rings, touch-safe submit controls |
 | [`10-presets.css`](../src/10-presets.css) | `prefers-reduced-motion: reduce`, `forced-colors: active` accessibility fallbacks, and preset hooks |
+| [`11-live-tv.css`](../src/11-live-tv.css) | Aligned Guide time headers, current-program and focus states, contained channel logos, equal-height channel cards, and Live TV forced-color fallbacks |

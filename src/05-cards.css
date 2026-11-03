@@ -21,7 +21,7 @@
      to constrain off-screen .animatedScrollX cards without clipping vertical hover lift.
    - Mobile/touch native scrollers (.emby-scroller.scrollX) MUST preserve overflow-x: auto
      so horizontal touch/swipe scrolling works on Home, Libraries, and Detail views. */
-.emby-scroller:not(.scrollX) {
+.emby-scroller:not(.scrollX):not(.scrollY) {
   overflow-x: clip !important;
 }
 

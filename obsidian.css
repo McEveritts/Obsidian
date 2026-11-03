@@ -851,7 +851,7 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
      to constrain off-screen .animatedScrollX cards without clipping vertical hover lift.
    - Mobile/touch native scrollers (.emby-scroller.scrollX) MUST preserve overflow-x: auto
      so horizontal touch/swipe scrolling works on Home, Libraries, and Detail views. */
-.emby-scroller:not(.scrollX) {
+.emby-scroller:not(.scrollX):not(.scrollY) {
   overflow-x: clip !important;
 }
 
@@ -2528,6 +2528,171 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
     border: 2px solid Highlight !important;
     background: Highlight !important;
     color: HighlightText !important;
+  }
+}
+
+
+/* >>> MODULE: 11-live-tv.css <<< */
+.tvguide .guide-headerTimeslots {
+  box-sizing: border-box;
+  padding-left: max(3.3%, env(safe-area-inset-left)) !important;
+  padding-right: max(3.3%, env(safe-area-inset-right)) !important;
+}
+
+.tvguide .guide-channelTimeslotHeader {
+  margin: 0 !important;
+}
+
+.tvguide .tvGuideHeader {
+  background: var(--obs-panel-bg) !important;
+  border-bottom: 1px solid var(--obs-glass-border);
+}
+
+.tvguide .timeslotHeader {
+  color: var(--obs-slate-300) !important;
+}
+
+.tvguide .guide-channelHeaderCell,
+.tvguide .channelPrograms {
+  border-color: rgba(129, 140, 248, 0.22) !important;
+}
+
+.tvguide .guide-channelHeaderCell {
+  background: rgba(12, 16, 28, 0.84) !important;
+  color: var(--obs-slate-200) !important;
+}
+
+.tvguide .guideChannelImage {
+  filter: drop-shadow(0 0 0.8px rgba(255, 255, 255, 0.75));
+}
+
+.tvguide .programCell {
+  --obs-guide-program-bg: rgba(15, 23, 42, 0.72);
+  background: var(--obs-guide-program-bg) !important;
+  color: var(--obs-slate-200) !important;
+  border-color: rgba(129, 140, 248, 0.2) !important;
+  border-radius: var(--obs-radius-sm) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.tvguide .programCell-movie {
+  --obs-guide-program-bg: rgba(99, 102, 241, 0.2);
+}
+
+.tvguide .programCell-sports {
+  --obs-guide-program-bg: rgba(16, 185, 129, 0.18);
+}
+
+.tvguide .programCell-news {
+  --obs-guide-program-bg: rgba(56, 189, 248, 0.18);
+}
+
+.tvguide .programCell-kids {
+  --obs-guide-program-bg: rgba(217, 70, 239, 0.18);
+}
+
+.tvguide .programCell-active {
+  background: linear-gradient(110deg, rgba(99, 102, 241, 0.3), var(--obs-guide-program-bg)) !important;
+  color: var(--obs-white) !important;
+  box-shadow: inset 3px 0 0 var(--obs-indigo-400), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.tvguide .programCell:focus,
+.tvguide .guide-channelHeaderCell:focus {
+  background: var(--obs-indigo-600) !important;
+  color: var(--obs-white) !important;
+  box-shadow: inset 0 0 0 2px var(--obs-indigo-300) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tvguide .programCell:hover:not(:focus),
+  .tvguide .guide-channelHeaderCell:hover:not(:focus) {
+    background: rgba(79, 70, 229, 0.36) !important;
+    color: var(--obs-white) !important;
+  }
+}
+
+.card[data-type="TvChannel"] .cardBox {
+  display: grid;
+  grid-template-rows: auto 3.4em 1.5em 1.5em;
+  padding-bottom: 0.5em !important;
+  background: var(--obs-panel-bg) !important;
+}
+
+.card[data-type="TvChannel"] .cardPadder-square {
+  box-sizing: border-box;
+  min-height: 7rem;
+  padding-bottom: 62.5% !important;
+}
+
+.card[data-type="TvChannel"] .cardOverlayFab-primary {
+  top: calc(50% - 44px) !important;
+  left: calc(50% - 22px) !important;
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 !important;
+}
+
+.card[data-type="TvChannel"] .cardImageContainer.coveredImage {
+  box-sizing: border-box;
+  padding: clamp(0.75rem, 1.2vw, 1.25rem);
+  background-color: var(--obs-slate-800) !important;
+  background-clip: border-box !important;
+  background-origin: content-box;
+  background-size: contain !important;
+}
+
+.card[data-type="TvChannel"] .cardImageContainer img {
+  box-sizing: border-box;
+  padding: clamp(0.75rem, 1.2vw, 1.25rem);
+  object-fit: contain !important;
+  filter: drop-shadow(0 0 0.8px rgba(255, 255, 255, 0.75));
+}
+
+.card[data-type="TvChannel"] .cardText {
+  min-width: 0;
+  margin: 0 !important;
+  padding: 0 0.65rem !important;
+  align-self: center;
+}
+
+.card[data-type="TvChannel"] .cardText-first {
+  grid-row: 2;
+  white-space: normal !important;
+  line-height: 1.35 !important;
+}
+
+.card[data-type="TvChannel"] .cardText-first .textActionButton {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  white-space: normal;
+}
+
+.card[data-type="TvChannel"] .cardText-secondary:empty {
+  display: none;
+}
+
+@media (forced-colors: active) {
+  .tvguide .tvGuideHeader,
+  .tvguide .programCell,
+  .tvguide .guide-channelHeaderCell {
+    background: Canvas !important;
+    color: CanvasText !important;
+    border-color: CanvasText !important;
+    box-shadow: none !important;
+  }
+
+  .tvguide .programCell:focus,
+  .tvguide .guide-channelHeaderCell:focus {
+    outline: 2px solid Highlight !important;
+    outline-offset: -2px;
+  }
+
+  .tvguide .guideChannelImage,
+  .card[data-type="TvChannel"] .cardImageContainer img {
+    filter: none;
   }
 }
 

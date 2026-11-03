@@ -23,7 +23,8 @@ const MODULE_ORDER = [
   '07-player-osd.css',
   '08-dialogs-inputs.css',
   '09-login.css',
-  '10-presets.css'
+  '10-presets.css',
+  '11-live-tv.css'
 ];
 
 const BANNER = `/**

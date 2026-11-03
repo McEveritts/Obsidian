@@ -3,6 +3,7 @@ upstream/
 evidence/
 live-screenshots/
 matrix-screenshots/
+test-results/
 audit-*/
 *.tar.gz
 *.log
