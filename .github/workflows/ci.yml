@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-verify:
-    name: CSS Build, Determinism & Live TV Layout Gate
+    name: CSS Build, Determinism & Layout Gates
     runs-on: ubuntu-24.04
 
     steps:
@@ -28,6 +28,9 @@ jobs:
 
       - name: Verify Live TV layout regressions
         run: npm run test:live-tv
+
+      - name: Verify player volume popup regressions
+        run: npm run test:player-osd
 
       - name: Verify compiled obsidian.css is up-to-date with src/ modules
         run: git diff --exit-code obsidian.css

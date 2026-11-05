@@ -38,6 +38,16 @@ The candidate stylesheet was also checked against real Jellyfin 12.4.0 Guide and
 
 ---
 
+### Player Volume Popup Regression Gate (Jellyfin 12.4.0)
+
+Run `npm test` followed by `npm run test:player-osd` after installing Chromium as described above. The seventeen checks use the installed Jellyfin volume component's `.volumeOsd`, `.iconOsdIcon`, and progress-meter markup and native CSS in a headless Chromium fixture, not a live playback session.
+
+The popup is a compact horizontal glass pill, with a small speaker icon and an indigo-to-fuchsia volume meter. Checks cover six desktop/mobile/TV viewport sizes in both text directions, accurate native percentage updates and mute classes, click-through behavior, unchanged unrelated icon overlays, enlarged text, late-loading native CSS, and forced-color visibility. Native `.hide` and `.iconOsd-hidden` states remain authoritative. Reduced motion retains a 1ms opacity transition because Jellyfin waits for `transitionend` before adding `.hide`; disabling the transition entirely would prevent that cleanup. The default native dismissal lifecycle is also exercised.
+
+The pre-fix compiled theme fails the compact-popup regression. `OBSIDIAN_CHROMIUM_PATH` and `OBSIDIAN_STYLESHEET` work as in the Live TV suite.
+
+---
+
 ## 2. Live Runtime Verification Summary (Jellyfin 12.2.0)
 
 Live DOM and computed-style telemetry was executed against a running **Jellyfin 12.2.0** server using **Headless Firefox Gecko 147.0 (Playwright `firefox-1543`)** with emulated desktop and mobile touch viewports.

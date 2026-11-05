@@ -1705,6 +1705,84 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85) !important;
 }
 
+.volumeOsd {
+  box-sizing: border-box !important;
+  width: 15rem !important;
+  max-width: calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right))) !important;
+  top: max(1rem, env(safe-area-inset-top)) !important;
+  right: max(1rem, env(safe-area-inset-right)) !important;
+  padding: 0.875rem 1.125rem !important;
+  background: rgba(12, 16, 28, 0.86) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-top-color: var(--obs-specular-top) !important;
+  border-left-color: var(--obs-chromatic-border-cyan) !important;
+  border-right-color: var(--obs-chromatic-border-fuchsia) !important;
+  border-radius: var(--obs-radius-full) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), var(--obs-chromatic-inset) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  pointer-events: none !important;
+  transition: opacity var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.volumeOsd:not(.hide) {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.875rem !important;
+}
+
+.volumeOsd .iconOsdIcon {
+  flex: 0 0 auto !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  font-size: 1.5rem !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+}
+
+.volumeOsd .iconOsdProgressOuter {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  height: 0.25rem !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+}
+
+.volumeOsd .iconOsdProgressInner {
+  height: 100% !important;
+  border-radius: inherit !important;
+  background: linear-gradient(90deg, var(--obs-indigo-400), var(--obs-fuchsia-400)) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .volumeOsd {
+    transition-duration: 1ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .volumeOsd {
+    forced-color-adjust: none !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    border-color: CanvasText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .volumeOsd .iconOsdProgressOuter {
+    background: GrayText !important;
+  }
+
+  .volumeOsd .iconOsdProgressInner {
+    background: Highlight !important;
+  }
+}
+
 /* --------------------------------------------------------------------------
    Video Playback Controls: Floating Dynamic Dock (.videoOsdBottom)
    Modeled after Looplet & Palate's Floating Dynamic Dock
