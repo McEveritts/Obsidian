@@ -83,8 +83,22 @@
   }
 
   .card:hover .cardBox,
+  .card:focus .cardBox,
   .card:focus-visible .cardBox,
+  .card.show-focus:focus .cardBox,
+  .card:focus-within .cardBox,
   .btnPlay:hover,
+  .btnPlay:focus,
+  .btnPlay.show-focus:focus,
+  .emby-button:focus,
+  .emby-button.show-focus:focus,
+  .emby-tab-button:focus,
+  .emby-tab-button.show-focus:focus,
+  .MuiButton-root:focus,
+  .MuiIconButton-root:focus,
+  .MuiListItemButton-root:focus,
+  .navMenuOption:focus,
+  .mainDetailButtons .emby-button:focus,
   .videoOsdBottom .btnPlay:hover,
   .videoOsdBottom .btnPause:hover,
   .videoOsdBottom .btnPlayPause:hover {
@@ -152,5 +166,65 @@
     border: 2px solid Highlight !important;
     background: Highlight !important;
     color: HighlightText !important;
+  }
+
+  .layout-tv .dialog.filterDialog .filterDialogContent,
+  .layout-tv #filter-popover .MuiPopover-paper:focus > *,
+  .layout-tv #selectview-popover .MuiPopover-paper:focus > .MuiList-root {
+    background: Canvas !important;
+    color: CanvasText !important;
+    border-color: CanvasText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .MuiPopover-paper:focus,
+  .MuiPopover-paper:focus-visible,
+  .emby-checkbox:focus + span + .checkboxOutline,
+  .emby-checkbox:focus-visible + span + .checkboxOutline,
+  .emby-checkbox.show-focus:focus + span + .checkboxOutline,
+  label.emby-checkbox-label:has(> .emby-checkbox:focus),
+  .MuiCheckbox-root.Mui-focusVisible,
+  .MuiCheckbox-root:has(input:focus),
+  .MuiRadio-root.Mui-focusVisible,
+  .MuiRadio-root:has(input:focus),
+  .MuiSwitch-switchBase.Mui-focusVisible,
+  label.MuiFormControlLabel-root:has(input:focus),
+  .mdl-radio__button:focus + .mdl-radio__circles,
+  .mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles,
+  label.radio-label-block:has(input:focus),
+  #filter-popover .MuiAccordionSummary-root:focus,
+  #filter-popover .MuiAccordionSummary-root:focus-visible,
+  #filter-popover .MuiAccordionSummary-root.Mui-focusVisible,
+  .emby-collapsible-button:focus,
+  .emby-collapsible-button:focus-visible,
+  .emby-collapsible-button.show-focus:focus,
+  main .MuiToolbar-root .MuiButton-root:focus,
+  main .MuiToolbar-root .MuiIconButton-root:focus,
+  main .MuiToolbar-root .MuiButtonGroup-grouped:focus,
+  .emby-tab-button:focus,
+  .emby-tab-button.show-focus:focus,
+  .alphaPickerButton:focus,
+  .alphaPickerButton.show-focus:focus,
+  .btnSort:focus,
+  .btnFilter:focus,
+  .btnPlayAll:focus,
+  .btnShuffle:focus,
+  .btnSelectView:focus,
+  .btnNewCollection:focus,
+  .btnPreviousPage:focus,
+  .btnNextPage:focus,
+  .viewControls .paper-icon-button-light:focus,
+  .actionSheetMenuItem:focus,
+  .MuiMenuItem-root:focus,
+  .formDialog .emby-button:focus,
+  .dialog .emby-button:focus,
+  .filterDialog .resetFilters:focus,
+  #filter-popover .MuiButton-root:focus,
+  .button-flat:focus {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
   }
 }

@@ -53,9 +53,11 @@ const ALLOWLIST = new Set([
   'layout-mobile',
   'layout-desktop',
   'layout-tv',
+  'show-focus',
   'Mui-selected',
   'Mui-checked',
   'Mui-focused',
+  'Mui-focusVisible',
   'Mui-disabled',
   'Mui-expanded'
 ]);
@@ -70,18 +72,25 @@ const MUI_COMPONENT_MAP = {
   MuiMenu: 'Menu',
   MuiMenuItem: 'MenuItem',
   MuiPaper: 'Paper',
+  MuiList: 'List',
   MuiAccordion: 'Accordion',
+  MuiAccordionSummary: 'AccordionSummary',
+  MuiAccordionDetails: 'AccordionDetails',
   MuiCard: 'Card',
+  MuiCardActionArea: 'CardActionArea',
   MuiAlert: 'Alert',
   MuiButtonBase: 'Button',
   MuiButton: 'Button',
+  MuiButtonGroup: 'ButtonGroup',
   MuiIconButton: 'IconButton',
   MuiListItemButton: 'ListItemButton',
+  MuiFormControlLabel: 'FormControlLabel',
   MuiFilledInput: 'TextField',
   MuiOutlinedInput: 'TextField',
   MuiInputBase: 'InputBase',
   MuiTypography: 'Typography',
   MuiCheckbox: 'Checkbox',
+  MuiRadio: 'Radio',
   MuiSwitch: 'Switch'
 };
 
@@ -149,7 +158,10 @@ function checkUpstreamExistence(token, isId = false) {
   }
 
   const pattern = `(?<![-_a-zA-Z0-9])${token}(?![-_a-zA-Z0-9])`;
-  const result = spawnSync('rg', ['-P', '-n', pattern, upstreamDir], { encoding: 'utf8' });
+  const result = spawnSync('rg', ['-P', '-n', '-o', '--max-count=1', pattern, upstreamDir], {
+    encoding: 'utf8',
+    maxBuffer: 16 * 1024 * 1024
+  });
 
   if (result.status === 0 && result.stdout) {
     const lines = result.stdout.trim().split('\n').filter(Boolean);
@@ -165,7 +177,10 @@ function checkUpstreamExistence(token, isId = false) {
     const muiComp = MUI_COMPONENT_MAP[prefix];
     if (muiComp) {
       const muiPattern = `@mui/material/${muiComp}|${prefix}`;
-      const muiRes = spawnSync('rg', ['-P', '-n', muiPattern, upstreamDir], { encoding: 'utf8' });
+      const muiRes = spawnSync('rg', ['-P', '-n', '-o', '--max-count=1', muiPattern, upstreamDir], {
+        encoding: 'utf8',
+        maxBuffer: 16 * 1024 * 1024
+      });
       if (muiRes.status === 0 && muiRes.stdout) {
         const lines = muiRes.stdout.trim().split('\n').filter(Boolean);
         if (lines.length > 0) {

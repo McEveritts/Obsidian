@@ -63,6 +63,8 @@ body::after {
 .dialog,
 .formDialog,
 .MuiDialog-paper,
+.MuiPopover-paper,
+.MuiMenu-paper,
 .actionSheetContent,
 .skinHeader,
 .MuiAppBar-root,
@@ -70,6 +72,7 @@ body::after {
 .MuiDrawer-paper,
 .detailPagePrimaryContainer,
 .videoOsdBottom .osdControls,
+.volumeOsd,
 .nowPlayingBar,
 .sliderBubble {
   backdrop-filter: none !important;
@@ -90,6 +93,13 @@ Because all interactive highlights, focus rings, progress bars, and primary CTAs
   --obs-accent-primary: #10b981 !important;
   --obs-accent-secondary: #06b6d4 !important;
   --obs-accent-tertiary: #059669 !important;
+  --obs-indigo-500: #10b981 !important;
+  --obs-indigo-400: #34d399 !important;
+  --obs-indigo-300: #6ee7b7 !important;
+  --obs-fuchsia-500: #06b6d4 !important;
+  --obs-fuchsia-400: #22d3ee !important;
+  --mui-palette-primary-main: #10b981 !important;
+  --jf-palette-primary-main: #10b981 !important;
   --obs-glass-border-hover: rgba(52, 211, 153, 0.55) !important;
   --obs-focus-ring: 0 0 0 3px rgba(16, 185, 129, 0.45) !important;
 }
@@ -102,6 +112,13 @@ Because all interactive highlights, focus rings, progress bars, and primary CTAs
   --obs-accent-primary: #f43f5e !important;
   --obs-accent-secondary: #fb923c !important;
   --obs-accent-tertiary: #e11d48 !important;
+  --obs-indigo-500: #f43f5e !important;
+  --obs-indigo-400: #fb7185 !important;
+  --obs-indigo-300: #fda4af !important;
+  --obs-fuchsia-500: #fb923c !important;
+  --obs-fuchsia-400: #fdba74 !important;
+  --mui-palette-primary-main: #f43f5e !important;
+  --jf-palette-primary-main: #f43f5e !important;
   --obs-glass-border-hover: rgba(251, 113, 133, 0.55) !important;
   --obs-focus-ring: 0 0 0 3px rgba(244, 63, 94, 0.45) !important;
 }

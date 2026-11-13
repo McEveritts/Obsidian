@@ -68,6 +68,25 @@ To pin your installation to the `v2.0.0` release tag:
 2. Navigate to **Dashboard > General > Branding > Custom CSS** (or **Settings > Display > Custom CSS**).
 3. Paste the stylesheet, click **Save**, and perform a hard refresh (**Ctrl + F5** or **Cmd + Shift + R**).
 
+### Optional: Xbox & TV Controller Navigation (`scripts/obsidian-xbox-nav.js`)
+
+In TV/Xbox layouts (`.layout-tv` / `.show-focus`), `obsidian.css` unlocks spatial focus geometry (preventing clipped popover hit boxes) and applies high-contrast Obsidian focus rings across cards, drawers, and popovers.
+
+For full controller parity on **Jellyfin 12.2+**, the optional companion script [`scripts/obsidian-xbox-nav.js`](./scripts/obsidian-xbox-nav.js) fixes four upstream Jellyfin Web regressions that CSS alone cannot resolve:
+- **`#selectview-popover` item focusability:** Upgrades `<li class="MuiMenuItem-root">` entries with `.focusable` and `tabindex="0"` and handles `Enter`/`Space`/`GamepadA` independently of nested controls.
+- **`GamepadB` / Back modal dismissal:** Closes open MUI popovers and modals (`#filter-popover`, `#selectview-popover`, `#sort-popover`, `.MuiModal-root`) instead of bubbling back out of the library.
+- **Popover & legacy filter auto-entry:** Automatically moves focus from `.MuiPopover-paper` (and legacy `.dialog.filterDialog.opened` in `.layout-tv`) onto the first visible control.
+- **Desktop arrow-key roving:** Enables `ArrowUp` / `ArrowDown` roving focus inside `#filter-popover` and `#selectview-popover` in `.layout-desktop`.
+
+To enable it, copy `scripts/obsidian-xbox-nav.js` into your Jellyfin Web directory (or a `--webdir` overlay) and add `<script defer="defer" src="obsidian-xbox-nav.js"></script>` immediately before `</body>` in Jellyfin Web's `index.html`.
+
+### Included Library Cover Pack (`assets/covers/`)
+
+Obsidian includes three matching `1920×1080` (`16:9`) glassmorphic library cover images ready to upload as primary library artwork:
+- [`assets/covers/movies.png`](./assets/covers/movies.png) — Movies library cover
+- [`assets/covers/tv.png`](./assets/covers/tv.png) — Shows / TV library cover
+- [`assets/covers/collections.png`](./assets/covers/collections.png) — Collections library cover
+
 ---
 
 ## ✨ Key Architectural Pillars
@@ -148,6 +167,8 @@ body::after {
 .dialog,
 .formDialog,
 .MuiDialog-paper,
+.MuiPopover-paper,
+.MuiMenu-paper,
 .actionSheetContent,
 .skinHeader,
 .MuiAppBar-root,
@@ -155,6 +176,7 @@ body::after {
 .MuiDrawer-paper,
 .detailPagePrimaryContainer,
 .videoOsdBottom .osdControls,
+.volumeOsd,
 .nowPlayingBar,
 .sliderBubble {
   backdrop-filter: none !important;

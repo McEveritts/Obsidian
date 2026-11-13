@@ -160,7 +160,7 @@
 .videoOsdBottom-maincontrols .osdControls::after {
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: 0;
   border-radius: inherit;
   padding: 1.5px;
   background: var(--obs-chromatic-edge-gradient);
@@ -312,12 +312,88 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   border-radius: var(--obs-radius-full) !important;
 }
 
-/* Keyboard Focus Visibility for Player Controls */
+.videoOsdBottom input[is="emby-slider"]::-moz-range-thumb,
+.videoOsdBottom .mdl-slider::-moz-range-thumb {
+  background: var(--obs-white) !important;
+  border: 2px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 0 12px rgba(217, 70, 239, 0.9) !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+/* Keyboard & TV Remote Focus Visibility for Player Controls */
+.videoOsdBottom .paper-icon-button-light:focus,
 .videoOsdBottom .paper-icon-button-light:focus-visible,
-.videoOsdBottom input[is="emby-slider"]:focus-visible {
+.videoOsdBottom .paper-icon-button-light.show-focus:focus,
+.osdHeader .paper-icon-button-light:focus,
+.osdHeader .paper-icon-button-light:focus-visible,
+.osdHeader .paper-icon-button-light.show-focus:focus,
+.videoOsd-appBar .MuiIconButton-root:focus,
+.videoOsd-appBar .MuiIconButton-root:focus-visible,
+.videoOsd-appBar .MuiIconButton-root.Mui-focusVisible {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.28) !important;
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.65) !important;
+  transform: none !important;
+}
+
+.videoOsdBottom .btnPlay:focus,
+.videoOsdBottom .btnPlay:focus-visible,
+.videoOsdBottom .btnPlay.show-focus:focus,
+.videoOsdBottom .btnPause:focus,
+.videoOsdBottom .btnPause:focus-visible,
+.videoOsdBottom .btnPause.show-focus:focus,
+.videoOsdBottom .btnPlayPause:focus,
+.videoOsdBottom .btnPlayPause:focus-visible,
+.videoOsdBottom .btnPlayPause.show-focus:focus {
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.45), var(--obs-shadow-button-hover) !important;
+  transform: none !important;
+}
+
+.videoOsdBottom input[is="emby-slider"]:focus,
+.videoOsdBottom input[is="emby-slider"]:focus-visible,
+.videoOsdBottom input[is="emby-slider"].show-focus:focus,
+.videoOsdBottom .mdl-slider:focus,
+.videoOsdBottom .mdl-slider:focus-visible,
+.videoOsdBottom .mdl-slider.show-focus:focus {
   outline: 2px solid var(--obs-indigo-400) !important;
   outline-offset: 2px !important;
   box-shadow: 0 0 12px rgba(129, 140, 248, 0.6) !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+.videoOsdBottom .mdl-slider:focus::-webkit-slider-thumb,
+.videoOsdBottom .mdl-slider:focus-visible::-webkit-slider-thumb,
+.videoOsdBottom .mdl-slider.show-focus:focus::-webkit-slider-thumb {
+  border-color: var(--obs-fuchsia-400) !important;
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.45), 0 0 18px rgba(217, 70, 239, 0.95) !important;
+}
+
+.videoOsdBottom .mdl-slider:focus::-moz-range-thumb,
+.videoOsdBottom .mdl-slider:focus-visible::-moz-range-thumb,
+.videoOsdBottom .mdl-slider.show-focus:focus::-moz-range-thumb {
+  border-color: var(--obs-fuchsia-400) !important;
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.45), 0 0 18px rgba(217, 70, 239, 0.95) !important;
+}
+
+.skip-button:focus,
+.skip-button:focus-visible,
+.skip-button.show-focus:focus {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.85) 0%, rgba(217, 70, 239, 0.78) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid var(--obs-indigo-300) !important;
+  border-radius: var(--obs-radius-full) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: var(--obs-shadow-button-hover) !important;
+  transform: none !important;
 }
 
 /* Scrub Time Bubble Tooltip */
@@ -364,6 +440,23 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   box-shadow: var(--obs-shadow-button-hover) !important;
 }
 
+.videoOsdBottom .btnPlay:not(.hide):focus,
+.videoOsdBottom .btnPlay:not(.hide):focus-visible,
+.videoOsdBottom .btnPlay:not(.hide).show-focus:focus,
+.videoOsdBottom .btnPause:not(.hide):focus,
+.videoOsdBottom .btnPause:not(.hide):focus-visible,
+.videoOsdBottom .btnPause:not(.hide).show-focus:focus,
+.videoOsdBottom .btnPlayPause:not(.hide):focus,
+.videoOsdBottom .btnPlayPause:not(.hide):focus-visible,
+.videoOsdBottom .btnPlayPause:not(.hide).show-focus:focus {
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.45), var(--obs-shadow-button-hover) !important;
+  transform: none !important;
+}
+
 /* Universal .hide safeguard */
 .videoOsdBottom .hide,
 .videoOsdBottom .paper-icon-button-light.hide {
@@ -391,6 +484,17 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
 .videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause):hover {
   color: var(--obs-white) !important;
   background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause):focus,
+.videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause):focus-visible,
+.videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause).show-focus:focus {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.28) !important;
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.65) !important;
+  transform: none !important;
 }
 
 /* Playback Popups & Menus (Subtitle Action Sheet, Playback Settings) */

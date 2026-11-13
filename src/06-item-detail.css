@@ -81,7 +81,7 @@
 .detailPagePrimaryContainer::after {
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: 0;
   border-radius: inherit;
   padding: 1.75px;
   background: var(--obs-chromatic-edge-hover);
@@ -107,6 +107,12 @@
   border-top: 1px solid var(--obs-specular-top) !important;
   border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
   border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+}
+
+.detailImageContainer .cardBox .cardScalable,
+.detailImageContainer .cardBox .cardPadder,
+.detailImageContainer .cardBox .cardImageContainer {
+  border-radius: calc(var(--obs-radius-2xl) - 2px) !important;
 }
 
 /* Item Name / Title */
@@ -143,9 +149,18 @@
   box-shadow: var(--obs-shadow-button-hover) !important;
 }
 
-.btnPlay:focus-visible {
-  outline: 2px solid var(--obs-indigo-400) !important;
+.btnPlay:focus,
+.btnPlay:focus-visible,
+.btnPlay.show-focus:focus,
+.mainDetailButtons .btnPlay:focus,
+.mainDetailButtons .btnPlay:focus-visible,
+.mainDetailButtons .btnPlay.show-focus:focus {
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.78) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
   outline-offset: 3px !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.45), var(--obs-shadow-button-hover), 0 0 26px rgba(217, 70, 239, 0.6) !important;
+  transform: none !important;
 }
 
 /* Secondary Detail Buttons (Trailer, Favorite, Played, More) */
@@ -160,7 +175,8 @@
   transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
               background-color var(--obs-duration-fast) ease,
               color var(--obs-duration-fast) ease,
-              border-color var(--obs-duration-fast) ease !important;
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
 }
 
 .mainDetailButtons .emby-button:not(.btnPlay):hover {
@@ -168,6 +184,17 @@
   color: var(--obs-white) !important;
   border-color: var(--obs-glass-border-hover) !important;
   transform: translate3d(0, -2px, 0);
+}
+
+.mainDetailButtons .emby-button:not(.btnPlay):focus,
+.mainDetailButtons .emby-button:not(.btnPlay):focus-visible,
+.mainDetailButtons .emby-button:not(.btnPlay).show-focus:focus {
+  background: rgba(99, 102, 241, 0.24) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-300) !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.5), 0 0 18px rgba(99, 102, 241, 0.55) !important;
+  outline: none !important;
+  transform: translateY(-1px) !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -221,6 +248,40 @@
   color: var(--obs-indigo-300) !important;
 }
 
+.detailsGroupItem .button-link:focus,
+.detailsGroupItem .button-link:focus-visible,
+.detailsGroupItem .button-link.show-focus:focus {
+  color: var(--obs-indigo-300) !important;
+  background: transparent !important;
+  text-decoration: underline !important;
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--obs-radius-sm) !important;
+  transform: none !important;
+}
+
+@media (min-width: 480px) {
+  .detailsGroupItem:not(.hide) {
+    flex-wrap: nowrap !important;
+  }
+
+  .detailsGroupItem .content {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+}
+
+.detailLogo {
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.38));
+}
+
+.trackSelections .selectContainer {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
 /* --------------------------------------------------------------------------
    Mobile & Ultrawide Responsive Item Detail Layout (Jellyfin 12.2 Contract)
    -------------------------------------------------------------------------- */
@@ -253,7 +314,7 @@
     align-items: start !important;
     box-sizing: border-box !important;
     width: calc(100% - clamp(2rem, 4vw, 5rem)) !important;
-    max-width: 1800px !important;
+    max-width: var(--obs-content-max-width) !important;
     margin: 1rem auto 0 auto !important;
     padding: clamp(1.5rem, 2.5vw, 2.25rem) !important;
   }
@@ -428,7 +489,7 @@
   .itemDetailPage .detailPageSecondaryContainer {
     box-sizing: border-box !important;
     width: calc(100% - clamp(2rem, 4vw, 5rem)) !important;
-    max-width: 1800px !important;
+    max-width: var(--obs-content-max-width) !important;
     margin: 0 auto !important;
     padding: 0 !important;
   }

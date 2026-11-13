@@ -53,7 +53,7 @@
   background: var(--obs-card-bg) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border-radius: var(--obs-radius-2xl) var(--obs-radius-2xl) 0 0 !important;
+  border-radius: var(--obs-radius-2xl) !important;
   border: 1px solid var(--obs-chromatic-border-indigo) !important;
   border-top: 1px solid var(--obs-specular-top) !important;
   border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
@@ -78,7 +78,7 @@
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   box-shadow: var(--obs-shadow-card-hover);
-  opacity: 0.55;
+  opacity: 0.25;
   backface-visibility: hidden;
   transition: opacity var(--obs-duration-card) var(--obs-ease-out-120);
   z-index: 2;
@@ -88,10 +88,24 @@
    Artwork & Poster Preservation
    Guarantees posters stay crisp without tinting or unwanted cropping
    -------------------------------------------------------------------------- */
-.cardScalable,
-.cardPadder,
-.cardImageContainer {
+/* Footer trays sit directly under the artwork. Square only the bottom edge so the
+   poster meets .cardText / .cardFooter with no triangular pinch at the corners.
+   cardLayout wraps titles in .cardFooter; standard cards use a direct .cardText. */
+.cardBox:has(> .cardText) .cardScalable,
+.cardBox:has(> .cardText) .cardPadder,
+.cardBox:has(> .cardText) .cardImageContainer,
+.cardBox:has(> .cardFooter) .cardScalable,
+.cardBox:has(> .cardFooter) .cardPadder,
+.cardBox:has(> .cardFooter) .cardImageContainer {
   border-radius: calc(var(--obs-radius-2xl) - 2px) calc(var(--obs-radius-2xl) - 2px) 0 0 !important;
+  overflow: hidden !important;
+}
+
+/* Image-only cards (no footer tray) round all four artwork corners to match .cardBox */
+.cardBox:not(:has(> .cardText)):not(:has(> .cardFooter)) .cardScalable,
+.cardBox:not(:has(> .cardText)):not(:has(> .cardFooter)) .cardPadder,
+.cardBox:not(:has(> .cardText)):not(:has(> .cardFooter)) .cardImageContainer {
+  border-radius: calc(var(--obs-radius-2xl) - 2px) !important;
   overflow: hidden !important;
 }
 
@@ -124,14 +138,63 @@
 /* --------------------------------------------------------------------------
    Remote & Keyboard Navigation Focus States (10-Foot & Accessibility)
    -------------------------------------------------------------------------- */
-.card:focus .cardBox.visualCardBox,
-.card:focus .cardBox:not(.visualCardBox) .cardScalable,
+.card:focus .cardBox,
 .card:focus-visible .cardBox,
+.card.show-focus:focus .cardBox,
+.card:focus-within .cardBox,
+.card:focus .cardBox.visualCardBox,
 .cardBox:focus-visible {
+  transform: translate3d(0, var(--obs-card-lift), 0) !important;
+  background: var(--obs-card-bg-hover) !important;
   outline: 2px solid var(--obs-indigo-400) !important;
   outline-offset: 3px !important;
   box-shadow: var(--obs-shadow-card-hover), 0 0 24px rgba(99, 102, 241, 0.65) !important;
   border-color: var(--obs-indigo-400) !important;
+}
+
+.card:focus .cardBox::after,
+.card:focus-visible .cardBox::after,
+.card.show-focus:focus .cardBox::after,
+.card:focus-within .cardBox::after {
+  opacity: 1;
+}
+
+.MuiCard-root:focus-within,
+.MuiCardActionArea-root:focus,
+.MuiCardActionArea-root:focus-visible,
+.MuiCardActionArea-root.Mui-focusVisible {
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: var(--obs-shadow-card-hover), 0 0 22px rgba(99, 102, 241, 0.65) !important;
+  border-color: var(--obs-indigo-400) !important;
+}
+
+/* List Items & List Item Buttons (.listItem, .listItem-button) */
+.listItem,
+.listItem-button {
+  border-radius: var(--obs-radius-xl) !important;
+  transition: background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+.listItem:hover,
+.listItem-button:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--obs-white) !important;
+}
+
+.listItem:focus,
+.listItem:focus-visible,
+.listItem.show-focus:focus,
+.listItem-button:focus,
+.listItem-button:focus-visible,
+.listItem-button.show-focus:focus {
+  background: rgba(99, 102, 241, 0.2) !important;
+  color: var(--obs-white) !important;
+  box-shadow: inset 0 0 0 1px var(--obs-indigo-400), 0 0 16px rgba(99, 102, 241, 0.4) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -240,10 +303,48 @@
   box-shadow: var(--obs-shadow-button-primary) !important;
 }
 
+.cardOverlayButton:focus,
+.cardOverlayButton:focus-visible,
+.cardOverlayButton.show-focus:focus,
+.cardOverlayContainer > .cardOverlayFab-primary:focus,
+.cardOverlayContainer > .cardOverlayFab-primary:focus-visible,
+.cardOverlayContainer > .cardOverlayFab-primary.show-focus:focus {
+  background: linear-gradient(135deg, var(--obs-indigo-500), var(--obs-fuchsia-500)) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-white) !important;
+  box-shadow: 0 0 0 2px var(--obs-indigo-300), var(--obs-shadow-button-hover) !important;
+  outline: none !important;
+  transform: none !important;
+}
+
 /* Horizontal Carousel Navigation Buttons */
 .emby-scrollbuttons-button {
   min-width: 44px !important;
   min-height: 44px !important;
+  border-radius: var(--obs-radius-full) !important;
+  color: var(--obs-slate-200) !important;
+  border: 1px solid transparent !important;
+  transition: background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+.emby-scrollbuttons-button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-glass-border) !important;
+}
+
+.emby-scrollbuttons-button:focus,
+.emby-scrollbuttons-button:focus-visible,
+.emby-scrollbuttons-button.show-focus:focus {
+  background: rgba(99, 102, 241, 0.28) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 14px rgba(99, 102, 241, 0.5) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -253,5 +354,12 @@
   .card {
     min-width: 0 !important;
     max-width: 100% !important;
+  }
+}
+
+/* Portrait library grids stay two columns on compact phones (upstream default is 33%). */
+@media (max-width: 500px) {
+  .itemsContainer.vertical-wrap > .card.portraitCard {
+    width: 50% !important;
   }
 }

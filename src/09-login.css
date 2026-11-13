@@ -43,7 +43,7 @@
 #loginPage .manualLoginForm::after {
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: 0;
   border-radius: inherit;
   padding: 1.5px;
   background: var(--obs-chromatic-edge-gradient);
@@ -66,8 +66,22 @@
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.3) !important;
 }
 
-/* Sign In Submit Button */
-#loginPage .raised.emby-button,
+/* Quick Connect, Forgot Password, Manual, Cancel, and Change Server render as
+   .raised.emby-button outside the gradient reserved for Sign In. */
+#loginPage .readOnlyContent {
+  box-sizing: border-box !important;
+  width: 90% !important;
+  max-width: 440px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+#loginPage .readOnlyContent > .visualLoginForm,
+#loginPage .readOnlyContent > .manualLoginForm {
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
 #loginPage .button-submit {
   background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
   color: var(--obs-white) !important;
@@ -82,10 +96,49 @@
   will-change: transform;
 }
 
-#loginPage .raised.emby-button:hover,
 #loginPage .button-submit:hover {
   transform: scale3d(1.02, 1.02, 1) !important;
   box-shadow: var(--obs-shadow-button-hover) !important;
+}
+
+#loginPage .button-submit:focus,
+#loginPage .button-submit:focus-visible,
+#loginPage .button-submit.show-focus:focus {
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.82) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.48), var(--obs-shadow-button-hover) !important;
+  transform: none !important;
+}
+
+#loginPage .raised.emby-button:not(.button-submit) {
+  background: rgba(15, 23, 42, 0.72) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  color: var(--obs-slate-200) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  min-height: 44px !important;
+  margin-top: 0.65rem !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) !important;
+}
+
+#loginPage .raised.emby-button:not(.button-submit):hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: var(--obs-glass-border-hover) !important;
+  color: var(--obs-white) !important;
+}
+
+#loginPage .raised.emby-button:not(.button-submit):focus,
+#loginPage .raised.emby-button:not(.button-submit):focus-visible,
+#loginPage .raised.emby-button:not(.button-submit).show-focus:focus {
+  background: rgba(99, 102, 241, 0.25) !important;
+  border-color: var(--obs-indigo-300) !important;
+  color: var(--obs-white) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 18px rgba(99, 102, 241, 0.55) !important;
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -94,10 +147,15 @@
    -------------------------------------------------------------------------- */
 @media (max-width: 360px) {
   #loginPage .visualLoginForm,
-  #loginPage .manualLoginForm {
+  #loginPage .manualLoginForm,
+  #loginPage .readOnlyContent {
     box-sizing: border-box !important;
     width: 100% !important;
     max-width: 320px !important;
+  }
+
+  #loginPage .visualLoginForm,
+  #loginPage .manualLoginForm {
     padding: 2rem 1.25rem !important;
   }
 }

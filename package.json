@@ -9,7 +9,8 @@
     "check:syntax": "node scripts/checkSyntax.js",
     "test": "node scripts/checkSyntax.js && node build.js",
     "test:live-tv": "node --test scripts/testLiveTv.js",
-    "test:player-osd": "node --test --test-timeout=10000 scripts/testPlayerOsd.js"
+    "test:player-osd": "node --test --test-timeout=10000 scripts/testPlayerOsd.js",
+    "test:xbox-nav": "node scripts/testXboxNav.js"
   },
   "repository": {
     "type": "git",

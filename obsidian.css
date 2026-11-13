@@ -111,8 +111,8 @@
     inset 0 -1px 2px 0 rgba(129, 140, 248, 0.34);
 
   /* --- Glass Surface Elevations --- */
-  --obs-card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(99, 102, 241, 0.03) 55%, rgba(217, 70, 239, 0.025) 100%);
-  --obs-card-bg-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(99, 102, 241, 0.06) 55%, rgba(217, 70, 239, 0.05) 100%);
+  --obs-card-bg: linear-gradient(160deg, rgba(16, 20, 36, 0.78) 0%, rgba(10, 12, 24, 0.86) 100%);
+  --obs-card-bg-hover: linear-gradient(160deg, rgba(24, 30, 52, 0.84) 0%, rgba(16, 18, 38, 0.90) 100%);
   --obs-panel-bg: linear-gradient(180deg, rgba(16, 18, 38, 0.80) 0%, rgba(12, 10, 30, 0.86) 100%);
   --obs-hero-bg: linear-gradient(180deg, rgba(10, 12, 26, 0.72) 0%, rgba(16, 14, 38, 0.78) 55%, rgba(24, 12, 48, 0.76) 100%);
   --obs-input-bg: rgba(0, 0, 0, 0.45);
@@ -567,11 +567,20 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
               box-shadow var(--obs-duration-fast) ease !important;
 }
 
-.MuiAppBar-root .MuiButton-root:hover,
-.MuiAppBar-root .MuiButton-root:focus-visible {
+.MuiAppBar-root .MuiButton-root:hover {
   color: var(--obs-white) !important;
   background-color: rgba(255, 255, 255, 0.08) !important;
   border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.MuiAppBar-root .MuiButton-root:focus,
+.MuiAppBar-root .MuiButton-root:focus-visible,
+.MuiAppBar-root .MuiButton-root.Mui-focusVisible {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.22) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 14px rgba(99, 102, 241, 0.45) !important;
+  outline: none !important;
 }
 
 /* Active Library Pill in Modern AppBar (.MuiButton-colorPrimary) */
@@ -591,14 +600,67 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   backface-visibility: hidden;
   transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
               background-color var(--obs-duration-fast) ease,
-              color var(--obs-duration-fast) ease !important;
+              color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
 }
 
-.MuiAppBar-root .MuiIconButton-root:hover,
-.MuiAppBar-root .MuiIconButton-root:focus-visible {
+.MuiAppBar-root .MuiIconButton-root:hover {
   color: var(--obs-white) !important;
   background-color: rgba(255, 255, 255, 0.08) !important;
   transform: scale3d(1.04, 1.04, 1);
+}
+
+.MuiAppBar-root .MuiIconButton-root:focus,
+.MuiAppBar-root .MuiIconButton-root:focus-visible,
+.MuiAppBar-root .MuiIconButton-root.Mui-focusVisible {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.24) !important;
+  box-shadow: 0 0 0 2px var(--obs-indigo-400), 0 0 14px rgba(99, 102, 241, 0.5) !important;
+  outline: none !important;
+  transform: none !important;
+}
+
+/* Jellyfin 12.2 React LibraryToolbar Controls (main .MuiToolbar-root) */
+main .MuiToolbar-root .MuiButton-root,
+main .MuiToolbar-root .MuiIconButton-root,
+main .MuiToolbar-root .MuiButtonGroup-grouped {
+  min-height: 44px !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: rgba(15, 23, 42, 0.65) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  color: var(--obs-slate-200) !important;
+  transition: background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+main .MuiToolbar-root .MuiIconButton-root {
+  min-width: 44px !important;
+}
+
+main .MuiToolbar-root .MuiButton-root:hover,
+main .MuiToolbar-root .MuiIconButton-root:hover,
+main .MuiToolbar-root .MuiButtonGroup-grouped:hover {
+  background: rgba(99, 102, 241, 0.16) !important;
+  border-color: var(--obs-glass-border-hover) !important;
+  color: var(--obs-white) !important;
+}
+
+main .MuiToolbar-root .MuiButton-root:focus,
+main .MuiToolbar-root .MuiButton-root:focus-visible,
+main .MuiToolbar-root .MuiButton-root.Mui-focusVisible,
+main .MuiToolbar-root .MuiIconButton-root:focus,
+main .MuiToolbar-root .MuiIconButton-root:focus-visible,
+main .MuiToolbar-root .MuiIconButton-root.Mui-focusVisible,
+main .MuiToolbar-root .MuiButtonGroup-grouped:focus,
+main .MuiToolbar-root .MuiButtonGroup-grouped:focus-visible,
+main .MuiToolbar-root .MuiButtonGroup-grouped.Mui-focusVisible {
+  background: rgba(99, 102, 241, 0.26) !important;
+  border-color: var(--obs-indigo-400) !important;
+  color: var(--obs-white) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 14px rgba(99, 102, 241, 0.45) !important;
+  outline: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -625,11 +687,21 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
               border-color var(--obs-duration-fast) ease !important;
 }
 
-.MuiDrawer-paper .MuiListItemButton-root:hover,
-.MuiDrawer-paper .MuiListItemButton-root:focus-visible {
+.MuiDrawer-paper .MuiListItemButton-root:hover {
   background-color: rgba(255, 255, 255, 0.06) !important;
   color: var(--obs-white) !important;
   border-color: rgba(255, 255, 255, 0.12) !important;
+  transform: translate3d(4px, 0, 0);
+}
+
+.MuiDrawer-paper .MuiListItemButton-root:focus,
+.MuiDrawer-paper .MuiListItemButton-root:focus-visible,
+.MuiDrawer-paper .MuiListItemButton-root.Mui-focusVisible {
+  background-color: rgba(99, 102, 241, 0.2) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4), 0 0 14px rgba(99, 102, 241, 0.4) !important;
+  outline: none !important;
   transform: translate3d(4px, 0, 0);
 }
 
@@ -692,11 +764,20 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
               color var(--obs-duration-fast) ease !important;
 }
 
-.headerButton:hover,
-.headerButton:focus-visible {
+.headerButton:hover {
   color: var(--obs-white) !important;
   background-color: rgba(255, 255, 255, 0.08) !important;
   transform: scale3d(1.04, 1.04, 1);
+}
+
+.headerButton:focus,
+.headerButton:focus-visible,
+.headerButton.show-focus:focus {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.24) !important;
+  box-shadow: 0 0 0 2px var(--obs-indigo-400), 0 0 14px rgba(99, 102, 241, 0.5) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 .headerUserButtonRound {
@@ -706,14 +787,73 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
 }
 
 /* Auxiliary Navigation & Paging Controls (Filter, Sort, Paging, View Mode) */
-.btnSort.paper-icon-button-light,
-.btnFilter.paper-icon-button-light,
-.btnPlayAll.paper-icon-button-light,
-.btnSelectView.paper-icon-button-light,
-.btnPreviousPage.paper-icon-button-light,
-.btnNextPage.paper-icon-button-light {
+.btnSort,
+.btnFilter,
+.btnPlayAll,
+.btnShuffle,
+.btnSelectView,
+.btnNewCollection,
+.btnPreviousPage,
+.btnNextPage,
+.viewControls .paper-icon-button-light {
   min-width: 44px !important;
   min-height: 44px !important;
+  border-radius: var(--obs-radius-full) !important;
+  color: var(--obs-slate-200) !important;
+  border: 1px solid transparent !important;
+  transition: background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+.btnSort:hover,
+.btnFilter:hover,
+.btnPlayAll:hover,
+.btnShuffle:hover,
+.btnSelectView:hover,
+.btnNewCollection:hover,
+.btnPreviousPage:hover,
+.btnNextPage:hover,
+.viewControls .paper-icon-button-light:hover {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: var(--obs-glass-border) !important;
+}
+
+.btnSort:focus,
+.btnSort:focus-visible,
+.btnSort.show-focus:focus,
+.btnFilter:focus,
+.btnFilter:focus-visible,
+.btnFilter.show-focus:focus,
+.btnPlayAll:focus,
+.btnPlayAll:focus-visible,
+.btnPlayAll.show-focus:focus,
+.btnShuffle:focus,
+.btnShuffle:focus-visible,
+.btnShuffle.show-focus:focus,
+.btnSelectView:focus,
+.btnSelectView:focus-visible,
+.btnSelectView.show-focus:focus,
+.btnNewCollection:focus,
+.btnNewCollection:focus-visible,
+.btnNewCollection.show-focus:focus,
+.btnPreviousPage:focus,
+.btnPreviousPage:focus-visible,
+.btnPreviousPage.show-focus:focus,
+.btnNextPage:focus,
+.btnNextPage:focus-visible,
+.btnNextPage.show-focus:focus,
+.viewControls .paper-icon-button-light:focus,
+.viewControls .paper-icon-button-light:focus-visible,
+.viewControls .paper-icon-button-light.show-focus:focus {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.24) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 14px rgba(99, 102, 241, 0.48) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -730,12 +870,14 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   padding: 0.5rem 1.15rem !important;
   min-height: 44px !important;
   box-sizing: border-box !important;
+  border: 1px solid transparent !important;
   border-radius: var(--obs-radius-full) !important;
   backface-visibility: hidden;
   transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
               background-color var(--obs-duration-fast) ease,
               color var(--obs-duration-fast) ease,
-              border-color var(--obs-duration-fast) ease !important;
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
   position: relative !important;
 }
 
@@ -748,6 +890,17 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
 .emby-tab-button:hover {
   color: var(--obs-white) !important;
   background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.emby-tab-button:focus,
+.emby-tab-button:focus-visible,
+.emby-tab-button.show-focus:focus {
+  color: var(--obs-white) !important;
+  background: rgba(99, 102, 241, 0.24) !important;
+  border: 1px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.42), 0 0 16px rgba(99, 102, 241, 0.48) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 /* Active Tab with Luminescent Indicator (Looplet .af-tab-pill-active parity) */
@@ -804,11 +957,21 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   align-items: center !important;
 }
 
-.navMenuOption:hover,
-.navMenuOption:focus-visible {
+.navMenuOption:hover {
   background-color: rgba(255, 255, 255, 0.06) !important;
   color: var(--obs-white) !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
+  transform: translate3d(4px, 0, 0);
+}
+
+.navMenuOption:focus,
+.navMenuOption:focus-visible,
+.navMenuOption.show-focus:focus {
+  background-color: rgba(99, 102, 241, 0.22) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4), 0 0 14px rgba(99, 102, 241, 0.4) !important;
+  outline: none !important;
   transform: translate3d(4px, 0, 0);
 }
 
@@ -823,6 +986,41 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
 
 .navMenuOptionIcon {
   color: var(--obs-indigo-400) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. Library A–Z Index (.alphaPicker)
+   -------------------------------------------------------------------------- */
+.alphaPicker {
+  background: rgba(12, 16, 28, 0.72) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-radius: var(--obs-radius-full) !important;
+  padding: 0.35rem 0.15rem !important;
+  box-sizing: border-box !important;
+}
+
+.alphaPickerButton {
+  color: var(--obs-slate-300) !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+.alphaPickerButton:hover,
+.alphaPickerButton-selected {
+  color: var(--obs-white) !important;
+  background: rgba(99, 102, 241, 0.34) !important;
+}
+
+.alphaPickerButton:focus,
+.alphaPickerButton:focus-visible,
+.alphaPickerButton.show-focus:focus,
+.alphaPickerButton-tv:focus {
+  color: var(--obs-white) !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.65) 0%, rgba(217, 70, 239, 0.5) 100%) !important;
+  box-shadow: 0 0 0 1.5px var(--obs-indigo-300), 0 0 12px rgba(99, 102, 241, 0.65) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 
@@ -883,7 +1081,7 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   background: var(--obs-card-bg) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border-radius: var(--obs-radius-2xl) var(--obs-radius-2xl) 0 0 !important;
+  border-radius: var(--obs-radius-2xl) !important;
   border: 1px solid var(--obs-chromatic-border-indigo) !important;
   border-top: 1px solid var(--obs-specular-top) !important;
   border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
@@ -908,7 +1106,7 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   box-shadow: var(--obs-shadow-card-hover);
-  opacity: 0.55;
+  opacity: 0.25;
   backface-visibility: hidden;
   transition: opacity var(--obs-duration-card) var(--obs-ease-out-120);
   z-index: 2;
@@ -918,10 +1116,24 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
    Artwork & Poster Preservation
    Guarantees posters stay crisp without tinting or unwanted cropping
    -------------------------------------------------------------------------- */
-.cardScalable,
-.cardPadder,
-.cardImageContainer {
+/* Footer trays sit directly under the artwork. Square only the bottom edge so the
+   poster meets .cardText / .cardFooter with no triangular pinch at the corners.
+   cardLayout wraps titles in .cardFooter; standard cards use a direct .cardText. */
+.cardBox:has(> .cardText) .cardScalable,
+.cardBox:has(> .cardText) .cardPadder,
+.cardBox:has(> .cardText) .cardImageContainer,
+.cardBox:has(> .cardFooter) .cardScalable,
+.cardBox:has(> .cardFooter) .cardPadder,
+.cardBox:has(> .cardFooter) .cardImageContainer {
   border-radius: calc(var(--obs-radius-2xl) - 2px) calc(var(--obs-radius-2xl) - 2px) 0 0 !important;
+  overflow: hidden !important;
+}
+
+/* Image-only cards (no footer tray) round all four artwork corners to match .cardBox */
+.cardBox:not(:has(> .cardText)):not(:has(> .cardFooter)) .cardScalable,
+.cardBox:not(:has(> .cardText)):not(:has(> .cardFooter)) .cardPadder,
+.cardBox:not(:has(> .cardText)):not(:has(> .cardFooter)) .cardImageContainer {
+  border-radius: calc(var(--obs-radius-2xl) - 2px) !important;
   overflow: hidden !important;
 }
 
@@ -954,14 +1166,63 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
 /* --------------------------------------------------------------------------
    Remote & Keyboard Navigation Focus States (10-Foot & Accessibility)
    -------------------------------------------------------------------------- */
-.card:focus .cardBox.visualCardBox,
-.card:focus .cardBox:not(.visualCardBox) .cardScalable,
+.card:focus .cardBox,
 .card:focus-visible .cardBox,
+.card.show-focus:focus .cardBox,
+.card:focus-within .cardBox,
+.card:focus .cardBox.visualCardBox,
 .cardBox:focus-visible {
+  transform: translate3d(0, var(--obs-card-lift), 0) !important;
+  background: var(--obs-card-bg-hover) !important;
   outline: 2px solid var(--obs-indigo-400) !important;
   outline-offset: 3px !important;
   box-shadow: var(--obs-shadow-card-hover), 0 0 24px rgba(99, 102, 241, 0.65) !important;
   border-color: var(--obs-indigo-400) !important;
+}
+
+.card:focus .cardBox::after,
+.card:focus-visible .cardBox::after,
+.card.show-focus:focus .cardBox::after,
+.card:focus-within .cardBox::after {
+  opacity: 1;
+}
+
+.MuiCard-root:focus-within,
+.MuiCardActionArea-root:focus,
+.MuiCardActionArea-root:focus-visible,
+.MuiCardActionArea-root.Mui-focusVisible {
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: var(--obs-shadow-card-hover), 0 0 22px rgba(99, 102, 241, 0.65) !important;
+  border-color: var(--obs-indigo-400) !important;
+}
+
+/* List Items & List Item Buttons (.listItem, .listItem-button) */
+.listItem,
+.listItem-button {
+  border-radius: var(--obs-radius-xl) !important;
+  transition: background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+.listItem:hover,
+.listItem-button:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--obs-white) !important;
+}
+
+.listItem:focus,
+.listItem:focus-visible,
+.listItem.show-focus:focus,
+.listItem-button:focus,
+.listItem-button:focus-visible,
+.listItem-button.show-focus:focus {
+  background: rgba(99, 102, 241, 0.2) !important;
+  color: var(--obs-white) !important;
+  box-shadow: inset 0 0 0 1px var(--obs-indigo-400), 0 0 16px rgba(99, 102, 241, 0.4) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -1070,10 +1331,48 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   box-shadow: var(--obs-shadow-button-primary) !important;
 }
 
+.cardOverlayButton:focus,
+.cardOverlayButton:focus-visible,
+.cardOverlayButton.show-focus:focus,
+.cardOverlayContainer > .cardOverlayFab-primary:focus,
+.cardOverlayContainer > .cardOverlayFab-primary:focus-visible,
+.cardOverlayContainer > .cardOverlayFab-primary.show-focus:focus {
+  background: linear-gradient(135deg, var(--obs-indigo-500), var(--obs-fuchsia-500)) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-white) !important;
+  box-shadow: 0 0 0 2px var(--obs-indigo-300), var(--obs-shadow-button-hover) !important;
+  outline: none !important;
+  transform: none !important;
+}
+
 /* Horizontal Carousel Navigation Buttons */
 .emby-scrollbuttons-button {
   min-width: 44px !important;
   min-height: 44px !important;
+  border-radius: var(--obs-radius-full) !important;
+  color: var(--obs-slate-200) !important;
+  border: 1px solid transparent !important;
+  transition: background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+.emby-scrollbuttons-button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-glass-border) !important;
+}
+
+.emby-scrollbuttons-button:focus,
+.emby-scrollbuttons-button:focus-visible,
+.emby-scrollbuttons-button.show-focus:focus {
+  background: rgba(99, 102, 241, 0.28) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 14px rgba(99, 102, 241, 0.5) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -1083,6 +1382,13 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   .card {
     min-width: 0 !important;
     max-width: 100% !important;
+  }
+}
+
+/* Portrait library grids stay two columns on compact phones (upstream default is 33%). */
+@media (max-width: 500px) {
+  .itemsContainer.vertical-wrap > .card.portraitCard {
+    width: 50% !important;
   }
 }
 
@@ -1171,7 +1477,7 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
 .detailPagePrimaryContainer::after {
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: 0;
   border-radius: inherit;
   padding: 1.75px;
   background: var(--obs-chromatic-edge-hover);
@@ -1197,6 +1503,12 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   border-top: 1px solid var(--obs-specular-top) !important;
   border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
   border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+}
+
+.detailImageContainer .cardBox .cardScalable,
+.detailImageContainer .cardBox .cardPadder,
+.detailImageContainer .cardBox .cardImageContainer {
+  border-radius: calc(var(--obs-radius-2xl) - 2px) !important;
 }
 
 /* Item Name / Title */
@@ -1233,9 +1545,18 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   box-shadow: var(--obs-shadow-button-hover) !important;
 }
 
-.btnPlay:focus-visible {
-  outline: 2px solid var(--obs-indigo-400) !important;
+.btnPlay:focus,
+.btnPlay:focus-visible,
+.btnPlay.show-focus:focus,
+.mainDetailButtons .btnPlay:focus,
+.mainDetailButtons .btnPlay:focus-visible,
+.mainDetailButtons .btnPlay.show-focus:focus {
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.78) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
   outline-offset: 3px !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.45), var(--obs-shadow-button-hover), 0 0 26px rgba(217, 70, 239, 0.6) !important;
+  transform: none !important;
 }
 
 /* Secondary Detail Buttons (Trailer, Favorite, Played, More) */
@@ -1250,7 +1571,8 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
               background-color var(--obs-duration-fast) ease,
               color var(--obs-duration-fast) ease,
-              border-color var(--obs-duration-fast) ease !important;
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
 }
 
 .mainDetailButtons .emby-button:not(.btnPlay):hover {
@@ -1258,6 +1580,17 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   color: var(--obs-white) !important;
   border-color: var(--obs-glass-border-hover) !important;
   transform: translate3d(0, -2px, 0);
+}
+
+.mainDetailButtons .emby-button:not(.btnPlay):focus,
+.mainDetailButtons .emby-button:not(.btnPlay):focus-visible,
+.mainDetailButtons .emby-button:not(.btnPlay).show-focus:focus {
+  background: rgba(99, 102, 241, 0.24) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-300) !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.5), 0 0 18px rgba(99, 102, 241, 0.55) !important;
+  outline: none !important;
+  transform: translateY(-1px) !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -1311,6 +1644,40 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   color: var(--obs-indigo-300) !important;
 }
 
+.detailsGroupItem .button-link:focus,
+.detailsGroupItem .button-link:focus-visible,
+.detailsGroupItem .button-link.show-focus:focus {
+  color: var(--obs-indigo-300) !important;
+  background: transparent !important;
+  text-decoration: underline !important;
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--obs-radius-sm) !important;
+  transform: none !important;
+}
+
+@media (min-width: 480px) {
+  .detailsGroupItem:not(.hide) {
+    flex-wrap: nowrap !important;
+  }
+
+  .detailsGroupItem .content {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+}
+
+.detailLogo {
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.38));
+}
+
+.trackSelections .selectContainer {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
 /* --------------------------------------------------------------------------
    Mobile & Ultrawide Responsive Item Detail Layout (Jellyfin 12.2 Contract)
    -------------------------------------------------------------------------- */
@@ -1343,7 +1710,7 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
     align-items: start !important;
     box-sizing: border-box !important;
     width: calc(100% - clamp(2rem, 4vw, 5rem)) !important;
-    max-width: 1800px !important;
+    max-width: var(--obs-content-max-width) !important;
     margin: 1rem auto 0 auto !important;
     padding: clamp(1.5rem, 2.5vw, 2.25rem) !important;
   }
@@ -1518,7 +1885,7 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   .itemDetailPage .detailPageSecondaryContainer {
     box-sizing: border-box !important;
     width: calc(100% - clamp(2rem, 4vw, 5rem)) !important;
-    max-width: 1800px !important;
+    max-width: var(--obs-content-max-width) !important;
     margin: 0 auto !important;
     padding: 0 !important;
   }
@@ -1840,7 +2207,7 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
 .videoOsdBottom-maincontrols .osdControls::after {
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: 0;
   border-radius: inherit;
   padding: 1.5px;
   background: var(--obs-chromatic-edge-gradient);
@@ -1992,12 +2359,88 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   border-radius: var(--obs-radius-full) !important;
 }
 
-/* Keyboard Focus Visibility for Player Controls */
+.videoOsdBottom input[is="emby-slider"]::-moz-range-thumb,
+.videoOsdBottom .mdl-slider::-moz-range-thumb {
+  background: var(--obs-white) !important;
+  border: 2px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 0 12px rgba(217, 70, 239, 0.9) !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+/* Keyboard & TV Remote Focus Visibility for Player Controls */
+.videoOsdBottom .paper-icon-button-light:focus,
 .videoOsdBottom .paper-icon-button-light:focus-visible,
-.videoOsdBottom input[is="emby-slider"]:focus-visible {
+.videoOsdBottom .paper-icon-button-light.show-focus:focus,
+.osdHeader .paper-icon-button-light:focus,
+.osdHeader .paper-icon-button-light:focus-visible,
+.osdHeader .paper-icon-button-light.show-focus:focus,
+.videoOsd-appBar .MuiIconButton-root:focus,
+.videoOsd-appBar .MuiIconButton-root:focus-visible,
+.videoOsd-appBar .MuiIconButton-root.Mui-focusVisible {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.28) !important;
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.65) !important;
+  transform: none !important;
+}
+
+.videoOsdBottom .btnPlay:focus,
+.videoOsdBottom .btnPlay:focus-visible,
+.videoOsdBottom .btnPlay.show-focus:focus,
+.videoOsdBottom .btnPause:focus,
+.videoOsdBottom .btnPause:focus-visible,
+.videoOsdBottom .btnPause.show-focus:focus,
+.videoOsdBottom .btnPlayPause:focus,
+.videoOsdBottom .btnPlayPause:focus-visible,
+.videoOsdBottom .btnPlayPause.show-focus:focus {
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.45), var(--obs-shadow-button-hover) !important;
+  transform: none !important;
+}
+
+.videoOsdBottom input[is="emby-slider"]:focus,
+.videoOsdBottom input[is="emby-slider"]:focus-visible,
+.videoOsdBottom input[is="emby-slider"].show-focus:focus,
+.videoOsdBottom .mdl-slider:focus,
+.videoOsdBottom .mdl-slider:focus-visible,
+.videoOsdBottom .mdl-slider.show-focus:focus {
   outline: 2px solid var(--obs-indigo-400) !important;
   outline-offset: 2px !important;
   box-shadow: 0 0 12px rgba(129, 140, 248, 0.6) !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+.videoOsdBottom .mdl-slider:focus::-webkit-slider-thumb,
+.videoOsdBottom .mdl-slider:focus-visible::-webkit-slider-thumb,
+.videoOsdBottom .mdl-slider.show-focus:focus::-webkit-slider-thumb {
+  border-color: var(--obs-fuchsia-400) !important;
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.45), 0 0 18px rgba(217, 70, 239, 0.95) !important;
+}
+
+.videoOsdBottom .mdl-slider:focus::-moz-range-thumb,
+.videoOsdBottom .mdl-slider:focus-visible::-moz-range-thumb,
+.videoOsdBottom .mdl-slider.show-focus:focus::-moz-range-thumb {
+  border-color: var(--obs-fuchsia-400) !important;
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.45), 0 0 18px rgba(217, 70, 239, 0.95) !important;
+}
+
+.skip-button:focus,
+.skip-button:focus-visible,
+.skip-button.show-focus:focus {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.85) 0%, rgba(217, 70, 239, 0.78) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid var(--obs-indigo-300) !important;
+  border-radius: var(--obs-radius-full) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: var(--obs-shadow-button-hover) !important;
+  transform: none !important;
 }
 
 /* Scrub Time Bubble Tooltip */
@@ -2044,6 +2487,23 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   box-shadow: var(--obs-shadow-button-hover) !important;
 }
 
+.videoOsdBottom .btnPlay:not(.hide):focus,
+.videoOsdBottom .btnPlay:not(.hide):focus-visible,
+.videoOsdBottom .btnPlay:not(.hide).show-focus:focus,
+.videoOsdBottom .btnPause:not(.hide):focus,
+.videoOsdBottom .btnPause:not(.hide):focus-visible,
+.videoOsdBottom .btnPause:not(.hide).show-focus:focus,
+.videoOsdBottom .btnPlayPause:not(.hide):focus,
+.videoOsdBottom .btnPlayPause:not(.hide):focus-visible,
+.videoOsdBottom .btnPlayPause:not(.hide).show-focus:focus {
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.45), var(--obs-shadow-button-hover) !important;
+  transform: none !important;
+}
+
 /* Universal .hide safeguard */
 .videoOsdBottom .hide,
 .videoOsdBottom .paper-icon-button-light.hide {
@@ -2071,6 +2531,17 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
 .videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause):hover {
   color: var(--obs-white) !important;
   background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause):focus,
+.videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause):focus-visible,
+.videoOsdBottom .paper-icon-button-light:not(.hide):not(.btnPlay):not(.btnPause):not(.btnPlayPause).show-focus:focus {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.28) !important;
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.65) !important;
+  transform: none !important;
 }
 
 /* Playback Popups & Menus (Subtitle Action Sheet, Playback Settings) */
@@ -2237,6 +2708,116 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   color: inherit !important;
 }
 
+/* --------------------------------------------------------------------------
+   layout-tv Spatial Focus Geometry Unlocks (#filter-popover, #selectview-popover, .filterDialog)
+   MUI TrapFocus / dialogHelper focuses the outer container first; collapsing the
+   outer wrapper while keeping children visually styled lets focusManager moveDown
+   step inside instead of skipping internal controls to background cards.
+   -------------------------------------------------------------------------- */
+.layout-tv #filter-popover .MuiPopover-paper:focus,
+.layout-tv #selectview-popover .MuiPopover-paper:focus {
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  outline: none !important;
+}
+
+.layout-tv #filter-popover .MuiPopover-paper:focus::after,
+.layout-tv #selectview-popover .MuiPopover-paper:focus::after {
+  display: none !important;
+}
+
+.layout-tv #filter-popover .MuiPopover-paper:not(:focus) {
+  max-height: 75vh !important;
+  overflow-y: auto !important;
+}
+
+.layout-tv #filter-popover .MuiPopover-paper:focus > * {
+  background: var(--obs-panel-bg) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  color: var(--obs-slate-200) !important;
+}
+
+.layout-tv #filter-popover .MuiPopover-paper:focus > :first-child {
+  margin-top: 2px !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-top-left-radius: var(--obs-radius-xl) !important;
+  border-top-right-radius: var(--obs-radius-xl) !important;
+}
+
+.layout-tv #filter-popover .MuiPopover-paper:focus > :last-child {
+  border-bottom: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-bottom-left-radius: var(--obs-radius-xl) !important;
+  border-bottom-right-radius: var(--obs-radius-xl) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset) !important;
+}
+
+.layout-tv #selectview-popover .MuiPopover-paper:focus > .MuiList-root {
+  background: var(--obs-panel-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  margin-top: 2px !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset) !important;
+  color: var(--obs-slate-200) !important;
+}
+
+/* Hide un-upgraded collapse bodies synchronously before webcomponents upgrade */
+[is="emby-collapse"]:not(.emby-collapse) > .collapseContent {
+  display: none !important;
+}
+
+/* Legacy .filterDialog delegates panel surface to .filterDialogContent in layout-tv
+   so toggling :focus-within produces zero visual jump */
+.layout-tv .dialog.filterDialog {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.layout-tv .dialog.filterDialog::after {
+  display: none !important;
+}
+
+.layout-tv .dialog.filterDialog.opened:not(:focus-within) {
+  display: contents !important;
+}
+
+.layout-tv .dialog.filterDialog .filterDialogContent {
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: min(380px, 90vw) !important;
+  max-width: 90vw !important;
+  max-height: 80vh !important;
+  overflow-y: auto !important;
+  background: var(--obs-panel-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset), inset 0 0 40px rgba(255, 255, 255, 0.02) !important;
+  color: var(--obs-slate-200) !important;
+}
+
 /* Dialog Header */
 .formDialogHeaderTitle {
   color: var(--obs-white) !important;
@@ -2249,7 +2830,8 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   border-radius: var(--obs-radius-md) !important;
   margin: 0.2rem 0.4rem !important;
   transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
-              color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+              color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
 }
 
 @media (pointer: coarse) {
@@ -2267,9 +2849,73 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   color: var(--obs-white) !important;
 }
 
+.actionSheetMenuItem:focus,
+.actionSheetMenuItem:focus-visible,
+.actionSheetMenuItem.show-focus:focus,
+.MuiMenuItem-root:focus,
+.MuiMenuItem-root:focus-visible,
+.MuiMenuItem-root.Mui-focusVisible {
+  background-color: rgba(99, 102, 241, 0.22) !important;
+  color: var(--obs-white) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.55) !important;
+  outline: none !important;
+  transform: none !important;
+}
+
 .MuiMenuItem-root.Mui-selected {
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(217, 70, 239, 0.12) 100%) !important;
   color: var(--obs-white) !important;
+}
+
+/* Accordion Headers & Legacy Collapsible Filter Sections */
+#filter-popover .MuiAccordionSummary-root,
+.emby-collapsible-button {
+  border-radius: var(--obs-radius-sm) !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+#filter-popover .MuiAccordionSummary-root:hover,
+#filter-popover .MuiAccordionSummary-root:focus,
+#filter-popover .MuiAccordionSummary-root:focus-visible,
+#filter-popover .MuiAccordionSummary-root.Mui-focusVisible,
+.emby-collapsible-button:hover,
+.emby-collapsible-button:focus,
+.emby-collapsible-button:focus-visible,
+.emby-collapsible-button.show-focus:focus {
+  background: rgba(99, 102, 241, 0.18) !important;
+  color: var(--obs-white) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.55) !important;
+  outline: none !important;
+  transform: none !important;
+}
+
+/* Dialog, Popover & Reset Buttons (Neutralizes stock .show-focus:focus black text) */
+.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus,
+.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus-visible,
+.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button).show-focus:focus,
+.formDialog .raised:focus,
+.formDialog .raised:focus-visible,
+.formDialog .raised.show-focus:focus,
+.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus,
+.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus-visible,
+.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button).show-focus:focus,
+.filterDialog .resetFilters:focus,
+.filterDialog .resetFilters:focus-visible,
+.filterDialog .resetFilters.show-focus:focus,
+#filter-popover .MuiButton-root:focus,
+#filter-popover .MuiButton-root:focus-visible,
+#filter-popover .MuiButton-root.Mui-focusVisible,
+.button-flat:focus,
+.button-flat:focus-visible,
+.button-flat.show-focus:focus {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.36) 0%, rgba(217, 70, 239, 0.24) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid var(--obs-indigo-300) !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.48), 0 0 16px rgba(99, 102, 241, 0.55) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -2314,16 +2960,94 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   color: var(--obs-white) !important;
 }
 
-/* Checkbox & Switch Styling */
+/* Checkbox, Radio & Switch Styling */
 .emby-checkbox:checked + span + .checkboxOutline {
   background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
   border-color: transparent !important;
   box-shadow: 0 0 10px rgba(99, 102, 241, 0.5) !important;
 }
 
+.emby-checkbox:focus + span + .checkboxOutline,
+.emby-checkbox:focus-visible + span + .checkboxOutline,
+.emby-checkbox.show-focus:focus + span + .checkboxOutline {
+  border-color: var(--obs-indigo-300) !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.45), 0 0 12px rgba(99, 102, 241, 0.65) !important;
+}
+
+label.emby-checkbox-label:has(> .emby-checkbox:focus),
+label.emby-checkbox-label:has(> .emby-checkbox:focus-visible),
+.checkboxList > label:has(> .emby-checkbox:focus) {
+  background: rgba(99, 102, 241, 0.16) !important;
+  color: var(--obs-white) !important;
+  border-radius: var(--obs-radius-sm) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.45) !important;
+}
+
 .MuiCheckbox-root.Mui-checked,
+.MuiRadio-root.Mui-checked,
 .MuiSwitch-switchBase.Mui-checked {
   color: var(--obs-indigo-400) !important;
+}
+
+.MuiCheckbox-root.Mui-focusVisible,
+.MuiCheckbox-root:has(input:focus-visible),
+.MuiCheckbox-root:has(input:focus),
+.MuiRadio-root.Mui-focusVisible,
+.MuiRadio-root:has(input:focus-visible),
+.MuiRadio-root:has(input:focus),
+.MuiSwitch-switchBase.Mui-focusVisible,
+.MuiSwitch-switchBase:has(input:focus-visible),
+.MuiSwitch-switchBase:has(input:focus) {
+  color: var(--obs-indigo-300) !important;
+  background-color: rgba(99, 102, 241, 0.2) !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.55), 0 0 14px rgba(99, 102, 241, 0.65) !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+label.MuiFormControlLabel-root:has(input:focus),
+label.MuiFormControlLabel-root:has(input:focus-visible) {
+  background: rgba(99, 102, 241, 0.16) !important;
+  color: var(--obs-white) !important;
+  border-radius: var(--obs-radius-sm) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.45) !important;
+}
+
+/* Legacy Sort Dialog Radios (.mdl-radio) */
+.mdl-radio__button:checked + .mdl-radio__circles .mdl-radio__outer-circle,
+.mdl-radio__button:checked + .mdl-radio__circles .mdl-radio__inner-circle,
+.mdl-radio__button:checked + .mdl-radio__circles svg .mdl-radio__outer-circle,
+.mdl-radio__button:checked + .mdl-radio__circles svg .mdl-radio__inner-circle {
+  color: var(--obs-indigo-400) !important;
+}
+
+.mdl-radio__focus-circle {
+  background: var(--obs-indigo-500) !important;
+}
+
+.mdl-radio__button:focus + .mdl-radio__circles,
+.mdl-radio__button:focus-visible + .mdl-radio__circles,
+.mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles {
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.55), 0 0 12px rgba(217, 70, 239, 0.5) !important;
+}
+
+.mdl-radio__button:focus + .mdl-radio__circles .mdl-radio__outer-circle,
+.mdl-radio__button:focus + .mdl-radio__circles .mdl-radio__inner-circle,
+.mdl-radio__button:focus + .mdl-radio__circles svg .mdl-radio__outer-circle,
+.mdl-radio__button:focus + .mdl-radio__circles svg .mdl-radio__inner-circle,
+.mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles .mdl-radio__outer-circle,
+.mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles .mdl-radio__inner-circle,
+.mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles svg .mdl-radio__outer-circle,
+.mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles svg .mdl-radio__inner-circle {
+  color: var(--obs-fuchsia-400) !important;
+}
+
+label.radio-label-block:has(input:focus),
+label.radio-label-block:has(input:focus-visible),
+.mdl-radio:has(.mdl-radio__button:focus) {
+  background: rgba(99, 102, 241, 0.16) !important;
+  color: var(--obs-white) !important;
+  border-radius: var(--obs-radius-sm) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.45) !important;
 }
 
 .checkboxOutline {
@@ -2391,7 +3115,7 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
 #loginPage .manualLoginForm::after {
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: 0;
   border-radius: inherit;
   padding: 1.5px;
   background: var(--obs-chromatic-edge-gradient);
@@ -2414,8 +3138,22 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.3) !important;
 }
 
-/* Sign In Submit Button */
-#loginPage .raised.emby-button,
+/* Quick Connect, Forgot Password, Manual, Cancel, and Change Server render as
+   .raised.emby-button outside the gradient reserved for Sign In. */
+#loginPage .readOnlyContent {
+  box-sizing: border-box !important;
+  width: 90% !important;
+  max-width: 440px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+#loginPage .readOnlyContent > .visualLoginForm,
+#loginPage .readOnlyContent > .manualLoginForm {
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
 #loginPage .button-submit {
   background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
   color: var(--obs-white) !important;
@@ -2430,10 +3168,49 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   will-change: transform;
 }
 
-#loginPage .raised.emby-button:hover,
 #loginPage .button-submit:hover {
   transform: scale3d(1.02, 1.02, 1) !important;
   box-shadow: var(--obs-shadow-button-hover) !important;
+}
+
+#loginPage .button-submit:focus,
+#loginPage .button-submit:focus-visible,
+#loginPage .button-submit.show-focus:focus {
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.82) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.48), var(--obs-shadow-button-hover) !important;
+  transform: none !important;
+}
+
+#loginPage .raised.emby-button:not(.button-submit) {
+  background: rgba(15, 23, 42, 0.72) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  color: var(--obs-slate-200) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  min-height: 44px !important;
+  margin-top: 0.65rem !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) !important;
+}
+
+#loginPage .raised.emby-button:not(.button-submit):hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: var(--obs-glass-border-hover) !important;
+  color: var(--obs-white) !important;
+}
+
+#loginPage .raised.emby-button:not(.button-submit):focus,
+#loginPage .raised.emby-button:not(.button-submit):focus-visible,
+#loginPage .raised.emby-button:not(.button-submit).show-focus:focus {
+  background: rgba(99, 102, 241, 0.25) !important;
+  border-color: var(--obs-indigo-300) !important;
+  color: var(--obs-white) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 18px rgba(99, 102, 241, 0.55) !important;
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -2442,10 +3219,15 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
    -------------------------------------------------------------------------- */
 @media (max-width: 360px) {
   #loginPage .visualLoginForm,
-  #loginPage .manualLoginForm {
+  #loginPage .manualLoginForm,
+  #loginPage .readOnlyContent {
     box-sizing: border-box !important;
     width: 100% !important;
     max-width: 320px !important;
+  }
+
+  #loginPage .visualLoginForm,
+  #loginPage .manualLoginForm {
     padding: 2rem 1.25rem !important;
   }
 }
@@ -2537,8 +3319,22 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   }
 
   .card:hover .cardBox,
+  .card:focus .cardBox,
   .card:focus-visible .cardBox,
+  .card.show-focus:focus .cardBox,
+  .card:focus-within .cardBox,
   .btnPlay:hover,
+  .btnPlay:focus,
+  .btnPlay.show-focus:focus,
+  .emby-button:focus,
+  .emby-button.show-focus:focus,
+  .emby-tab-button:focus,
+  .emby-tab-button.show-focus:focus,
+  .MuiButton-root:focus,
+  .MuiIconButton-root:focus,
+  .MuiListItemButton-root:focus,
+  .navMenuOption:focus,
+  .mainDetailButtons .emby-button:focus,
   .videoOsdBottom .btnPlay:hover,
   .videoOsdBottom .btnPause:hover,
   .videoOsdBottom .btnPlayPause:hover {
@@ -2606,6 +3402,66 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
     border: 2px solid Highlight !important;
     background: Highlight !important;
     color: HighlightText !important;
+  }
+
+  .layout-tv .dialog.filterDialog .filterDialogContent,
+  .layout-tv #filter-popover .MuiPopover-paper:focus > *,
+  .layout-tv #selectview-popover .MuiPopover-paper:focus > .MuiList-root {
+    background: Canvas !important;
+    color: CanvasText !important;
+    border-color: CanvasText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .MuiPopover-paper:focus,
+  .MuiPopover-paper:focus-visible,
+  .emby-checkbox:focus + span + .checkboxOutline,
+  .emby-checkbox:focus-visible + span + .checkboxOutline,
+  .emby-checkbox.show-focus:focus + span + .checkboxOutline,
+  label.emby-checkbox-label:has(> .emby-checkbox:focus),
+  .MuiCheckbox-root.Mui-focusVisible,
+  .MuiCheckbox-root:has(input:focus),
+  .MuiRadio-root.Mui-focusVisible,
+  .MuiRadio-root:has(input:focus),
+  .MuiSwitch-switchBase.Mui-focusVisible,
+  label.MuiFormControlLabel-root:has(input:focus),
+  .mdl-radio__button:focus + .mdl-radio__circles,
+  .mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles,
+  label.radio-label-block:has(input:focus),
+  #filter-popover .MuiAccordionSummary-root:focus,
+  #filter-popover .MuiAccordionSummary-root:focus-visible,
+  #filter-popover .MuiAccordionSummary-root.Mui-focusVisible,
+  .emby-collapsible-button:focus,
+  .emby-collapsible-button:focus-visible,
+  .emby-collapsible-button.show-focus:focus,
+  main .MuiToolbar-root .MuiButton-root:focus,
+  main .MuiToolbar-root .MuiIconButton-root:focus,
+  main .MuiToolbar-root .MuiButtonGroup-grouped:focus,
+  .emby-tab-button:focus,
+  .emby-tab-button.show-focus:focus,
+  .alphaPickerButton:focus,
+  .alphaPickerButton.show-focus:focus,
+  .btnSort:focus,
+  .btnFilter:focus,
+  .btnPlayAll:focus,
+  .btnShuffle:focus,
+  .btnSelectView:focus,
+  .btnNewCollection:focus,
+  .btnPreviousPage:focus,
+  .btnNextPage:focus,
+  .viewControls .paper-icon-button-light:focus,
+  .actionSheetMenuItem:focus,
+  .MuiMenuItem-root:focus,
+  .formDialog .emby-button:focus,
+  .dialog .emby-button:focus,
+  .filterDialog .resetFilters:focus,
+  #filter-popover .MuiButton-root:focus,
+  .button-flat:focus {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
   }
 }
 

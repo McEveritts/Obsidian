@@ -90,8 +90,8 @@
     inset 0 -1px 2px 0 rgba(129, 140, 248, 0.34);
 
   /* --- Glass Surface Elevations --- */
-  --obs-card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(99, 102, 241, 0.03) 55%, rgba(217, 70, 239, 0.025) 100%);
-  --obs-card-bg-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(99, 102, 241, 0.06) 55%, rgba(217, 70, 239, 0.05) 100%);
+  --obs-card-bg: linear-gradient(160deg, rgba(16, 20, 36, 0.78) 0%, rgba(10, 12, 24, 0.86) 100%);
+  --obs-card-bg-hover: linear-gradient(160deg, rgba(24, 30, 52, 0.84) 0%, rgba(16, 18, 38, 0.90) 100%);
   --obs-panel-bg: linear-gradient(180deg, rgba(16, 18, 38, 0.80) 0%, rgba(12, 10, 30, 0.86) 100%);
   --obs-hero-bg: linear-gradient(180deg, rgba(10, 12, 26, 0.72) 0%, rgba(16, 14, 38, 0.78) 55%, rgba(24, 12, 48, 0.76) 100%);
   --obs-input-bg: rgba(0, 0, 0, 0.45);

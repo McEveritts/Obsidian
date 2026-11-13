@@ -64,6 +64,116 @@
   color: inherit !important;
 }
 
+/* --------------------------------------------------------------------------
+   layout-tv Spatial Focus Geometry Unlocks (#filter-popover, #selectview-popover, .filterDialog)
+   MUI TrapFocus / dialogHelper focuses the outer container first; collapsing the
+   outer wrapper while keeping children visually styled lets focusManager moveDown
+   step inside instead of skipping internal controls to background cards.
+   -------------------------------------------------------------------------- */
+.layout-tv #filter-popover .MuiPopover-paper:focus,
+.layout-tv #selectview-popover .MuiPopover-paper:focus {
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  outline: none !important;
+}
+
+.layout-tv #filter-popover .MuiPopover-paper:focus::after,
+.layout-tv #selectview-popover .MuiPopover-paper:focus::after {
+  display: none !important;
+}
+
+.layout-tv #filter-popover .MuiPopover-paper:not(:focus) {
+  max-height: 75vh !important;
+  overflow-y: auto !important;
+}
+
+.layout-tv #filter-popover .MuiPopover-paper:focus > * {
+  background: var(--obs-panel-bg) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  color: var(--obs-slate-200) !important;
+}
+
+.layout-tv #filter-popover .MuiPopover-paper:focus > :first-child {
+  margin-top: 2px !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-top-left-radius: var(--obs-radius-xl) !important;
+  border-top-right-radius: var(--obs-radius-xl) !important;
+}
+
+.layout-tv #filter-popover .MuiPopover-paper:focus > :last-child {
+  border-bottom: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-bottom-left-radius: var(--obs-radius-xl) !important;
+  border-bottom-right-radius: var(--obs-radius-xl) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset) !important;
+}
+
+.layout-tv #selectview-popover .MuiPopover-paper:focus > .MuiList-root {
+  background: var(--obs-panel-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  margin-top: 2px !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset) !important;
+  color: var(--obs-slate-200) !important;
+}
+
+/* Hide un-upgraded collapse bodies synchronously before webcomponents upgrade */
+[is="emby-collapse"]:not(.emby-collapse) > .collapseContent {
+  display: none !important;
+}
+
+/* Legacy .filterDialog delegates panel surface to .filterDialogContent in layout-tv
+   so toggling :focus-within produces zero visual jump */
+.layout-tv .dialog.filterDialog {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.layout-tv .dialog.filterDialog::after {
+  display: none !important;
+}
+
+.layout-tv .dialog.filterDialog.opened:not(:focus-within) {
+  display: contents !important;
+}
+
+.layout-tv .dialog.filterDialog .filterDialogContent {
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: min(380px, 90vw) !important;
+  max-width: 90vw !important;
+  max-height: 80vh !important;
+  overflow-y: auto !important;
+  background: var(--obs-panel-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset), inset 0 0 40px rgba(255, 255, 255, 0.02) !important;
+  color: var(--obs-slate-200) !important;
+}
+
 /* Dialog Header */
 .formDialogHeaderTitle {
   color: var(--obs-white) !important;
@@ -76,7 +186,8 @@
   border-radius: var(--obs-radius-md) !important;
   margin: 0.2rem 0.4rem !important;
   transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
-              color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+              color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
 }
 
 @media (pointer: coarse) {
@@ -94,9 +205,73 @@
   color: var(--obs-white) !important;
 }
 
+.actionSheetMenuItem:focus,
+.actionSheetMenuItem:focus-visible,
+.actionSheetMenuItem.show-focus:focus,
+.MuiMenuItem-root:focus,
+.MuiMenuItem-root:focus-visible,
+.MuiMenuItem-root.Mui-focusVisible {
+  background-color: rgba(99, 102, 241, 0.22) !important;
+  color: var(--obs-white) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.55) !important;
+  outline: none !important;
+  transform: none !important;
+}
+
 .MuiMenuItem-root.Mui-selected {
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(217, 70, 239, 0.12) 100%) !important;
   color: var(--obs-white) !important;
+}
+
+/* Accordion Headers & Legacy Collapsible Filter Sections */
+#filter-popover .MuiAccordionSummary-root,
+.emby-collapsible-button {
+  border-radius: var(--obs-radius-sm) !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+#filter-popover .MuiAccordionSummary-root:hover,
+#filter-popover .MuiAccordionSummary-root:focus,
+#filter-popover .MuiAccordionSummary-root:focus-visible,
+#filter-popover .MuiAccordionSummary-root.Mui-focusVisible,
+.emby-collapsible-button:hover,
+.emby-collapsible-button:focus,
+.emby-collapsible-button:focus-visible,
+.emby-collapsible-button.show-focus:focus {
+  background: rgba(99, 102, 241, 0.18) !important;
+  color: var(--obs-white) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.55) !important;
+  outline: none !important;
+  transform: none !important;
+}
+
+/* Dialog, Popover & Reset Buttons (Neutralizes stock .show-focus:focus black text) */
+.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus,
+.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus-visible,
+.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button).show-focus:focus,
+.formDialog .raised:focus,
+.formDialog .raised:focus-visible,
+.formDialog .raised.show-focus:focus,
+.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus,
+.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus-visible,
+.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button).show-focus:focus,
+.filterDialog .resetFilters:focus,
+.filterDialog .resetFilters:focus-visible,
+.filterDialog .resetFilters.show-focus:focus,
+#filter-popover .MuiButton-root:focus,
+#filter-popover .MuiButton-root:focus-visible,
+#filter-popover .MuiButton-root.Mui-focusVisible,
+.button-flat:focus,
+.button-flat:focus-visible,
+.button-flat.show-focus:focus {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.36) 0%, rgba(217, 70, 239, 0.24) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid var(--obs-indigo-300) !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.48), 0 0 16px rgba(99, 102, 241, 0.55) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -141,16 +316,94 @@
   color: var(--obs-white) !important;
 }
 
-/* Checkbox & Switch Styling */
+/* Checkbox, Radio & Switch Styling */
 .emby-checkbox:checked + span + .checkboxOutline {
   background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
   border-color: transparent !important;
   box-shadow: 0 0 10px rgba(99, 102, 241, 0.5) !important;
 }
 
+.emby-checkbox:focus + span + .checkboxOutline,
+.emby-checkbox:focus-visible + span + .checkboxOutline,
+.emby-checkbox.show-focus:focus + span + .checkboxOutline {
+  border-color: var(--obs-indigo-300) !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.45), 0 0 12px rgba(99, 102, 241, 0.65) !important;
+}
+
+label.emby-checkbox-label:has(> .emby-checkbox:focus),
+label.emby-checkbox-label:has(> .emby-checkbox:focus-visible),
+.checkboxList > label:has(> .emby-checkbox:focus) {
+  background: rgba(99, 102, 241, 0.16) !important;
+  color: var(--obs-white) !important;
+  border-radius: var(--obs-radius-sm) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.45) !important;
+}
+
 .MuiCheckbox-root.Mui-checked,
+.MuiRadio-root.Mui-checked,
 .MuiSwitch-switchBase.Mui-checked {
   color: var(--obs-indigo-400) !important;
+}
+
+.MuiCheckbox-root.Mui-focusVisible,
+.MuiCheckbox-root:has(input:focus-visible),
+.MuiCheckbox-root:has(input:focus),
+.MuiRadio-root.Mui-focusVisible,
+.MuiRadio-root:has(input:focus-visible),
+.MuiRadio-root:has(input:focus),
+.MuiSwitch-switchBase.Mui-focusVisible,
+.MuiSwitch-switchBase:has(input:focus-visible),
+.MuiSwitch-switchBase:has(input:focus) {
+  color: var(--obs-indigo-300) !important;
+  background-color: rgba(99, 102, 241, 0.2) !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.55), 0 0 14px rgba(99, 102, 241, 0.65) !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+label.MuiFormControlLabel-root:has(input:focus),
+label.MuiFormControlLabel-root:has(input:focus-visible) {
+  background: rgba(99, 102, 241, 0.16) !important;
+  color: var(--obs-white) !important;
+  border-radius: var(--obs-radius-sm) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.45) !important;
+}
+
+/* Legacy Sort Dialog Radios (.mdl-radio) */
+.mdl-radio__button:checked + .mdl-radio__circles .mdl-radio__outer-circle,
+.mdl-radio__button:checked + .mdl-radio__circles .mdl-radio__inner-circle,
+.mdl-radio__button:checked + .mdl-radio__circles svg .mdl-radio__outer-circle,
+.mdl-radio__button:checked + .mdl-radio__circles svg .mdl-radio__inner-circle {
+  color: var(--obs-indigo-400) !important;
+}
+
+.mdl-radio__focus-circle {
+  background: var(--obs-indigo-500) !important;
+}
+
+.mdl-radio__button:focus + .mdl-radio__circles,
+.mdl-radio__button:focus-visible + .mdl-radio__circles,
+.mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles {
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.55), 0 0 12px rgba(217, 70, 239, 0.5) !important;
+}
+
+.mdl-radio__button:focus + .mdl-radio__circles .mdl-radio__outer-circle,
+.mdl-radio__button:focus + .mdl-radio__circles .mdl-radio__inner-circle,
+.mdl-radio__button:focus + .mdl-radio__circles svg .mdl-radio__outer-circle,
+.mdl-radio__button:focus + .mdl-radio__circles svg .mdl-radio__inner-circle,
+.mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles .mdl-radio__outer-circle,
+.mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles .mdl-radio__inner-circle,
+.mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles svg .mdl-radio__outer-circle,
+.mdl-radio.show-focus .mdl-radio__button:focus + .mdl-radio__circles svg .mdl-radio__inner-circle {
+  color: var(--obs-fuchsia-400) !important;
+}
+
+label.radio-label-block:has(input:focus),
+label.radio-label-block:has(input:focus-visible),
+.mdl-radio:has(.mdl-radio__button:focus) {
+  background: rgba(99, 102, 241, 0.16) !important;
+  color: var(--obs-white) !important;
+  border-radius: var(--obs-radius-sm) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.45) !important;
 }
 
 .checkboxOutline {

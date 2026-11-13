@@ -66,11 +66,20 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
               box-shadow var(--obs-duration-fast) ease !important;
 }
 
-.MuiAppBar-root .MuiButton-root:hover,
-.MuiAppBar-root .MuiButton-root:focus-visible {
+.MuiAppBar-root .MuiButton-root:hover {
   color: var(--obs-white) !important;
   background-color: rgba(255, 255, 255, 0.08) !important;
   border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.MuiAppBar-root .MuiButton-root:focus,
+.MuiAppBar-root .MuiButton-root:focus-visible,
+.MuiAppBar-root .MuiButton-root.Mui-focusVisible {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.22) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 14px rgba(99, 102, 241, 0.45) !important;
+  outline: none !important;
 }
 
 /* Active Library Pill in Modern AppBar (.MuiButton-colorPrimary) */
@@ -90,14 +99,67 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   backface-visibility: hidden;
   transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
               background-color var(--obs-duration-fast) ease,
-              color var(--obs-duration-fast) ease !important;
+              color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
 }
 
-.MuiAppBar-root .MuiIconButton-root:hover,
-.MuiAppBar-root .MuiIconButton-root:focus-visible {
+.MuiAppBar-root .MuiIconButton-root:hover {
   color: var(--obs-white) !important;
   background-color: rgba(255, 255, 255, 0.08) !important;
   transform: scale3d(1.04, 1.04, 1);
+}
+
+.MuiAppBar-root .MuiIconButton-root:focus,
+.MuiAppBar-root .MuiIconButton-root:focus-visible,
+.MuiAppBar-root .MuiIconButton-root.Mui-focusVisible {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.24) !important;
+  box-shadow: 0 0 0 2px var(--obs-indigo-400), 0 0 14px rgba(99, 102, 241, 0.5) !important;
+  outline: none !important;
+  transform: none !important;
+}
+
+/* Jellyfin 12.2 React LibraryToolbar Controls (main .MuiToolbar-root) */
+main .MuiToolbar-root .MuiButton-root,
+main .MuiToolbar-root .MuiIconButton-root,
+main .MuiToolbar-root .MuiButtonGroup-grouped {
+  min-height: 44px !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: rgba(15, 23, 42, 0.65) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  color: var(--obs-slate-200) !important;
+  transition: background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+main .MuiToolbar-root .MuiIconButton-root {
+  min-width: 44px !important;
+}
+
+main .MuiToolbar-root .MuiButton-root:hover,
+main .MuiToolbar-root .MuiIconButton-root:hover,
+main .MuiToolbar-root .MuiButtonGroup-grouped:hover {
+  background: rgba(99, 102, 241, 0.16) !important;
+  border-color: var(--obs-glass-border-hover) !important;
+  color: var(--obs-white) !important;
+}
+
+main .MuiToolbar-root .MuiButton-root:focus,
+main .MuiToolbar-root .MuiButton-root:focus-visible,
+main .MuiToolbar-root .MuiButton-root.Mui-focusVisible,
+main .MuiToolbar-root .MuiIconButton-root:focus,
+main .MuiToolbar-root .MuiIconButton-root:focus-visible,
+main .MuiToolbar-root .MuiIconButton-root.Mui-focusVisible,
+main .MuiToolbar-root .MuiButtonGroup-grouped:focus,
+main .MuiToolbar-root .MuiButtonGroup-grouped:focus-visible,
+main .MuiToolbar-root .MuiButtonGroup-grouped.Mui-focusVisible {
+  background: rgba(99, 102, 241, 0.26) !important;
+  border-color: var(--obs-indigo-400) !important;
+  color: var(--obs-white) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 14px rgba(99, 102, 241, 0.45) !important;
+  outline: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -124,11 +186,21 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
               border-color var(--obs-duration-fast) ease !important;
 }
 
-.MuiDrawer-paper .MuiListItemButton-root:hover,
-.MuiDrawer-paper .MuiListItemButton-root:focus-visible {
+.MuiDrawer-paper .MuiListItemButton-root:hover {
   background-color: rgba(255, 255, 255, 0.06) !important;
   color: var(--obs-white) !important;
   border-color: rgba(255, 255, 255, 0.12) !important;
+  transform: translate3d(4px, 0, 0);
+}
+
+.MuiDrawer-paper .MuiListItemButton-root:focus,
+.MuiDrawer-paper .MuiListItemButton-root:focus-visible,
+.MuiDrawer-paper .MuiListItemButton-root.Mui-focusVisible {
+  background-color: rgba(99, 102, 241, 0.2) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4), 0 0 14px rgba(99, 102, 241, 0.4) !important;
+  outline: none !important;
   transform: translate3d(4px, 0, 0);
 }
 
@@ -191,11 +263,20 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
               color var(--obs-duration-fast) ease !important;
 }
 
-.headerButton:hover,
-.headerButton:focus-visible {
+.headerButton:hover {
   color: var(--obs-white) !important;
   background-color: rgba(255, 255, 255, 0.08) !important;
   transform: scale3d(1.04, 1.04, 1);
+}
+
+.headerButton:focus,
+.headerButton:focus-visible,
+.headerButton.show-focus:focus {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.24) !important;
+  box-shadow: 0 0 0 2px var(--obs-indigo-400), 0 0 14px rgba(99, 102, 241, 0.5) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 .headerUserButtonRound {
@@ -205,14 +286,73 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
 }
 
 /* Auxiliary Navigation & Paging Controls (Filter, Sort, Paging, View Mode) */
-.btnSort.paper-icon-button-light,
-.btnFilter.paper-icon-button-light,
-.btnPlayAll.paper-icon-button-light,
-.btnSelectView.paper-icon-button-light,
-.btnPreviousPage.paper-icon-button-light,
-.btnNextPage.paper-icon-button-light {
+.btnSort,
+.btnFilter,
+.btnPlayAll,
+.btnShuffle,
+.btnSelectView,
+.btnNewCollection,
+.btnPreviousPage,
+.btnNextPage,
+.viewControls .paper-icon-button-light {
   min-width: 44px !important;
   min-height: 44px !important;
+  border-radius: var(--obs-radius-full) !important;
+  color: var(--obs-slate-200) !important;
+  border: 1px solid transparent !important;
+  transition: background-color var(--obs-duration-fast) ease,
+              color var(--obs-duration-fast) ease,
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
+}
+
+.btnSort:hover,
+.btnFilter:hover,
+.btnPlayAll:hover,
+.btnShuffle:hover,
+.btnSelectView:hover,
+.btnNewCollection:hover,
+.btnPreviousPage:hover,
+.btnNextPage:hover,
+.viewControls .paper-icon-button-light:hover {
+  color: var(--obs-white) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: var(--obs-glass-border) !important;
+}
+
+.btnSort:focus,
+.btnSort:focus-visible,
+.btnSort.show-focus:focus,
+.btnFilter:focus,
+.btnFilter:focus-visible,
+.btnFilter.show-focus:focus,
+.btnPlayAll:focus,
+.btnPlayAll:focus-visible,
+.btnPlayAll.show-focus:focus,
+.btnShuffle:focus,
+.btnShuffle:focus-visible,
+.btnShuffle.show-focus:focus,
+.btnSelectView:focus,
+.btnSelectView:focus-visible,
+.btnSelectView.show-focus:focus,
+.btnNewCollection:focus,
+.btnNewCollection:focus-visible,
+.btnNewCollection.show-focus:focus,
+.btnPreviousPage:focus,
+.btnPreviousPage:focus-visible,
+.btnPreviousPage.show-focus:focus,
+.btnNextPage:focus,
+.btnNextPage:focus-visible,
+.btnNextPage.show-focus:focus,
+.viewControls .paper-icon-button-light:focus,
+.viewControls .paper-icon-button-light:focus-visible,
+.viewControls .paper-icon-button-light.show-focus:focus {
+  color: var(--obs-white) !important;
+  background-color: rgba(99, 102, 241, 0.24) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 14px rgba(99, 102, 241, 0.48) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -229,12 +369,14 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   padding: 0.5rem 1.15rem !important;
   min-height: 44px !important;
   box-sizing: border-box !important;
+  border: 1px solid transparent !important;
   border-radius: var(--obs-radius-full) !important;
   backface-visibility: hidden;
   transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
               background-color var(--obs-duration-fast) ease,
               color var(--obs-duration-fast) ease,
-              border-color var(--obs-duration-fast) ease !important;
+              border-color var(--obs-duration-fast) ease,
+              box-shadow var(--obs-duration-fast) ease !important;
   position: relative !important;
 }
 
@@ -247,6 +389,17 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
 .emby-tab-button:hover {
   color: var(--obs-white) !important;
   background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.emby-tab-button:focus,
+.emby-tab-button:focus-visible,
+.emby-tab-button.show-focus:focus {
+  color: var(--obs-white) !important;
+  background: rgba(99, 102, 241, 0.24) !important;
+  border: 1px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.42), 0 0 16px rgba(99, 102, 241, 0.48) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
 /* Active Tab with Luminescent Indicator (Looplet .af-tab-pill-active parity) */
@@ -303,11 +456,21 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
   align-items: center !important;
 }
 
-.navMenuOption:hover,
-.navMenuOption:focus-visible {
+.navMenuOption:hover {
   background-color: rgba(255, 255, 255, 0.06) !important;
   color: var(--obs-white) !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
+  transform: translate3d(4px, 0, 0);
+}
+
+.navMenuOption:focus,
+.navMenuOption:focus-visible,
+.navMenuOption.show-focus:focus {
+  background-color: rgba(99, 102, 241, 0.22) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4), 0 0 14px rgba(99, 102, 241, 0.4) !important;
+  outline: none !important;
   transform: translate3d(4px, 0, 0);
 }
 
@@ -322,5 +485,40 @@ body:has(.videoOsd-appBar) .MuiAppBar-root:not(.osdHeader) {
 
 .navMenuOptionIcon {
   color: var(--obs-indigo-400) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. Library A–Z Index (.alphaPicker)
+   -------------------------------------------------------------------------- */
+.alphaPicker {
+  background: rgba(12, 16, 28, 0.72) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-radius: var(--obs-radius-full) !important;
+  padding: 0.35rem 0.15rem !important;
+  box-sizing: border-box !important;
+}
+
+.alphaPickerButton {
+  color: var(--obs-slate-300) !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+.alphaPickerButton:hover,
+.alphaPickerButton-selected {
+  color: var(--obs-white) !important;
+  background: rgba(99, 102, 241, 0.34) !important;
+}
+
+.alphaPickerButton:focus,
+.alphaPickerButton:focus-visible,
+.alphaPickerButton.show-focus:focus,
+.alphaPickerButton-tv:focus {
+  color: var(--obs-white) !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.65) 0%, rgba(217, 70, 239, 0.5) 100%) !important;
+  box-shadow: 0 0 0 1.5px var(--obs-indigo-300), 0 0 12px rgba(99, 102, 241, 0.65) !important;
+  outline: none !important;
+  transform: none !important;
 }
 
