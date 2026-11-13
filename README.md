@@ -82,9 +82,10 @@ To enable it, copy `scripts/obsidian-xbox-nav.js` into your Jellyfin Web directo
 
 ### Included Library Cover Pack (`assets/covers/`)
 
-Obsidian includes three matching `1920×1080` (`16:9`) glassmorphic library cover images ready to upload as primary library artwork:
+Obsidian includes four matching `1920×1080` (`16:9`) glassmorphic library cover images ready to upload as primary library artwork:
 - [`assets/covers/movies.png`](./assets/covers/movies.png) — Movies library cover
 - [`assets/covers/tv.png`](./assets/covers/tv.png) — Shows / TV library cover
+- [`assets/covers/live-tv.png`](./assets/covers/live-tv.png) — Live TV library cover
 - [`assets/covers/collections.png`](./assets/covers/collections.png) — Collections library cover
 
 ---
