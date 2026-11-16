@@ -248,15 +248,15 @@
 }
 
 /* Dialog, Popover & Reset Buttons (Neutralizes stock .show-focus:focus black text) */
-.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus,
-.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus-visible,
-.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button).show-focus:focus,
-.formDialog .raised:focus,
-.formDialog .raised:focus-visible,
-.formDialog .raised.show-focus:focus,
-.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus,
-.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):focus-visible,
-.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button).show-focus:focus,
+.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):not(.button-submit):not(.button-delete):focus,
+.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):not(.button-submit):not(.button-delete):focus-visible,
+.formDialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):not(.button-submit):not(.button-delete).show-focus:focus,
+.formDialog .raised:not(.button-submit):not(.button-delete):focus,
+.formDialog .raised:not(.button-submit):not(.button-delete):focus-visible,
+.formDialog .raised:not(.button-submit):not(.button-delete).show-focus:focus,
+.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):not(.button-submit):not(.button-delete):focus,
+.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):not(.button-submit):not(.button-delete):focus-visible,
+.dialog .emby-button:not(.actionSheetMenuItem):not(.emby-collapsible-button):not(.button-submit):not(.button-delete).show-focus:focus,
 .filterDialog .resetFilters:focus,
 .filterDialog .resetFilters:focus-visible,
 .filterDialog .resetFilters.show-focus:focus,
@@ -275,11 +275,176 @@
 }
 
 /* --------------------------------------------------------------------------
+   Global Unscoped Buttons (.raised, .button-submit, .button-delete, .fab)
+   & Universal TV/Xbox .emby-button.show-focus:focus Contrast Guarantee
+   -------------------------------------------------------------------------- */
+.emby-button:where(.show-focus):focus,
+.paper-icon-button-light:where(.show-focus):focus {
+  background: rgba(99, 102, 241, 0.26) !important;
+  color: var(--obs-white) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 16px rgba(99, 102, 241, 0.55) !important;
+  transform: none !important;
+}
+
+.raised.emby-button:not([is="emby-linkbutton"]):not(.button-submit):not(.button-delete):not(.btnPlay):not(.upNextDialog-button),
+.btnAddServer.raised,
+.raised-alt.raised,
+a[data-role="button"] {
+  box-sizing: border-box !important;
+  min-height: 44px !important;
+  border-radius: var(--obs-radius-xl) !important;
+  background: rgba(15, 23, 42, 0.75) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  color: var(--obs-slate-200) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+a[data-role="button"]:not(.hide) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.65rem 1.1rem !important;
+  text-decoration: none !important;
+}
+
+div[data-role="controlgroup"] a.ui-btn-active {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  color: var(--obs-white) !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+}
+
+.fab:not(.cardOverlayButton) {
+  box-sizing: border-box !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: rgba(15, 23, 42, 0.78) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  color: var(--obs-white) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .raised.emby-button:not([is="emby-linkbutton"]):not(.button-submit):not(.button-delete):not(.btnPlay):not(.upNextDialog-button):hover,
+  .btnAddServer.raised:hover,
+  .raised-alt.raised:hover,
+  a[data-role="button"]:not(.ui-btn-active):hover,
+  .fab:not(.cardOverlayButton):hover {
+    background: rgba(99, 102, 241, 0.2) !important;
+    border-color: var(--obs-glass-border-hover) !important;
+    color: var(--obs-white) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 0 18px rgba(99, 102, 241, 0.35) !important;
+  }
+}
+
+.raised.emby-button:not([is="emby-linkbutton"]):not(.button-submit):not(.button-delete):not(.btnPlay):not(.upNextDialog-button):focus,
+.raised.emby-button:not([is="emby-linkbutton"]):not(.button-submit):not(.button-delete):not(.btnPlay):not(.upNextDialog-button):focus-visible,
+.raised.emby-button:not([is="emby-linkbutton"]):not(.button-submit):not(.button-delete):not(.btnPlay):not(.upNextDialog-button).show-focus:focus,
+.btnAddServer.raised:focus,
+.btnAddServer.raised:focus-visible,
+.btnAddServer.raised.show-focus:focus,
+.raised-alt.raised:focus,
+.raised-alt.raised:focus-visible,
+.raised-alt.raised.show-focus:focus,
+a[data-role="button"]:focus,
+a[data-role="button"]:focus-visible,
+.fab:not(.cardOverlayButton):focus,
+.fab:not(.cardOverlayButton):focus-visible,
+.fab:not(.cardOverlayButton).show-focus:focus {
+  background: rgba(99, 102, 241, 0.28) !important;
+  border-color: var(--obs-indigo-300) !important;
+  color: var(--obs-white) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45), 0 0 18px rgba(99, 102, 241, 0.55) !important;
+  transform: none !important;
+}
+
+.button-submit {
+  box-sizing: border-box !important;
+  min-height: 44px !important;
+  border-radius: var(--obs-radius-xl) !important;
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  color: var(--obs-white) !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-submit:hover {
+    border-color: rgba(255, 255, 255, 0.48) !important;
+    box-shadow: var(--obs-shadow-button-hover) !important;
+  }
+}
+
+.button-submit:focus,
+.button-submit:focus-visible,
+.button-submit.show-focus:focus {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.82) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.48), var(--obs-shadow-button-hover) !important;
+  transform: none !important;
+}
+
+.button-delete {
+  box-sizing: border-box !important;
+  min-height: 44px !important;
+  border-radius: var(--obs-radius-xl) !important;
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.88), rgba(225, 29, 72, 0.88)) !important;
+  color: var(--obs-white) !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(251, 113, 133, 0.42) !important;
+  box-shadow: 0 4px 20px rgba(244, 63, 94, 0.32) !important;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-delete:hover {
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.96), rgba(225, 29, 72, 0.96)) !important;
+    border-color: rgba(255, 255, 255, 0.48) !important;
+    box-shadow: 0 6px 26px rgba(244, 63, 94, 0.48) !important;
+  }
+}
+
+.button-delete:focus,
+.button-delete:focus-visible,
+.button-delete.show-focus:focus {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.96), rgba(225, 29, 72, 0.96)) !important;
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.82) !important;
+  outline: 2px solid #fb7185 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.48), 0 0 22px rgba(244, 63, 94, 0.6) !important;
+  transform: none !important;
+}
+
+/* --------------------------------------------------------------------------
    Tier 4 Glass Inputs & Recessed Dark Wells (Looplet .glass-input parity)
    -------------------------------------------------------------------------- */
 .emby-input,
 .emby-textarea,
 .emby-select,
+.emby-select-withcolor,
 .MuiFilledInput-root,
 .MuiOutlinedInput-root {
   background: var(--obs-input-bg) !important;
@@ -294,9 +459,16 @@
 }
 
 .emby-input,
-.emby-textarea,
-.emby-select {
+.emby-textarea {
   padding: 0.65rem 1rem !important;
+}
+
+.emby-select,
+.emby-select-withcolor {
+  min-height: 44px !important;
+  padding-block: 0.65rem !important;
+  padding-inline-start: 1rem !important;
+  padding-inline-end: 2.25rem !important;
 }
 
 .emby-input:focus,
@@ -310,8 +482,20 @@
   outline: none !important;
 }
 
+.emby-select-withcolor.emby-select-withcolor:focus,
+.emby-select-tv-withcolor.emby-select-tv-withcolor:focus {
+  border-color: var(--obs-indigo-400) !important;
+  background: var(--obs-input-bg-focus) !important;
+  color: var(--obs-white) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.38) !important;
+  transform: none !important;
+}
+
 /* Dropdown Options */
-.emby-select option {
+.emby-select option,
+.emby-select-withcolor > option {
   background-color: var(--obs-slate-900) !important;
   color: var(--obs-white) !important;
 }
@@ -412,6 +596,155 @@ label.radio-label-block:has(input:focus-visible),
 }
 
 /* --------------------------------------------------------------------------
+   Spinners, Progress Rings, Legacy Toggle Switches & Native Progress Bars
+   Eliminates residual #00a4dc Jellyfin cyan & #ccc track leaks globally
+   -------------------------------------------------------------------------- */
+.mdl-spinner {
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.35));
+}
+
+.mdl-spinner__layer-1 {
+  border-color: var(--obs-indigo-400) !important;
+}
+
+.mdl-spinner__layer-2 {
+  border-color: var(--obs-fuchsia-400) !important;
+}
+
+.mdl-spinner__layer-3 {
+  border-color: var(--obs-sky-400) !important;
+}
+
+.mdl-spinner__layer-4 {
+  border-color: var(--obs-indigo-300) !important;
+}
+
+.progressring {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+.progressring-bg {
+  background: rgba(12, 16, 28, 0.88) !important;
+  border-color: rgba(129, 140, 248, 0.28) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+.progressring-spiner {
+  border-color: var(--obs-indigo-400) !important;
+}
+
+.progressring-text {
+  color: var(--obs-slate-200) !important;
+  font-family: var(--obs-font-mono) !important;
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* Legacy Toggle Switches (.mdl-switch / emby-toggle) */
+.mdl-switch {
+  min-height: 44px;
+  padding: 0.2rem 0.35rem;
+  border-radius: var(--obs-radius-md);
+}
+
+.mdl-switch__label {
+  color: var(--obs-slate-200) !important;
+}
+
+.mdl-switch__trackContainer {
+  flex-shrink: 0;
+}
+
+.mdl-switch__track {
+  box-sizing: border-box !important;
+  background: rgba(30, 41, 59, 0.88) !important;
+  border: 1px solid rgba(148, 163, 184, 0.32) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45) !important;
+  transition: background var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.mdl-switch__thumb {
+  box-sizing: border-box !important;
+  background: var(--obs-slate-300) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+}
+
+.mdl-switch__input:checked ~ .mdl-switch__trackContainer > .mdl-switch__track {
+  background: linear-gradient(90deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.55) !important;
+}
+
+.mdl-switch__input:checked ~ .mdl-switch__trackContainer > .mdl-switch__thumb {
+  background: var(--obs-white) !important;
+  border-color: var(--obs-indigo-300) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 12px rgba(217, 70, 239, 0.55) !important;
+}
+
+.mdl-switch__input:disabled ~ .mdl-switch__trackContainer > .mdl-switch__track,
+.mdl-switch__input:disabled ~ .mdl-switch__trackContainer > .mdl-switch__thumb {
+  opacity: 0.45 !important;
+  box-shadow: none !important;
+}
+
+.mdl-switch__input:focus ~ .mdl-switch__trackContainer > .mdl-switch__thumb,
+.mdl-switch__input:focus-visible ~ .mdl-switch__trackContainer > .mdl-switch__thumb {
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.45), 0 0 16px rgba(217, 70, 239, 0.65) !important;
+}
+
+.mdl-switch__input:focus ~ .mdl-switch__trackContainer .mdl-switch__focus-helper,
+.mdl-switch__input:checked:focus ~ .mdl-switch__trackContainer .mdl-switch__focus-helper {
+  background-color: rgba(99, 102, 241, 0.22) !important;
+  box-shadow: 0 0 0 1.25em rgba(99, 102, 241, 0.22) !important;
+}
+
+.mdl-switch:has(.mdl-switch__input:focus),
+.mdl-switch:has(.mdl-switch__input:focus-visible) {
+  background: rgba(99, 102, 241, 0.16) !important;
+  color: var(--obs-white) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.45) !important;
+}
+
+/* Native <progress> Bars & Active Session Progress */
+progress {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background: rgba(15, 23, 42, 0.78) !important;
+  border: 1px solid rgba(129, 140, 248, 0.28) !important;
+  border-radius: var(--obs-radius-full) !important;
+  overflow: hidden !important;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+progress::-webkit-progress-bar {
+  background: rgba(15, 23, 42, 0.78) !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+progress::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  border-radius: var(--obs-radius-full) !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.65) !important;
+}
+
+progress::-moz-progress-bar {
+  background: linear-gradient(90deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  border-radius: var(--obs-radius-full) !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.65) !important;
+}
+
+progress[aria-valuenow]::before,
+.playbackProgress > div {
+  background: linear-gradient(90deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+/* --------------------------------------------------------------------------
    Profile Preferences Responsive Form Containment
    Prevents fixed flex row from blowing out 320px compact mobile viewports
    -------------------------------------------------------------------------- */
@@ -422,4 +755,168 @@ label.radio-label-block:has(input:focus-visible),
 
 #userProfilePage .readOnlyContent > div {
   margin: 0.5em !important;
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion & Forced-Colors Fallbacks for Global Controls
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .raised.emby-button:not([is="emby-linkbutton"]):not(.button-submit):not(.button-delete):not(.btnPlay):not(.upNextDialog-button),
+  .btnAddServer.raised,
+  .raised-alt.raised,
+  a[data-role="button"],
+  .fab:not(.cardOverlayButton),
+  .paper-icon-button-light,
+  .button-submit,
+  .button-delete,
+  .emby-input,
+  .emby-textarea,
+  .emby-select,
+  .emby-select-withcolor,
+  .mdl-switch__track,
+  .mdl-switch__thumb {
+    transition: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .raised.emby-button:not([is="emby-linkbutton"]):not(.button-submit):not(.button-delete):not(.btnPlay):not(.upNextDialog-button),
+  .btnAddServer.raised,
+  .raised-alt.raised,
+  a[data-role="button"],
+  .fab:not(.cardOverlayButton) {
+    forced-color-adjust: none !important;
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border: 1.5px solid ButtonText !important;
+    box-shadow: none !important;
+  }
+
+  .button-submit,
+  div[data-role="controlgroup"] a.ui-btn-active {
+    forced-color-adjust: none !important;
+    background: Highlight !important;
+    color: HighlightText !important;
+    border: 1.5px solid Highlight !important;
+    box-shadow: none !important;
+  }
+
+  .button-delete {
+    forced-color-adjust: none !important;
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border: 2px solid ButtonText !important;
+    box-shadow: none !important;
+  }
+
+  .emby-button:where(.show-focus):focus,
+  .paper-icon-button-light:where(.show-focus):focus {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+
+  .raised.emby-button:not([is="emby-linkbutton"]):not(.button-submit):not(.button-delete):not(.btnPlay):not(.upNextDialog-button):focus,
+  .raised.emby-button:not([is="emby-linkbutton"]):not(.button-submit):not(.button-delete):not(.btnPlay):not(.upNextDialog-button):focus-visible,
+  .raised.emby-button:not([is="emby-linkbutton"]):not(.button-submit):not(.button-delete):not(.btnPlay):not(.upNextDialog-button).show-focus:focus,
+  .btnAddServer.raised:focus,
+  .raised-alt.raised:focus,
+  a[data-role="button"]:focus,
+  .fab:not(.cardOverlayButton):focus,
+  .button-submit:focus,
+  .button-submit:focus-visible,
+  .button-submit.show-focus:focus,
+  .button-delete:focus,
+  .button-delete:focus-visible,
+  .button-delete.show-focus:focus,
+  .emby-select-withcolor.emby-select-withcolor:focus,
+  .emby-select-tv-withcolor.emby-select-tv-withcolor:focus,
+  .mdl-switch__input:focus ~ .mdl-switch__trackContainer > .mdl-switch__thumb,
+  .mdl-switch__input:focus-visible ~ .mdl-switch__trackContainer > .mdl-switch__thumb {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+
+  .emby-select-withcolor,
+  .emby-select-tv-withcolor.emby-select-tv-withcolor:focus {
+    forced-color-adjust: none !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    border: 1.5px solid CanvasText !important;
+    box-shadow: none !important;
+  }
+
+  .mdl-spinner,
+  .progressring {
+    filter: none !important;
+  }
+
+  .mdl-spinner__layer-1,
+  .mdl-spinner__layer-2,
+  .mdl-spinner__layer-3,
+  .mdl-spinner__layer-4,
+  .progressring-spiner {
+    border-color: Highlight !important;
+  }
+
+  .progressring-bg,
+  .mdl-switch__track,
+  progress {
+    forced-color-adjust: none !important;
+    background: Canvas !important;
+    border-color: CanvasText !important;
+    box-shadow: none !important;
+  }
+
+  progress::-webkit-progress-bar {
+    background: Canvas !important;
+    box-shadow: none !important;
+  }
+
+  .progressring-text,
+  .mdl-switch__label {
+    color: CanvasText !important;
+  }
+
+  .mdl-switch__thumb {
+    forced-color-adjust: none !important;
+    background: ButtonText !important;
+    border-color: Canvas !important;
+    box-shadow: none !important;
+  }
+
+  .mdl-switch__input:checked ~ .mdl-switch__trackContainer > .mdl-switch__track {
+    forced-color-adjust: none !important;
+    background: Highlight !important;
+    border-color: Highlight !important;
+    box-shadow: none !important;
+  }
+
+  progress::-webkit-progress-value {
+    background: Highlight !important;
+    box-shadow: none !important;
+  }
+
+  progress::-moz-progress-bar {
+    background: Highlight !important;
+    box-shadow: none !important;
+  }
+
+  .mdl-switch__input:checked ~ .mdl-switch__trackContainer > .mdl-switch__thumb {
+    forced-color-adjust: none !important;
+    background: HighlightText !important;
+    border-color: Highlight !important;
+    box-shadow: none !important;
+  }
+
+  .mdl-switch:has(.mdl-switch__input:focus),
+  .mdl-switch:has(.mdl-switch__input:focus-visible),
+  .mdl-switch__input:focus ~ .mdl-switch__trackContainer .mdl-switch__focus-helper,
+  .mdl-switch__input:checked:focus ~ .mdl-switch__trackContainer .mdl-switch__focus-helper {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
 }

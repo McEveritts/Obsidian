@@ -46,11 +46,15 @@ The popup is a compact horizontal glass pill, with a small speaker icon and an i
 
 The pre-fix compiled theme fails the compact-popup regression. `OBSIDIAN_CHROMIUM_PATH` and `OBSIDIAN_STYLESHEET` work as in the Live TV suite.
 
-### Player Up Next Dialog Regression Gate (Jellyfin 12.4.0)
+### Player Overlays, Global Controls, Shell, Music/Readers & Cards Gates (Jellyfin 12.4.0)
 
-`npm run test:player-osd` also exercises Jellyfin's lazy-loaded Up Next overlay (`.upNextContainer.upNextDialog`, `.upNextDialog-nextVideoText`, `.upNextDialog-countdownText`, `.upNextDialog-title`, `.upNextDialog-mediainfo`, `.btnStartNow`, and `.btnHide`) alongside the native chunk stylesheet and `themes/dark/theme.css`.
+In addition to `npm run test:live-tv` (`27` checks), CI and local development run five headless Chromium suites covering all 12 CSS modules:
 
-Seventeen additional checks verify the smoked Obsidian glass card (`blur(24px)`, specular bevel, and prismatic rim), tabular-numeral countdown pill, primary Indigo-to-Fuchsia `Start Now` pill vs. secondary frosted `Hide` pill (`>= 44px` WCAG 2.2 AAA hit targets with optically centered labels), right/left viewport anchoring across all six desktop/mobile/TV viewports in both `ltr` and `rtl`, TV `.show-focus` rings without `scale(1.2)` collision or dark-theme black text, safe `transitionend` container dismissal (canceling child button transitions during `.upNextDialog-hidden` fade-out so Jellyfin's `{ once: true }` listener never hides a child button instead of `.upNextContainer`), forced-color contrast, and `200%` text scaling with late-loaded chunk/theme CSS.
+- **`npm run test:player-osd` (`44` checks):** Exercises `.volumeOsd`, `.brightnessOsdProgressInner` / `.iconOsd`, `.upNextContainer.upNextDialog`, `.skip-button`, `.playerStats`, `.subtitleSyncContainer`, `.chapterThumbContainer`, and `.subtitleappearance-fullpreview` across six desktop/mobile/TV viewports in `ltr` and `rtl`, `transitionend` dismissal lifecycles, forced colors, and `200%` text scaling.
+- **`npm run test:global-controls` (`5` checks):** Verifies live upstream selector auditing (`0` dead selectors across all 12 modules), `:root` `--jf-palette-*` / `--mui-palette-*` contrast tokens, unscoped `.raised` / `.button-submit` / `.button-delete` / TV `.emby-button.show-focus:focus`, chromatic `.mdl-spinner`, `.progressring`, `.mdl-switch`, `<progress>`, and `.emby-select-withcolor`.
+- **`npm run test:shell-overlays` (`29` checks):** Verifies `.toast`, `.selectionCommandsPanel` / `.itemSelectionPanel`, `.infoBanner`, `.quickConnectError`, SyncPlay group sheets, and Cast Remote D-pad controls (`>= 48px`) across six viewports (`ltr` & `rtl`), reduced motion, and forced colors.
+- **`npm run test:music-readers` (`22` checks):** Verifies synced `.lyricPage` states, `.nowPlayingBar` sub-controls & queue pills, `.slideshowDialog` / `.slideshowBottomBar`, `#bookPlayer` / `#dialogToc` dark glass overrides, `#comicsPlayer .swiper-pagination`, and `.logoScreenSaver`.
+- **`npm run test:cards-tables` (`18` checks) & `npm run test:xbox-nav` (`6` checks):** Verifies `.mediaSourceIndicator`, `.fullSyncIndicator`, `.itemProgressBarForeground-recording`, `.personCard`, `.detailTable`, `.searchFieldsInner`, `1920x1080` library cover PNG headers, and Xbox/TV popover controller navigation.
 
 ---
 

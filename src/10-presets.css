@@ -101,9 +101,19 @@
   .mainDetailButtons .emby-button:focus,
   .videoOsdBottom .btnPlay:hover,
   .videoOsdBottom .btnPause:hover,
-  .videoOsdBottom .btnPlayPause:hover {
+  .videoOsdBottom .btnPlayPause:hover,
+  .upNextDialog .upNextDialog-button,
+  .upNextDialog .btnStartNow:hover,
+  .upNextDialog .btnHide:hover,
+  .detailTable tbody tr,
+  .detailTableBodyCell,
+  .searchfields-icon {
     transform: none !important;
     transition: none !important;
+  }
+
+  .upNextContainer {
+    transition-duration: 1ms !important;
   }
 
   .cardBox::after {
@@ -148,6 +158,8 @@
   .MuiDialog-paper,
   .skinHeader,
   .MuiAppBar-root,
+  .upNextContainer,
+  .detailTable,
   .btnPlay,
   .emby-input,
   .emby-select,
@@ -157,6 +169,49 @@
     background: Canvas !important;
     color: CanvasText !important;
     box-shadow: none !important;
+  }
+
+  .upNextContainer,
+  .detailTable {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .detailTableHeaderCell,
+  .detailTableBodyCell {
+    background: Canvas !important;
+    color: CanvasText !important;
+    border-bottom: 1px solid CanvasText !important;
+  }
+
+  .detailTable tbody tr:hover .detailTableBodyCell,
+  .detailTable tbody tr:focus-within .detailTableBodyCell {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .mediaSourceIndicator,
+  .fullSyncIndicator,
+  .countIndicator,
+  .playedIndicator {
+    forced-color-adjust: none !important;
+    background: Highlight !important;
+    color: HighlightText !important;
+    border: 1px solid CanvasText !important;
+    box-shadow: none !important;
+  }
+
+  .itemProgressBarForeground,
+  .itemProgressBarForeground-recording,
+  .itemProgressBarForeground.itemProgressBarForeground-recording {
+    forced-color-adjust: none !important;
+    background: Highlight !important;
+    box-shadow: none !important;
+  }
+
+  .searchfields-icon {
+    color: CanvasText !important;
+    filter: none !important;
   }
 
   .emby-tab-button-active,

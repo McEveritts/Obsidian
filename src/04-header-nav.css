@@ -522,3 +522,775 @@ main .MuiToolbar-root .MuiButtonGroup-grouped.Mui-focusVisible {
   transform: none !important;
 }
 
+/* --------------------------------------------------------------------------
+   7. Toast Notifications (.toastContainer, .toast, .toastVisible, .toastHide)
+   -------------------------------------------------------------------------- */
+.toastContainer {
+  box-sizing: border-box !important;
+  max-width: 100vw !important;
+  padding-top: 1rem !important;
+  padding-left: max(1rem, env(safe-area-inset-left)) !important;
+  padding-right: max(1rem, env(safe-area-inset-right)) !important;
+  padding-bottom: max(1rem, env(safe-area-inset-bottom)) !important;
+  gap: 0.5rem;
+}
+
+[dir="ltr"] .toastContainer {
+  left: 0 !important;
+  right: auto !important;
+}
+
+[dir="rtl"] .toastContainer {
+  right: 0 !important;
+  left: auto !important;
+}
+
+.toast {
+  box-sizing: border-box !important;
+  min-width: min(18rem, calc(100vw - 2rem)) !important;
+  max-width: calc(100vw - 2rem) !important;
+  padding: 0.85rem 1.25rem !important;
+  margin: 0 !important;
+  margin-right: auto !important;
+  background: rgba(12, 16, 28, 0.90) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-panel), var(--obs-chromatic-inset-card) !important;
+  color: var(--obs-white) !important;
+  font-family: var(--obs-font-sans) !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word;
+  backface-visibility: hidden;
+  transition: transform 0.28s var(--obs-ease-out-120),
+              opacity 0.24s var(--obs-ease-out-120) !important;
+}
+
+[dir="rtl"] .toast {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+.toast:last-child {
+  transform: translateY(16em);
+}
+
+.toast.toastVisible {
+  transform: none !important;
+}
+
+.toast.toastHide {
+  opacity: 0 !important;
+  transition: opacity 0.24s var(--obs-ease-out-120) !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. Multi-Select Batch Toolbar & Card Selection Overlay
+      (.selectionCommandsPanel, .itemSelectionPanel, .multiSelectCheckboxOutline)
+   -------------------------------------------------------------------------- */
+body .selectionCommandsPanel,
+.selectionCommandsPanel {
+  box-sizing: border-box !important;
+  min-height: 56px !important;
+  gap: 0.5rem;
+  padding-top: max(0.5rem, env(safe-area-inset-top)) !important;
+  padding-bottom: 0.5rem !important;
+  padding-left: max(0.75rem, env(safe-area-inset-left)) !important;
+  padding-right: max(0.75rem, env(safe-area-inset-right)) !important;
+  background: rgba(12, 16, 28, 0.92) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  border-bottom: 1px solid var(--obs-chromatic-border-indigo) !important;
+  box-shadow: var(--obs-shadow-panel) !important;
+  color: var(--obs-white) !important;
+}
+
+body .selectionCommandsPanel .itemSelectionCount,
+.itemSelectionCount {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0.2rem 0.75rem !important;
+  margin: 0 0.25rem !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.34) 0%, rgba(217, 70, 239, 0.22) 100%) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  box-shadow: 0 0 14px rgba(99, 102, 241, 0.32) !important;
+  color: var(--obs-white) !important;
+  font-family: var(--obs-font-sans) !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+.btnSelectionPanelOptions {
+  margin-inline-start: auto !important;
+  margin-inline-end: 0 !important;
+}
+
+body .selectionCommandsPanel .paper-icon-button-light,
+body .selectionCommandsPanel .btnCloseSelectionPanel,
+body .selectionCommandsPanel .btnSelectionPanelOptions,
+.selectionCommandsPanel .paper-icon-button-light {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  padding: 0.5rem !important;
+  border-radius: var(--obs-radius-full) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid transparent !important;
+  color: var(--obs-white) !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120),
+              transform var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+body .selectionCommandsPanel .paper-icon-button-light:hover:not(:disabled),
+body .selectionCommandsPanel .btnCloseSelectionPanel:hover:not(:disabled),
+body .selectionCommandsPanel .btnSelectionPanelOptions:hover:not(:disabled),
+.selectionCommandsPanel .paper-icon-button-light:hover:not(:disabled) {
+  background-color: rgba(99, 102, 241, 0.22) !important;
+  border-color: var(--obs-chromatic-border-indigo) !important;
+  box-shadow: 0 0 14px rgba(99, 102, 241, 0.42) !important;
+  color: var(--obs-white) !important;
+}
+
+body .selectionCommandsPanel .paper-icon-button-light:focus,
+body .selectionCommandsPanel .paper-icon-button-light:focus-visible,
+body .selectionCommandsPanel .paper-icon-button-light.show-focus:focus,
+body .selectionCommandsPanel .btnCloseSelectionPanel:focus,
+body .selectionCommandsPanel .btnCloseSelectionPanel:focus-visible,
+body .selectionCommandsPanel .btnCloseSelectionPanel.show-focus:focus,
+body .selectionCommandsPanel .btnSelectionPanelOptions:focus,
+body .selectionCommandsPanel .btnSelectionPanelOptions:focus-visible,
+body .selectionCommandsPanel .btnSelectionPanelOptions.show-focus:focus {
+  background-color: rgba(99, 102, 241, 0.28) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.48), 0 0 16px rgba(99, 102, 241, 0.55) !important;
+  color: var(--obs-white) !important;
+  outline: none !important;
+  transform: none !important;
+}
+
+.itemSelectionPanel {
+  box-sizing: border-box !important;
+  border-radius: inherit !important;
+  background: rgba(2, 6, 23, 0.36) !important;
+  border: 1.5px solid rgba(129, 140, 248, 0.48) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+              0 0 18px rgba(99, 102, 241, 0.24) !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.itemSelectionPanel:has(.chkItemSelect:checked) {
+  background: rgba(99, 102, 241, 0.18) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: inset 0 0 0 1px rgba(165, 180, 252, 0.45),
+              0 0 24px rgba(99, 102, 241, 0.48) !important;
+}
+
+.withMultiSelect .itemSelectionPanel label.checkboxContainer.emby-checkbox-label,
+.itemSelectionPanel .checkboxContainer {
+  margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.itemSelectionPanel .multiSelectCheckboxOutline,
+.multiSelectCheckboxOutline {
+  top: 0.5rem !important;
+  left: 0.5rem !important;
+  right: auto !important;
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  border-radius: var(--obs-radius-sm) !important;
+  background: rgba(12, 16, 28, 0.84) !important;
+  border: 1.5px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.55),
+              0 0 12px rgba(99, 102, 241, 0.38) !important;
+}
+
+[dir="rtl"] .itemSelectionPanel .multiSelectCheckboxOutline,
+[dir="rtl"] .multiSelectCheckboxOutline {
+  left: auto !important;
+  right: 0.5rem !important;
+}
+
+/* --------------------------------------------------------------------------
+   9. Info Banners (.infoBanner)
+   -------------------------------------------------------------------------- */
+body .infoBanner,
+.infoBanner {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+  padding: 0.95rem 1.15rem !important;
+  background: rgba(15, 23, 42, 0.82) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-left: 3px solid var(--obs-sky-400) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45),
+              inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  color: var(--obs-slate-200) !important;
+  font-family: var(--obs-font-sans) !important;
+  line-height: 1.55 !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word;
+}
+
+/* --------------------------------------------------------------------------
+   10. Cast Remote Control View & SyncPlay Group Menu
+       (.nowPlayingPage, .nowPlayingInfoContainer, .navigationSection,
+        .btnArrowUp, .btnArrowDown, .btnArrowLeft, .btnArrowRight, .btnOk,
+        .syncPlayGroupMenu, .actionSheetText)
+   -------------------------------------------------------------------------- */
+.nowPlayingPage {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+.nowPlayingPage .remoteControlContent {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+.nowPlayingInfoContainer {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center;
+  gap: 1rem;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  padding: 1rem 1.15rem !important;
+  margin-bottom: 1.25rem !important;
+  background: var(--obs-panel-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top: 1px solid var(--obs-specular-top) !important;
+  border-left: 1px solid var(--obs-chromatic-border-cyan) !important;
+  border-right: 1px solid var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-card), var(--obs-chromatic-inset-card) !important;
+}
+
+.nowPlayingPageImageContainer {
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+.nowPlayingPageImage {
+  border-radius: var(--obs-radius-xl) !important;
+  max-width: 100% !important;
+  height: auto;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65) !important;
+}
+
+.nowPlayingInfoControls {
+  flex: 1 1 14rem !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.nowPlayingInfoContainerMedia {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word;
+}
+
+.nowPlayingPositionSliderContainer {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  margin: 0.2rem 0.6rem !important;
+}
+
+.nowPlayingButtonsContainer {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+.nowPlayingInfoButtons,
+.nowPlayingSecondaryButtons {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center;
+  gap: 0.25rem;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.nowPlayingNavButtonContainer {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 640px) {
+  .nowPlayingInfoContainer {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    height: auto !important;
+    padding: 0.85rem !important;
+  }
+
+  .nowPlayingPageImageContainer {
+    width: min(11rem, 60%) !important;
+    margin: 0 auto 0.5rem !important;
+  }
+
+  .nowPlayingInfoControls {
+    flex-basis: auto !important;
+    width: 100% !important;
+  }
+
+  .nowPlayingInfoContainerMedia {
+    width: 100% !important;
+    text-align: center !important;
+  }
+}
+
+.navigationSection {
+  text-align: center !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.navigationSection .collapseContent {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+  padding: 1.15rem 0.75rem !important;
+  background: rgba(12, 16, 28, 0.76) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  box-shadow: var(--obs-shadow-card) !important;
+}
+
+.navigationSection .collapseContent > br {
+  display: none !important;
+}
+
+.navigationSection .collapseContent > div {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0 !important;
+  direction: ltr;
+}
+
+.navigationSection .collapseContent .material-icons {
+  font-size: clamp(1.5rem, 2.8vw, 1.9rem) !important;
+  line-height: 1 !important;
+}
+
+/* Tactile Frosted Glass D-Pad Directional Buttons (>= 48px) */
+.navigationSection .btnArrowUp,
+.navigationSection .btnArrowDown,
+.navigationSection .btnArrowLeft,
+.navigationSection .btnArrowRight,
+.btnArrowUp,
+.btnArrowDown,
+.btnArrowLeft,
+.btnArrowRight {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-width: 52px !important;
+  min-height: 52px !important;
+  width: clamp(52px, 14vw, 64px) !important;
+  height: clamp(52px, 14vw, 64px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: linear-gradient(160deg, rgba(24, 30, 52, 0.88) 0%, rgba(12, 16, 28, 0.94) 100%) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55),
+              inset 0 1px 1px rgba(255, 255, 255, 0.28),
+              inset 0 -2px 4px rgba(0, 0, 0, 0.45) !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-out-120),
+              background var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.navigationSection .btnArrowUp,
+.btnArrowUp {
+  border-radius: var(--obs-radius-2xl) var(--obs-radius-2xl) var(--obs-radius-md) var(--obs-radius-md) !important;
+  border-top: 1.5px solid var(--obs-specular-top) !important;
+}
+
+.navigationSection .btnArrowDown,
+.btnArrowDown {
+  border-radius: var(--obs-radius-md) var(--obs-radius-md) var(--obs-radius-2xl) var(--obs-radius-2xl) !important;
+  border-bottom: 1.5px solid var(--obs-chromatic-border-indigo) !important;
+}
+
+.navigationSection .btnArrowLeft,
+.btnArrowLeft {
+  border-radius: var(--obs-radius-2xl) var(--obs-radius-md) var(--obs-radius-md) var(--obs-radius-2xl) !important;
+  border-left: 1.5px solid var(--obs-chromatic-border-cyan) !important;
+}
+
+.navigationSection .btnArrowRight,
+.btnArrowRight {
+  border-radius: var(--obs-radius-md) var(--obs-radius-2xl) var(--obs-radius-2xl) var(--obs-radius-md) !important;
+  border-right: 1.5px solid var(--obs-chromatic-border-fuchsia) !important;
+}
+
+.navigationSection .btnArrowUp:hover:not(:disabled),
+.navigationSection .btnArrowDown:hover:not(:disabled),
+.navigationSection .btnArrowLeft:hover:not(:disabled),
+.navigationSection .btnArrowRight:hover:not(:disabled),
+.btnArrowUp:hover:not(:disabled),
+.btnArrowDown:hover:not(:disabled),
+.btnArrowLeft:hover:not(:disabled),
+.btnArrowRight:hover:not(:disabled) {
+  background: linear-gradient(160deg, rgba(99, 102, 241, 0.34) 0%, rgba(30, 41, 59, 0.94) 100%) !important;
+  border-color: var(--obs-indigo-400) !important;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.65),
+              0 0 18px rgba(99, 102, 241, 0.45),
+              inset 0 1px 1px rgba(255, 255, 255, 0.36) !important;
+  color: var(--obs-white) !important;
+  transform: translate3d(0, -1px, 0);
+}
+
+.navigationSection .btnArrowUp:focus,
+.navigationSection .btnArrowUp:focus-visible,
+.navigationSection .btnArrowUp.show-focus:focus,
+.navigationSection .btnArrowDown:focus,
+.navigationSection .btnArrowDown:focus-visible,
+.navigationSection .btnArrowDown.show-focus:focus,
+.navigationSection .btnArrowLeft:focus,
+.navigationSection .btnArrowLeft:focus-visible,
+.navigationSection .btnArrowLeft.show-focus:focus,
+.navigationSection .btnArrowRight:focus,
+.navigationSection .btnArrowRight:focus-visible,
+.navigationSection .btnArrowRight.show-focus:focus,
+.btnArrowUp:focus,
+.btnArrowUp:focus-visible,
+.btnArrowUp.show-focus:focus,
+.btnArrowDown:focus,
+.btnArrowDown:focus-visible,
+.btnArrowDown.show-focus:focus,
+.btnArrowLeft:focus,
+.btnArrowLeft:focus-visible,
+.btnArrowLeft.show-focus:focus,
+.btnArrowRight:focus,
+.btnArrowRight:focus-visible,
+.btnArrowRight.show-focus:focus {
+  background: linear-gradient(160deg, rgba(99, 102, 241, 0.40) 0%, rgba(30, 41, 59, 0.96) 100%) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-300) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.45),
+              0 0 22px rgba(99, 102, 241, 0.6) !important;
+  transform: none !important;
+}
+
+/* Indigo-to-Fuchsia Primary Center Trigger (.btnOk) */
+.navigationSection .btnOk,
+.btnOk {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-width: 52px !important;
+  min-height: 52px !important;
+  width: clamp(52px, 14vw, 64px) !important;
+  height: clamp(52px, 14vw, 64px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: var(--obs-radius-xl) !important;
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(255, 255, 255, 0.34) !important;
+  box-shadow: var(--obs-shadow-button-primary),
+              inset 0 1px 1px rgba(255, 255, 255, 0.38) !important;
+  backface-visibility: hidden;
+  transition: transform var(--obs-duration-fast) var(--obs-ease-spring-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.navigationSection .btnOk:hover:not(:disabled),
+.btnOk:hover:not(:disabled) {
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.58) !important;
+  box-shadow: var(--obs-shadow-button-hover),
+              inset 0 1px 2px rgba(255, 255, 255, 0.48) !important;
+  transform: scale3d(1.04, 1.04, 1);
+}
+
+.navigationSection .btnOk:focus,
+.navigationSection .btnOk:focus-visible,
+.navigationSection .btnOk.show-focus:focus,
+.btnOk:focus,
+.btnOk:focus-visible,
+.btnOk.show-focus:focus {
+  color: var(--obs-white) !important;
+  border-color: var(--obs-white) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5),
+              var(--obs-shadow-button-hover) !important;
+  transform: none !important;
+}
+
+/* Auxiliary Remote Navigation Buttons (Back, Context Menu, Home, Search, Settings) */
+.navigationSection .btnCommand:not(.button-submit) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-width: 52px !important;
+  min-height: 52px !important;
+  width: clamp(52px, 14vw, 64px) !important;
+  height: clamp(52px, 14vw, 64px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: rgba(15, 23, 42, 0.72) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  color: var(--obs-slate-200) !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120),
+              box-shadow var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.navigationSection .btnCommand:not(.button-submit):hover:not(:disabled) {
+  background: rgba(99, 102, 241, 0.2) !important;
+  border-color: var(--obs-glass-border-hover) !important;
+  color: var(--obs-white) !important;
+}
+
+.navigationSection .btnCommand:not(.button-submit):focus,
+.navigationSection .btnCommand:not(.button-submit):focus-visible,
+.navigationSection .btnCommand:not(.button-submit).show-focus:focus {
+  background: rgba(99, 102, 241, 0.28) !important;
+  border-color: var(--obs-indigo-300) !important;
+  color: var(--obs-white) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.45),
+              0 0 16px rgba(99, 102, 241, 0.5) !important;
+  transform: none !important;
+}
+
+/* SyncPlay Group Selection Menu (.syncPlayGroupMenu, .actionSheetText) */
+.syncPlayGroupMenu {
+  box-sizing: border-box !important;
+  max-width: min(26rem, calc(100vw - 1.5rem)) !important;
+}
+
+.syncPlayGroupMenu .actionSheetTitle {
+  margin: 0.35rem 0 0.25rem !important;
+  padding: 0.35rem 1rem 0 !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--obs-white) !important;
+  box-sizing: border-box !important;
+}
+
+.syncPlayGroupMenu .actionSheetText {
+  margin: 0 0 0.5rem 0 !important;
+  padding: 0 1rem 0.65rem !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+  color: var(--obs-slate-400) !important;
+  border-bottom: 1px solid rgba(129, 140, 248, 0.22) !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word;
+  box-sizing: border-box !important;
+}
+
+/* --------------------------------------------------------------------------
+   11. Shell Overlays Reduced Motion & Forced Colors Accessibility
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  /* Keep 1ms duration on .toast so any transitionend cleanup still fires */
+  .toast,
+  .toast.toastVisible,
+  .toast.toastHide {
+    transition-duration: 1ms !important;
+  }
+
+  body .selectionCommandsPanel .paper-icon-button-light,
+  body .selectionCommandsPanel .btnCloseSelectionPanel,
+  body .selectionCommandsPanel .btnSelectionPanelOptions,
+  .itemSelectionPanel,
+  .navigationSection .btnArrowUp,
+  .navigationSection .btnArrowDown,
+  .navigationSection .btnArrowLeft,
+  .navigationSection .btnArrowRight,
+  .navigationSection .btnOk,
+  .navigationSection .btnCommand:not(.button-submit),
+  .btnArrowUp,
+  .btnArrowDown,
+  .btnArrowLeft,
+  .btnArrowRight,
+  .btnOk {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .toast,
+  body .selectionCommandsPanel,
+  .nowPlayingInfoContainer,
+  .navigationSection .collapseContent {
+    background: Canvas !important;
+    color: CanvasText !important;
+    border: 2px solid CanvasText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  body .infoBanner,
+  .infoBanner {
+    background: Canvas !important;
+    color: CanvasText !important;
+    border: 1.5px solid CanvasText !important;
+    border-left: 4px solid Highlight !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  body .selectionCommandsPanel .itemSelectionCount {
+    background: Highlight !important;
+    color: HighlightText !important;
+    border: 1.5px solid HighlightText !important;
+    box-shadow: none !important;
+  }
+
+  body .selectionCommandsPanel .paper-icon-button-light,
+  body .selectionCommandsPanel .btnCloseSelectionPanel,
+  body .selectionCommandsPanel .btnSelectionPanelOptions,
+  .navigationSection .btnArrowUp,
+  .navigationSection .btnArrowDown,
+  .navigationSection .btnArrowLeft,
+  .navigationSection .btnArrowRight,
+  .navigationSection .btnCommand:not(.button-submit),
+  .btnArrowUp,
+  .btnArrowDown,
+  .btnArrowLeft,
+  .btnArrowRight {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border: 1.5px solid ButtonText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .navigationSection .btnOk,
+  .btnOk {
+    background: Highlight !important;
+    color: HighlightText !important;
+    border: 2px solid HighlightText !important;
+    box-shadow: none !important;
+  }
+
+  body .selectionCommandsPanel .paper-icon-button-light:focus,
+  body .selectionCommandsPanel .paper-icon-button-light:focus-visible,
+  body .selectionCommandsPanel .btnCloseSelectionPanel:focus,
+  body .selectionCommandsPanel .btnSelectionPanelOptions:focus,
+  .navigationSection .btnArrowUp:focus,
+  .navigationSection .btnArrowDown:focus,
+  .navigationSection .btnArrowLeft:focus,
+  .navigationSection .btnArrowRight:focus,
+  .navigationSection .btnCommand:not(.button-submit):focus,
+  .btnArrowUp:focus,
+  .btnArrowDown:focus,
+  .btnArrowLeft:focus,
+  .btnArrowRight:focus {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+
+  .navigationSection .btnOk:focus,
+  .btnOk:focus {
+    background: Highlight !important;
+    color: HighlightText !important;
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+
+  .itemSelectionPanel {
+    background: transparent !important;
+    border: 2px solid CanvasText !important;
+    box-shadow: none !important;
+  }
+
+  .itemSelectionPanel:has(.chkItemSelect:checked) {
+    border: 3px solid Highlight !important;
+    box-shadow: none !important;
+  }
+
+  .itemSelectionPanel .multiSelectCheckboxOutline,
+  .multiSelectCheckboxOutline {
+    background: Canvas !important;
+    color: CanvasText !important;
+    border: 2px solid CanvasText !important;
+    box-shadow: none !important;
+  }
+
+  .itemSelectionPanel .emby-checkbox:checked + span + .multiSelectCheckboxOutline {
+    background: Highlight !important;
+    color: HighlightText !important;
+    border-color: Highlight !important;
+    box-shadow: none !important;
+  }
+
+  .syncPlayGroupMenu .actionSheetTitle,
+  .syncPlayGroupMenu .actionSheetText {
+    color: CanvasText !important;
+    border-color: CanvasText !important;
+  }
+}
+

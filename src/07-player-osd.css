@@ -104,6 +104,125 @@
 }
 
 /* --------------------------------------------------------------------------
+   Brightness & Non-Volume Icon OSDs (.iconOsd:not(.volumeOsd), .brightnessOsd)
+   Smoked Obsidian glass pill with warm amber-to-gold brightness meter
+   -------------------------------------------------------------------------- */
+.iconOsd.iconOsd-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.iconOsd:not(.volumeOsd) {
+  box-sizing: border-box !important;
+  width: 15rem !important;
+  max-width: calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right))) !important;
+  top: max(1rem, env(safe-area-inset-top)) !important;
+  right: max(1rem, env(safe-area-inset-right)) !important;
+  left: auto !important;
+  padding: 0.875rem 1.125rem !important;
+  background: rgba(12, 16, 28, 0.86) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-top-color: var(--obs-specular-top) !important;
+  border-left-color: var(--obs-chromatic-border-cyan) !important;
+  border-right-color: var(--obs-chromatic-border-fuchsia) !important;
+  border-radius: var(--obs-radius-full) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), var(--obs-chromatic-inset) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  pointer-events: none !important;
+  transition: opacity var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+[dir="rtl"] .iconOsd:not(.volumeOsd) {
+  left: max(1rem, env(safe-area-inset-left)) !important;
+  right: auto !important;
+}
+
+.iconOsd:not(.volumeOsd):not(:has(.iconOsdProgressOuter)) {
+  width: auto !important;
+}
+
+.iconOsd:not(.volumeOsd):not(.hide) {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.875rem !important;
+}
+
+.iconOsd:not(.volumeOsd) .iconOsdIcon {
+  flex: 0 0 auto !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  font-size: 1.5rem !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+}
+
+.brightnessOsd .iconOsdIcon {
+  color: var(--obs-amber-400) !important;
+}
+
+.iconOsd:not(.volumeOsd) .iconOsdProgressOuter {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  height: 0.25rem !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+}
+
+.iconOsd:not(.volumeOsd) .iconOsdProgressInner {
+  height: 100% !important;
+  border-radius: inherit !important;
+  background: linear-gradient(90deg, var(--obs-indigo-400), var(--obs-fuchsia-400)) !important;
+}
+
+.iconOsd:not(.volumeOsd) .iconOsdProgressInner.brightnessOsdProgressInner,
+.iconOsd .brightnessOsdProgressInner,
+.brightnessOsdProgressInner {
+  height: 100% !important;
+  border-radius: inherit !important;
+  background: linear-gradient(90deg, var(--obs-accent-amber) 0%, var(--obs-amber-400) 65%, #fde68a 100%) !important;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.5) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconOsd:not(.volumeOsd) {
+    transition-duration: 1ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .iconOsd:not(.volumeOsd) {
+    forced-color-adjust: none !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    border-color: CanvasText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .brightnessOsd .iconOsdIcon {
+    color: CanvasText !important;
+  }
+
+  .iconOsd:not(.volumeOsd) .iconOsdProgressOuter {
+    background: GrayText !important;
+  }
+
+  .iconOsd:not(.volumeOsd) .iconOsdProgressInner,
+  .iconOsd:not(.volumeOsd) .iconOsdProgressInner.brightnessOsdProgressInner,
+  .iconOsd .brightnessOsdProgressInner,
+  .brightnessOsdProgressInner {
+    background: Highlight !important;
+    box-shadow: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
    Up Next Episode Overlay (.upNextContainer / .upNextDialog)
    Restyles Jellyfin's end-of-episode prompt into a Floating Obsidian Glass Card
    with primary/secondary pill buttons, tabular countdown badge, and TV focus rings
@@ -420,6 +539,643 @@
 }
 
 /* --------------------------------------------------------------------------
+   Skip Intro / Credits Button (.skip-button-container, .skip-button)
+   Floating smoked-Obsidian primary pill with safe-area gutters and TV focus
+   -------------------------------------------------------------------------- */
+.skip-button-container {
+  box-sizing: border-box !important;
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 5.75rem) !important;
+  padding-left: max(1rem, env(safe-area-inset-left)) !important;
+  padding-right: max(1rem, env(safe-area-inset-right)) !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  pointer-events: none !important;
+  z-index: 10000 !important;
+}
+
+@media (min-width: 640px) {
+  .skip-button-container {
+    bottom: calc(max(1.25rem, env(safe-area-inset-bottom)) + 6.25rem) !important;
+    padding-left: max(1.75rem, env(safe-area-inset-left)) !important;
+    padding-right: max(1.75rem, env(safe-area-inset-right)) !important;
+  }
+}
+
+.skip-button {
+  box-sizing: border-box !important;
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.45rem !important;
+  min-height: 44px !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0.65rem 1.35rem !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.9) 0%, rgba(217, 70, 239, 0.84) 100%), rgba(12, 16, 28, 0.88) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(255, 255, 255, 0.32) !important;
+  border-top-color: var(--obs-specular-top) !important;
+  border-left-color: var(--obs-chromatic-border-cyan) !important;
+  border-right-color: var(--obs-chromatic-border-fuchsia) !important;
+  border-radius: var(--obs-radius-full) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.62), var(--obs-shadow-button-primary), var(--obs-chromatic-inset-card) !important;
+  font-family: var(--obs-font-sans) !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.01em !important;
+  text-align: center !important;
+  overflow-wrap: anywhere !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  z-index: 10000 !important;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transition: opacity var(--obs-duration-card) var(--obs-ease-out-120) !important;
+}
+
+.skip-button * {
+  transition: none !important;
+}
+
+.skip-button .material-icons {
+  font-size: 1.25em !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+.skip-button.hide {
+  display: none !important;
+}
+
+.skip-button.skip-button-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.skip-button-container .skip-button.no-transition,
+.skip-button.no-transition {
+  transition: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .skip-button:hover {
+    transform: translate3d(0, -2px, 0) scale3d(1.03, 1.03, 1) !important;
+    border-color: rgba(255, 255, 255, 0.62) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), var(--obs-shadow-button-hover), var(--obs-chromatic-inset) !important;
+  }
+}
+
+.skip-button:focus,
+.skip-button:focus-visible,
+.skip-button.show-focus:focus {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%), rgba(12, 16, 28, 0.94) !important;
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.88) !important;
+  border-radius: var(--obs-radius-full) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5), var(--obs-shadow-button-hover) !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-button-container .skip-button:not(.no-transition),
+  .skip-button-container .skip-button.emby-button:not(.no-transition):focus,
+  .skip-button-container .skip-button.emby-button.show-focus:not(.no-transition):focus {
+    transition: opacity 1ms linear !important;
+    transform: none !important;
+  }
+
+  .skip-button:hover {
+    transform: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .skip-button {
+    forced-color-adjust: none !important;
+    background: Highlight !important;
+    color: HighlightText !important;
+    border: 1.5px solid HighlightText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .skip-button:focus,
+  .skip-button:focus-visible,
+  .skip-button.show-focus:focus {
+    background: Highlight !important;
+    color: HighlightText !important;
+    border-color: HighlightText !important;
+    outline: 2px solid Highlight !important;
+    outline-offset: 3px !important;
+    box-shadow: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Player Stats for Nerds (.playerStats)
+   Smoked Obsidian glass diagnostics panel with tabular monospace metrics
+   -------------------------------------------------------------------------- */
+.playerStats {
+  box-sizing: border-box !important;
+  position: fixed !important;
+  top: max(3.5rem, env(safe-area-inset-top)) !important;
+  left: max(1rem, env(safe-area-inset-left)) !important;
+  right: auto !important;
+  width: max-content !important;
+  min-width: min(17rem, calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right)))) !important;
+  max-width: min(36rem, calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right)))) !important;
+  max-height: min(75vh, calc(100vh - 4.5rem)) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  background: rgba(12, 16, 28, 0.88) !important;
+  color: var(--obs-slate-200) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top-color: var(--obs-specular-top) !important;
+  border-left-color: var(--obs-chromatic-border-cyan) !important;
+  border-right-color: var(--obs-chromatic-border-fuchsia) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.72), var(--obs-chromatic-inset) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  z-index: 1100 !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+[dir="rtl"] .playerStats {
+  right: max(1rem, env(safe-area-inset-right)) !important;
+  left: auto !important;
+}
+
+@media (min-width: 640px) {
+  .playerStats {
+    top: max(4.25rem, env(safe-area-inset-top)) !important;
+    left: max(1.5rem, env(safe-area-inset-left)) !important;
+    max-width: min(38rem, calc(100vw - max(1.5rem, env(safe-area-inset-left)) - max(1.5rem, env(safe-area-inset-right)))) !important;
+  }
+
+  [dir="rtl"] .playerStats {
+    right: max(1.5rem, env(safe-area-inset-right)) !important;
+    left: auto !important;
+  }
+}
+
+.playerStats.playerStats-tv {
+  top: max(3rem, env(safe-area-inset-top)) !important;
+}
+
+.playerStats.hide {
+  display: none !important;
+}
+
+.playerStats-content {
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  font-family: var(--obs-font-sans) !important;
+  font-size: 0.85rem !important;
+  line-height: 1.45 !important;
+}
+
+.playerStats-content.playerStats-content-tv {
+  font-size: 0.78rem !important;
+}
+
+.playerStats-closeButton {
+  box-sizing: border-box !important;
+  position: absolute !important;
+  top: 0.5rem !important;
+  right: 0.5rem !important;
+  left: auto !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: var(--obs-slate-300) !important;
+  z-index: 2 !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+[dir="rtl"] .playerStats-closeButton {
+  left: 0.5rem !important;
+  right: auto !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .playerStats-closeButton:hover {
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: var(--obs-white) !important;
+    border-color: var(--obs-glass-border-hover) !important;
+  }
+}
+
+.playerStats-closeButton:focus,
+.playerStats-closeButton:focus-visible,
+.playerStats-closeButton.show-focus:focus {
+  background: rgba(99, 102, 241, 0.28) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-300) !important;
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.65) !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.playerStats-stats {
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.25rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0.9rem 1.15rem 1rem 1.15rem !important;
+  overflow: visible !important;
+}
+
+.playerStats-content:has(.playerStats-closeButton) .playerStats-stats {
+  padding-right: calc(44px + 1rem) !important;
+  padding-left: 1.15rem !important;
+}
+
+[dir="rtl"] .playerStats-content:has(.playerStats-closeButton) .playerStats-stats {
+  padding-left: calc(44px + 1rem) !important;
+  padding-right: 1.15rem !important;
+}
+
+.playerStats-stat {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: baseline !important;
+  justify-content: space-between !important;
+  gap: 0.15rem 0.9rem !important;
+  margin: 0 !important;
+  padding: 0.12rem 0 !important;
+  min-width: 0 !important;
+}
+
+.playerStats-stat.playerStats-stat-header {
+  margin: 0.65rem 0 0.2rem 0 !important;
+  padding: 0.45rem 0 0.2rem 0 !important;
+  border-top: 1px solid rgba(129, 140, 248, 0.2) !important;
+}
+
+.playerStats-stat.playerStats-stat-header:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+}
+
+.playerStats-stat-label {
+  margin: 0 !important;
+  font-family: var(--obs-font-sans) !important;
+  font-weight: 500 !important;
+  color: var(--obs-slate-400) !important;
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+}
+
+.playerStats-stat-header .playerStats-stat-label {
+  font-family: var(--obs-font-sans) !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--obs-indigo-300) !important;
+}
+
+.playerStats-stat-value {
+  margin: 0 !important;
+  font-family: var(--obs-font-mono) !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums !important;
+  color: var(--obs-slate-200) !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+}
+
+.playerStats-stat-header .playerStats-stat-value:empty {
+  display: none !important;
+}
+
+@media (forced-colors: active) {
+  .playerStats {
+    forced-color-adjust: none !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    border: 1.5px solid CanvasText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .playerStats-stat.playerStats-stat-header {
+    border-top-color: GrayText !important;
+  }
+
+  .playerStats-stat-header .playerStats-stat-label {
+    color: Highlight !important;
+  }
+
+  .playerStats-stat-label,
+  .playerStats-stat-value {
+    color: CanvasText !important;
+  }
+
+  .playerStats-closeButton {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border: 1.5px solid ButtonText !important;
+    box-shadow: none !important;
+  }
+
+  .playerStats-closeButton:focus,
+  .playerStats-closeButton:focus-visible,
+  .playerStats-closeButton.show-focus:focus {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Subtitle Offset Sync Overlay (.subtitleSync, .subtitleSyncContainer)
+   Responsive frosted glass card with collision-free 3-column symmetric grid
+   -------------------------------------------------------------------------- */
+.subtitleSync {
+  box-sizing: border-box !important;
+  position: fixed !important;
+  top: max(4rem, env(safe-area-inset-top)) !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  padding-left: max(1rem, env(safe-area-inset-left)) !important;
+  padding-right: max(1rem, env(safe-area-inset-right)) !important;
+  display: flex !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+  z-index: 1100 !important;
+}
+
+.subtitleSyncContainer {
+  box-sizing: border-box !important;
+  position: relative !important;
+  pointer-events: auto !important;
+  width: min(28rem, calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right)))) !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  padding: min(0.75rem, 3.5vw) min(0.95rem, 4vw) !important;
+  background: rgba(12, 16, 28, 0.88) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top-color: var(--obs-specular-top) !important;
+  border-left-color: var(--obs-chromatic-border-cyan) !important;
+  border-right-color: var(--obs-chromatic-border-fuchsia) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.72), var(--obs-chromatic-inset) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.subtitleSyncContainer.hide {
+  display: none !important;
+}
+
+.subtitleSyncContainer:not(.hide) {
+  display: grid !important;
+  grid-template-columns: 44px minmax(0, 1fr) 44px !important;
+  grid-template-rows: auto auto !important;
+  align-items: center !important;
+  row-gap: 0.35rem !important;
+  column-gap: 0.5rem !important;
+}
+
+.subtitleSync-closeButton {
+  box-sizing: border-box !important;
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  justify-self: end !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: var(--obs-slate-300) !important;
+  z-index: 2 !important;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120),
+              border-color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .subtitleSync-closeButton:hover {
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: var(--obs-white) !important;
+    border-color: var(--obs-glass-border-hover) !important;
+  }
+}
+
+.subtitleSync-closeButton:focus,
+.subtitleSync-closeButton:focus-visible,
+.subtitleSync-closeButton.show-focus:focus {
+  background: rgba(99, 102, 241, 0.28) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-300) !important;
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.65) !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.subtitleSyncTextField {
+  box-sizing: border-box !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  justify-self: center !important;
+  width: auto !important;
+  min-width: 4.25rem !important;
+  max-width: 100% !important;
+  min-height: 2.25rem !important;
+  margin: 0 !important;
+  padding: 0.3rem 0.75rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--obs-input-bg) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-radius: var(--obs-radius-full) !important;
+  font-family: var(--obs-font-mono) !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums !important;
+  line-height: 1.2 !important;
+  color: var(--obs-white) !important;
+  text-align: center !important;
+  overflow-wrap: anywhere !important;
+  z-index: 2 !important;
+}
+
+.subtitleSyncTextField:focus,
+.subtitleSyncTextField:focus-visible {
+  background: var(--obs-input-bg-focus) !important;
+  border-color: var(--obs-indigo-400) !important;
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 14px rgba(99, 102, 241, 0.45) !important;
+}
+
+.subtitleSyncSliderContainer {
+  box-sizing: border-box !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  grid-column: 1 / -1 !important;
+  grid-row: 2 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  min-height: 44px !important;
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  border-radius: var(--obs-radius-full) !important;
+  z-index: 1 !important;
+}
+
+.subtitleSyncSliderContainer .mdl-slider-container,
+.subtitleSyncSliderContainer .mdl-slider,
+.subtitleSyncSlider {
+  min-height: 44px !important;
+  height: 44px !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+.subtitleSyncSliderContainer .mdl-slider-background-lower {
+  background: linear-gradient(90deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.75) !important;
+  height: 4px !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+.subtitleSyncSlider::-webkit-slider-thumb {
+  background: var(--obs-white) !important;
+  border: 2px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 0 12px rgba(217, 70, 239, 0.9) !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+.subtitleSyncSlider::-moz-range-thumb {
+  background: var(--obs-white) !important;
+  border: 2px solid var(--obs-indigo-400) !important;
+  box-shadow: 0 0 12px rgba(217, 70, 239, 0.9) !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+.subtitleSyncSlider:focus,
+.subtitleSyncSlider:focus-visible,
+.subtitleSyncSlider.show-focus:focus {
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.6) !important;
+  border-radius: var(--obs-radius-full) !important;
+}
+
+@media (forced-colors: active) {
+  .subtitleSyncContainer {
+    forced-color-adjust: none !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    border: 1.5px solid CanvasText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .subtitleSyncTextField {
+    background: Field !important;
+    color: FieldText !important;
+    border: 1.5px solid CanvasText !important;
+    box-shadow: none !important;
+  }
+
+  .subtitleSync-closeButton {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border: 1.5px solid ButtonText !important;
+    box-shadow: none !important;
+  }
+
+  .subtitleSyncSliderContainer .mdl-slider-background-lower {
+    background: Highlight !important;
+    box-shadow: none !important;
+  }
+
+  .subtitleSync-closeButton:focus,
+  .subtitleSync-closeButton:focus-visible,
+  .subtitleSync-closeButton.show-focus:focus,
+  .subtitleSyncTextField:focus,
+  .subtitleSyncTextField:focus-visible,
+  .subtitleSyncSlider:focus,
+  .subtitleSyncSlider:focus-visible,
+  .subtitleSyncSlider.show-focus:focus {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
    Video Playback Controls: Floating Dynamic Dock (.videoOsdBottom)
    Modeled after Looplet & Palate's Floating Dynamic Dock
    -------------------------------------------------------------------------- */
@@ -699,20 +1455,7 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.45), 0 0 18px rgba(217, 70, 239, 0.95) !important;
 }
 
-.skip-button:focus,
-.skip-button:focus-visible,
-.skip-button.show-focus:focus {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.85) 0%, rgba(217, 70, 239, 0.78) 100%) !important;
-  color: var(--obs-white) !important;
-  border: 1px solid var(--obs-indigo-300) !important;
-  border-radius: var(--obs-radius-full) !important;
-  outline: 2px solid var(--obs-indigo-300) !important;
-  outline-offset: 2px !important;
-  box-shadow: var(--obs-shadow-button-hover) !important;
-  transform: none !important;
-}
-
-/* Scrub Time Bubble Tooltip */
+/* Scrub Time Bubble Tooltip & Trickplay / Chapter Scrub Previews */
 .sliderBubble {
   background: rgba(12, 16, 28, 0.92) !important;
   backdrop-filter: blur(16px) !important;
@@ -723,7 +1466,177 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
   border-top: 1px solid var(--obs-specular-top) !important;
   box-shadow: var(--obs-shadow-card) !important;
   font-family: var(--obs-font-mono) !important;
+  font-variant-numeric: tabular-nums !important;
   font-weight: 600 !important;
+}
+
+.sliderBubble:has(.chapterThumbContainer) {
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.chapterThumbContainer {
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: hidden !important;
+  max-width: calc(100vw - 1.5rem) !important;
+  background: rgba(12, 16, 28, 0.9) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top-color: var(--obs-specular-top) !important;
+  border-left-color: var(--obs-chromatic-border-cyan) !important;
+  border-right-color: var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.78), var(--obs-chromatic-inset-card) !important;
+}
+
+.chapterThumb {
+  display: block !important;
+  max-width: 100% !important;
+  border: 0 !important;
+  object-fit: cover !important;
+}
+
+.chapterThumbTextContainer {
+  box-sizing: border-box !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  min-width: 0 !important;
+  padding: 1.35rem 0.75rem 0.5rem 0.75rem !important;
+  background: linear-gradient(to top, rgba(2, 6, 23, 0.94) 0%, rgba(12, 16, 28, 0.72) 58%, transparent 100%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.1rem !important;
+  pointer-events: none !important;
+}
+
+.chapterThumbTextContainer.chapterBubblePosition {
+  position: relative !important;
+  padding: 0.55rem 0.85rem !important;
+  background: rgba(12, 16, 28, 0.92) !important;
+}
+
+.chapterThumbText {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  font-family: var(--obs-font-mono) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums !important;
+  line-height: 1.25 !important;
+  color: var(--obs-white) !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.chapterThumbText.chapterThumbText-dim {
+  font-family: var(--obs-font-sans) !important;
+  font-size: 0.76rem !important;
+  font-weight: 600 !important;
+  color: var(--obs-slate-300) !important;
+  opacity: 1 !important;
+}
+
+.chapterThumbText:empty {
+  display: none !important;
+}
+
+/* Subtitle Appearance Fullscreen Preview (.subtitleappearance-fullpreview)
+   Avoids !important on user-customizable inline appearance styles */
+.subtitleappearance-fullpreview {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1200 !important;
+  pointer-events: none !important;
+  background: radial-gradient(circle at 50% 82%, rgba(12, 16, 28, 0.52) 0%, rgba(2, 6, 23, 0.24) 65%, transparent 100%) !important;
+  transition: opacity var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.subtitleappearance-fullpreview.subtitleappearance-fullpreview-hide {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.subtitleappearance-fullpreview-window {
+  box-sizing: border-box !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  padding-left: max(1rem, env(safe-area-inset-left)) !important;
+  padding-right: max(1rem, env(safe-area-inset-right)) !important;
+  text-align: center !important;
+  pointer-events: none !important;
+}
+
+.subtitleappearance-fullpreview-text {
+  box-sizing: border-box !important;
+  display: inline-block !important;
+  max-width: min(48rem, calc(100vw - 2rem)) !important;
+  padding: 0.35rem 0.85rem !important;
+  border-radius: var(--obs-radius-md) !important;
+  line-height: 1.38 !important;
+  overflow-wrap: anywhere !important;
+  color: var(--obs-white);
+  background-color: rgba(12, 16, 28, 0.72);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subtitleappearance-fullpreview {
+    transition-duration: 1ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .sliderBubble,
+  .chapterThumbContainer {
+    forced-color-adjust: none !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    border: 1.5px solid CanvasText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .chapterThumbTextContainer,
+  .chapterThumbTextContainer.chapterBubblePosition {
+    background: Canvas !important;
+    border-top: 1px solid CanvasText !important;
+  }
+
+  .chapterThumbText,
+  .chapterThumbText.chapterThumbText-dim {
+    color: CanvasText !important;
+    text-shadow: none !important;
+  }
+
+  .subtitleappearance-fullpreview {
+    background: transparent !important;
+  }
+
+  .subtitleappearance-fullpreview-text {
+    forced-color-adjust: none !important;
+    background-color: Canvas !important;
+    color: CanvasText !important;
+    border: 1.5px solid CanvasText !important;
+    text-shadow: none !important;
+  }
 }
 
 /* Play/Pause Central Trigger Button Base Styles (Targets .btnPause, .btnPlay, .btnPlayPause) */
@@ -899,6 +1812,19 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
 
   .upNextDialog-buttons {
     margin-top: 0.2rem !important;
+  }
+
+  .skip-button-container {
+    bottom: calc(max(0.5rem, env(safe-area-inset-bottom)) + 4.25rem) !important;
+  }
+
+  .playerStats {
+    top: max(0.75rem, env(safe-area-inset-top)) !important;
+    max-height: min(75vh, calc(100vh - 1.5rem)) !important;
+  }
+
+  .subtitleSync {
+    top: max(0.75rem, env(safe-area-inset-top)) !important;
   }
 }
 

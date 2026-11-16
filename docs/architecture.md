@@ -50,18 +50,19 @@ flowchart TD
 
 ## 3. Modular Source Pipeline
 
-All styling is authored across 11 ordered modules in [`src/`](../src) and compiled into [`obsidian.css`](../obsidian.css) via [`build.js`](../build.js):
+All styling is authored across 12 ordered modules in [`src/`](../src) and compiled into [`obsidian.css`](../obsidian.css) via [`build.js`](../build.js):
 
 | Module | Responsibility |
 | :--- | :--- |
-| [`01-variables.css`](../src/01-variables.css) | `--obs-*` design tokens, `--mui-palette-*` bridge, and Jellyfin root theme variables |
+| [`01-variables.css`](../src/01-variables.css) | `--obs-*` design tokens, `--mui-palette-*` & `--jf-palette-*` contrast bridge, and Jellyfin root variables |
 | [`02-atmosphere.css`](../src/02-atmosphere.css) | Pure `#000000` canvas, `body::before` 3-orb radial aurora, `body::after` vignette + SVG micro-grain |
 | [`03-typography.css`](../src/03-typography.css) | Offline `Inter` system font stack, fluid typographic scale, section title alignment, custom scrollbars |
-| [`04-header-nav.css`](../src/04-header-nav.css) | `.MuiAppBar-root` & `.skinHeader` glass bars, `.MuiDrawer-paper` & `.mainDrawer` navigation, 44px hit targets |
-| [`05-cards.css`](../src/05-cards.css) | 16px rounded media cards, pointer-gated hover lift (`translateY(-4px)`), artwork zoom, progress bars |
-| [`06-item-detail.css`](../src/06-item-detail.css) | `.detailPagePrimaryContainer` glass hero, floating poster, metadata pills, primary Indigo-to-Fuchsia Play CTA |
-| [`07-player-osd.css`](../src/07-player-osd.css) | Floating Dynamic Dock (`.videoOsdBottom .osdControls`), glowing scrub slider, short-landscape (`<= 500px`) compression |
-| [`08-dialogs-inputs.css`](../src/08-dialogs-inputs.css) | `.MuiDialog-paper`, `.dialog`, `.actionSheetContent`, recessed dark-glass inputs & `<select>` menus |
-| [`09-login.css`](../src/09-login.css) | Centered glass hero authentication card (`#loginPage`), glowing focus rings, touch-safe submit controls |
+| [`04-header-nav.css`](../src/04-header-nav.css) | `.MuiAppBar-root` & `.skinHeader`, drawers, toasts, multi-select toolbar, info banners, SyncPlay, & Cast Remote |
+| [`05-cards.css`](../src/05-cards.css) | 16px rounded media cards, multi-version/sync/recording badges, `.personCard` portraits, & hover lift |
+| [`06-item-detail.css`](../src/06-item-detail.css) | `.detailPagePrimaryContainer` glass hero, metadata pills, primary Play CTA, `.detailTable`, & search bar |
+| [`07-player-osd.css`](../src/07-player-osd.css) | Floating Dynamic Dock, Volume/Brightness OSD, Up Next, Skip button, Player Stats, Subtitle Sync, & Chapters |
+| [`08-dialogs-inputs.css`](../src/08-dialogs-inputs.css) | `.MuiDialog-paper`, `.dialog`, global `.raised`/`.button-submit`/`.button-delete`, spinners, switches, & inputs |
+| [`09-login.css`](../src/09-login.css) | Centered glass hero authentication card (`#loginPage`) & `.quickConnectError` glass callout |
 | [`10-presets.css`](../src/10-presets.css) | `prefers-reduced-motion: reduce`, `forced-colors: active` accessibility fallbacks, and preset hooks |
-| [`11-live-tv.css`](../src/11-live-tv.css) | Glass home-screen shortcuts, aligned Guide time headers, current-program and focus states, contained channel logos, equal-height channel cards, and Live TV accessibility fallbacks |
+| [`11-live-tv.css`](../src/11-live-tv.css) | Glass home-screen shortcuts, aligned Guide time headers, contained channel logos, & equal-height channel cards |
+| [`12-music-readers.css`](../src/12-music-readers.css) | Synced `.lyricPage`, expanded `.nowPlayingBar` & queue, `.slideshowDialog`, `#bookPlayer` / `#dialogToc`, `#comicsPlayer`, & `.logoScreenSaver` |

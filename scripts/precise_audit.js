@@ -45,7 +45,8 @@ const MODULE_ORDER = [
   '08-dialogs-inputs.css',
   '09-login.css',
   '10-presets.css',
-  '11-live-tv.css'
+  '11-live-tv.css',
+  '12-music-readers.css'
 ];
 
 // Explicit allowlist for dynamically constructed layout classes or Material UI runtime state classes
@@ -90,7 +91,7 @@ const MUI_COMPONENT_MAP = {
   MuiInputBase: 'InputBase',
   MuiTypography: 'Typography',
   MuiCheckbox: 'Checkbox',
-  MuiRadio: 'Radio',
+  MuiRadio: ['Radio', 'FormControlLabel'],
   MuiSwitch: 'Switch'
 };
 
@@ -147,6 +148,69 @@ function extractSelectorsFromCSS(cssText) {
   return { classes: [...classes], ids: [...ids] };
 }
 
+function walkFilesFallback(dir, regex, multiline) {
+  const stack = [dir];
+  while (stack.length > 0) {
+    const cur = stack.pop();
+    let entries;
+    try {
+      entries = fs.readdirSync(cur, { withFileTypes: true });
+    } catch {
+      continue;
+    }
+    for (const entry of entries) {
+      if (entry.name.startsWith('.') || entry.name === 'node_modules') continue;
+      const full = path.join(cur, entry.name);
+      if (entry.isDirectory()) {
+        stack.push(full);
+      } else if (entry.isFile()) {
+        let text;
+        try {
+          text = fs.readFileSync(full, 'utf8');
+        } catch {
+          continue;
+        }
+        if (multiline) {
+          const m = regex.exec(text);
+          if (m) {
+            const lineNo = text.slice(0, m.index).split('\n').length;
+            return `${full}:${lineNo}:${m[0].split('\n')[0]}`;
+          }
+        } else {
+          const lines = text.split('\n');
+          for (let i = 0; i < lines.length; i++) {
+            const m = regex.exec(lines[i]);
+            if (m) {
+              return `${full}:${i + 1}:${m[0]}`;
+            }
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function searchUpstreamPattern(pattern, upstreamDir, multiline = false) {
+  const args = multiline
+    ? ['-P', '-U', '-n', '-o', '--max-count=1', pattern, upstreamDir]
+    : ['-P', '-n', '-o', '--max-count=1', pattern, upstreamDir];
+  const result = spawnSync('rg', args, {
+    encoding: 'utf8',
+    maxBuffer: 16 * 1024 * 1024
+  });
+
+  if (!result.error) {
+    if (result.status === 0 && result.stdout) {
+      const lines = result.stdout.trim().split('\n').filter(Boolean);
+      if (lines.length > 0) return lines[0];
+    }
+    return null;
+  }
+
+  return walkFilesFallback(upstreamDir, new RegExp(pattern), multiline);
+}
+
 function checkUpstreamExistence(token, isId = false) {
   if (ALLOWLIST.has(token)) {
     return { status: 'allowlisted', loc: 'dynamically constructed / allowlist' };
@@ -158,35 +222,23 @@ function checkUpstreamExistence(token, isId = false) {
   }
 
   const pattern = `(?<![-_a-zA-Z0-9])${token}(?![-_a-zA-Z0-9])`;
-  const result = spawnSync('rg', ['-P', '-n', '-o', '--max-count=1', pattern, upstreamDir], {
-    encoding: 'utf8',
-    maxBuffer: 16 * 1024 * 1024
-  });
-
-  if (result.status === 0 && result.stdout) {
-    const lines = result.stdout.trim().split('\n').filter(Boolean);
-    if (lines.length > 0) {
-      const loc = lines[0].replace(upstreamDir, 'src');
-      return { status: 'exists', loc: loc, count: lines.length };
-    }
+  const hit = searchUpstreamPattern(pattern, upstreamDir, false);
+  if (hit) {
+    const loc = hit.replace(upstreamDir, 'src');
+    return { status: 'exists', loc: loc, count: 1 };
   }
 
   // Check Material UI runtime component class mapping in Jellyfin 12.2
   if (!isId && token.startsWith('Mui')) {
     const prefix = token.split('-')[0];
-    const muiComp = MUI_COMPONENT_MAP[prefix];
-    if (muiComp) {
-      const muiPattern = `@mui/material/${muiComp}|${prefix}`;
-      const muiRes = spawnSync('rg', ['-P', '-n', '-o', '--max-count=1', muiPattern, upstreamDir], {
-        encoding: 'utf8',
-        maxBuffer: 16 * 1024 * 1024
-      });
-      if (muiRes.status === 0 && muiRes.stdout) {
-        const lines = muiRes.stdout.trim().split('\n').filter(Boolean);
-        if (lines.length > 0) {
-          const loc = lines[0].replace(upstreamDir, 'src');
-          return { status: 'exists_mui_component', loc: loc, count: lines.length };
-        }
+    const mapped = MUI_COMPONENT_MAP[prefix];
+    if (mapped) {
+      const muiComp = Array.isArray(mapped) ? `(?:${mapped.join('|')})` : mapped;
+      const muiPattern = `@mui/material/${muiComp}|\\b${muiComp}\\b[\\s\\S]{0,120}@mui/material|@mui/material[\\s\\S]{0,120}\\b${muiComp}\\b|<${muiComp}\\b|${prefix}`;
+      const muiHit = searchUpstreamPattern(muiPattern, upstreamDir, true);
+      if (muiHit) {
+        const loc = muiHit.replace(upstreamDir, 'src');
+        return { status: 'exists_mui_component', loc: loc, count: 1 };
       }
     }
   }

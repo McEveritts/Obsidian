@@ -24,7 +24,8 @@ const MODULE_ORDER = [
   '08-dialogs-inputs.css',
   '09-login.css',
   '10-presets.css',
-  '11-live-tv.css'
+  '11-live-tv.css',
+  '12-music-readers.css'
 ];
 
 const BANNER = `/**

@@ -71,8 +71,18 @@ body::after {
 .mainDrawer,
 .MuiDrawer-paper,
 .detailPagePrimaryContainer,
+.detailTable,
 .videoOsdBottom .osdControls,
 .volumeOsd,
+.iconOsd,
+.upNextContainer,
+.playerStats,
+.subtitleSyncContainer,
+.toast,
+.selectionCommandsPanel,
+.slideshowBottomBar,
+.bookOsdRow,
+#dialogToc,
 .nowPlayingBar,
 .sliderBubble {
   backdrop-filter: none !important;

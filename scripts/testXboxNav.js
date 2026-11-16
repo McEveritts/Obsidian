@@ -66,9 +66,12 @@ function buildPageHtml({ layoutClass, bodyHtml }) {
 }
 
 function resolveChromiumExecutable() {
+  if ((process.env.TMPDIR || '').length > 60 && fs.existsSync('/tmp')) {
+    process.env.TMPDIR = '/tmp';
+  }
   if (process.env.OBSIDIAN_CHROMIUM_PATH) return process.env.OBSIDIAN_CHROMIUM_PATH;
   const defaultPath = chromium.executablePath();
-  if (defaultPath && fs.existsSync(defaultPath)) return defaultPath;
+  if (defaultPath && fs.existsSync(defaultPath)) return undefined;
 
   const cacheDir = path.join(process.env.HOME || '', '.cache', 'ms-playwright');
   if (cacheDir && fs.existsSync(cacheDir)) {

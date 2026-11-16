@@ -474,7 +474,8 @@
   .itemDetailPage .detailSection > .collectionItems,
   .itemDetailPage .detailSection > .nextUpSection,
   .itemDetailPage .detailSection > .programGuideSection,
-  .itemDetailPage .detailSection > #listChildrenCollapsible {
+  .itemDetailPage .detailSection > #listChildrenCollapsible,
+  .itemDetailPage .detailSection > .detailTable {
     grid-column: 1 / -1 !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -644,5 +645,185 @@
     font-size: 0.925rem !important;
     line-height: 1.55 !important;
     margin-top: 0.5rem !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Frosted Glass Detail Tables (.detailTable, .detailTableHeaderCell, .detailTableBodyCell)
+   Used across album tracklists, scheduled tasks, and DVR recordings
+   -------------------------------------------------------------------------- */
+.detailTable {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0.75rem auto !important;
+  box-sizing: border-box !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  background: var(--obs-panel-bg) !important;
+  backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur)) var(--obs-glass-saturation) !important;
+  border-radius: var(--obs-radius-xl) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  border-top-color: var(--obs-specular-top) !important;
+  border-left-color: var(--obs-chromatic-border-cyan) !important;
+  border-right-color: var(--obs-chromatic-border-fuchsia) !important;
+  box-shadow: var(--obs-shadow-card), var(--obs-chromatic-inset-card) !important;
+  color: var(--obs-slate-200) !important;
+  text-align: left !important;
+  overflow: hidden;
+}
+
+[dir="rtl"] .detailTable,
+[dir="rtl"] .detailTableHeaderCell {
+  text-align: right !important;
+}
+
+.detailTableHeaderCell {
+  background: rgba(15, 23, 42, 0.62) !important;
+  color: var(--obs-slate-300) !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.35 !important;
+  padding: 0.8rem 1rem !important;
+  border-bottom: 1px solid var(--obs-glass-border) !important;
+  vertical-align: middle !important;
+  white-space: nowrap;
+}
+
+.detailTableBodyCell {
+  padding: 0.75rem 1rem !important;
+  color: var(--obs-slate-200) !important;
+  font-size: 0.9rem !important;
+  line-height: 1.45 !important;
+  vertical-align: middle !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  overflow-wrap: break-word;
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120),
+              color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.detailTable tbody tr:last-child .detailTableBodyCell {
+  border-bottom: none !important;
+}
+
+.detailTableBodyRow-shaded:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.025) !important;
+}
+
+.detailTable tbody tr {
+  transition: background-color var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.detailTable tbody tr:hover,
+.detailTable tbody tr:hover .detailTableBodyCell {
+  background-color: rgba(99, 102, 241, 0.10) !important;
+  color: var(--obs-white) !important;
+}
+
+.detailTable tbody tr:focus-within,
+.detailTable tbody tr:focus-within .detailTableBodyCell {
+  background-color: rgba(99, 102, 241, 0.16) !important;
+  color: var(--obs-white) !important;
+}
+
+.detailTable tbody tr:focus-visible {
+  outline: 2px solid var(--obs-indigo-400) !important;
+  outline-offset: -2px !important;
+}
+
+@media (max-width: 900px) {
+  .detailTable {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 480px) {
+  .detailTableHeaderCell {
+    padding: 0.65rem 0.75rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .detailTableBodyCell {
+    padding: 0.65rem 0.75rem !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Search Input Bar (.searchFields, .searchFieldsInner, .searchfields-icon)
+   Aligns Indigo search glyph alongside the recessed glass .emby-input
+   -------------------------------------------------------------------------- */
+.searchFields {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+.searchFieldsInner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.65rem !important;
+  width: 100% !important;
+  max-width: min(48rem, 100%) !important;
+  min-width: 0 !important;
+  margin: 0.5rem auto 1rem auto !important;
+  padding: 0.35rem 0.5rem !important;
+  box-sizing: border-box !important;
+}
+
+.searchFieldsInner .inputContainer {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+.searchFieldsInner .inputLabel:empty {
+  display: none !important;
+  margin: 0 !important;
+}
+
+.searchfields-icon {
+  color: var(--obs-indigo-400) !important;
+  font-size: 1.5rem !important;
+  line-height: 1 !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: center !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.35));
+  transition: color var(--obs-duration-fast) var(--obs-ease-out-120),
+              filter var(--obs-duration-fast) var(--obs-ease-out-120) !important;
+}
+
+.searchFieldsInner:focus-within .searchfields-icon {
+  filter: drop-shadow(0 0 12px rgba(129, 140, 248, 0.65));
+}
+
+@media (max-width: 480px) {
+  .searchFields {
+    padding-inline: 0.75rem !important;
+  }
+
+  .searchFieldsInner {
+    gap: 0.5rem !important;
+    padding: 0.25rem 0 !important;
+    margin: 0.25rem auto 0.75rem auto !important;
+  }
+
+  .searchfields-icon {
+    font-size: 1.35rem !important;
+    width: 1.35rem !important;
+    height: 1.35rem !important;
   }
 }

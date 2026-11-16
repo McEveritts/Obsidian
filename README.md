@@ -82,11 +82,13 @@ To enable it, copy `scripts/obsidian-xbox-nav.js` into your Jellyfin Web directo
 
 ### Included Library Cover Pack (`assets/covers/`)
 
-Obsidian includes four matching `1920×1080` (`16:9`) glassmorphic library cover images ready to upload as primary library artwork:
+Obsidian includes six matching `1920×1080` (`16:9`) glassmorphic library cover images ready to upload as primary library artwork:
 - [`assets/covers/movies.png`](./assets/covers/movies.png) — Movies library cover
 - [`assets/covers/tv.png`](./assets/covers/tv.png) — Shows / TV library cover
 - [`assets/covers/live-tv.png`](./assets/covers/live-tv.png) — Live TV library cover
 - [`assets/covers/collections.png`](./assets/covers/collections.png) — Collections library cover
+- [`assets/covers/music.png`](./assets/covers/music.png) — Music library cover
+- [`assets/covers/playlists.png`](./assets/covers/playlists.png) — Playlists library cover
 
 ---
 
@@ -176,8 +178,18 @@ body::after {
 .mainDrawer,
 .MuiDrawer-paper,
 .detailPagePrimaryContainer,
+.detailTable,
 .videoOsdBottom .osdControls,
 .volumeOsd,
+.iconOsd,
+.upNextContainer,
+.playerStats,
+.subtitleSyncContainer,
+.toast,
+.selectionCommandsPanel,
+.slideshowBottomBar,
+.bookOsdRow,
+#dialogToc,
 .nowPlayingBar,
 .sliderBubble {
   backdrop-filter: none !important;
@@ -197,7 +209,7 @@ body::after {
 
 ## 🛠️ Building from Source
 
-Obsidian is authored as 11 modular CSS files in [`src/`](./src) and compiled into a single validated stylesheet via [`build.js`](./build.js). [`11-live-tv.css`](./src/11-live-tv.css) aligns the Guide timeline with its program grid and provides contained channel logos, two-line titles, and equal-height metadata rows without changing playback or schedule geometry.
+Obsidian is authored as 12 modular CSS files in [`src/`](./src) and compiled into a single validated stylesheet via [`build.js`](./build.js). [`11-live-tv.css`](./src/11-live-tv.css) aligns the Guide timeline with its program grid and provides contained channel logos, two-line titles, and equal-height metadata rows, while [`12-music-readers.css`](./src/12-music-readers.css) covers synced lyrics, audio queue controls, photo slideshows, and book/comic readers.
 
 ```text
 Obsidian/
@@ -209,20 +221,28 @@ Obsidian/
 ├── docs/                         # Architecture, preset guides, & screenshot gallery
 ├── scripts/
 │   ├── checkSyntax.js            # JS syntax validation runner
-│   ├── precise_audit.js          # Upstream jellyfin-web 12.2 selector contract auditor
-│   └── testLiveTv.js             # Responsive Guide, channel & accessibility regressions
+│   ├── precise_audit.js          # Upstream jellyfin-web 12.2+ selector contract auditor
+│   ├── obsidian-xbox-nav.js      # Optional Xbox/TV controller & keyboard overlay
+│   ├── testLiveTv.js             # Responsive Guide, channel & accessibility regressions
+│   ├── testPlayerOsd.js          # Volume, Up Next, Skip, Stats, Sub Sync & Chapter regressions
+│   ├── testGlobalControls.js     # Global buttons, spinners, switches & contrast regressions
+│   ├── testShellOverlays.js      # Toasts, multi-select, banners & cast remote regressions
+│   ├── testMusicReaders.js       # Synced lyrics, audio queue, slideshow & reader regressions
+│   ├── testCardsTables.js        # Card badges, detail tables, search & cover asset checks
+│   └── testXboxNav.js            # Xbox/TV popover focus & GamepadB regressions
 └── src/
-    ├── 01-variables.css          # --obs-* tokens & --mui-palette-* bridge
+    ├── 01-variables.css          # --obs-* tokens & --mui-palette-* / --jf-palette-* bridge
     ├── 02-atmosphere.css         # 120Hz radial aurora orbs, vignette & inline SVG grain
     ├── 03-typography.css         # Inter system font stack, fluid scaling & scrollbars
-    ├── 04-header-nav.css         # Modern MUI AppBar/Drawer + Legacy Header/Drawer
-    ├── 05-cards.css              # 16px poster cards, specular bevels & hover lift
-    ├── 06-item-detail.css        # Jellyfin 12.2 glass hero & ItemDetailsMetadataList
-    ├── 07-player-osd.css         # Floating Dynamic Dock OSD & glowing scrub slider
-    ├── 08-dialogs-inputs.css     # Frosted modals, action sheets & dark-glass inputs
-    ├── 09-login.css              # Centered glass hero login screen
+    ├── 04-header-nav.css         # AppBar/Drawer, Toasts, Multi-Select, Banners & Cast Remote
+    ├── 05-cards.css              # 16px poster cards, badges, person cards & hover lift
+    ├── 06-item-detail.css        # Glass hero, ItemDetailsMetadataList, tables & search bar
+    ├── 07-player-osd.css         # Floating Dock OSD, Up Next, Skip, Stats, Sub Sync & Chapters
+    ├── 08-dialogs-inputs.css     # Modals, global buttons, spinners, switches & glass inputs
+    ├── 09-login.css              # Centered glass hero login & Quick Connect alerts
     ├── 10-presets.css            # Reduced-motion, forced-colors & GPU compositor rules
-    └── 11-live-tv.css            # Aligned Guide timeline & contained channel artwork
+    ├── 11-live-tv.css            # Aligned Guide timeline & contained channel artwork
+    └── 12-music-readers.css      # Synced lyrics, audio queue, slideshow & book/comic readers
 ```
 
 ```bash

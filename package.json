@@ -10,6 +10,10 @@
     "test": "node scripts/checkSyntax.js && node build.js",
     "test:live-tv": "node --test scripts/testLiveTv.js",
     "test:player-osd": "node --test --test-timeout=30000 scripts/testPlayerOsd.js",
+    "test:global-controls": "node --test scripts/testGlobalControls.js",
+    "test:shell-overlays": "node --test scripts/testShellOverlays.js",
+    "test:music-readers": "node --test scripts/testMusicReaders.js",
+    "test:cards-tables": "node --test scripts/testCardsTables.js",
     "test:xbox-nav": "node scripts/testXboxNav.js"
   },
   "repository": {
