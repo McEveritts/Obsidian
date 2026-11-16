@@ -147,6 +147,7 @@
     }
     pendingFocusRaf = window.requestAnimationFrame(function () {
       pendingFocusRaf = 0;
+      if (!shouldAutoEnter()) return;
       focusFirstControlInPopover(popover);
     });
   }
@@ -354,6 +355,10 @@
   // Track input modality & non-modal trigger element
   document.addEventListener('pointerdown', function (e) {
     lastPointerTime = Date.now();
+    if (pendingFocusRaf && !isTvLayout()) {
+      window.cancelAnimationFrame(pendingFocusRaf);
+      pendingFocusRaf = 0;
+    }
     var target = e.target && e.target.nodeType === 1 ? e.target : null;
     if (target && !target.closest('.MuiPopover-root, .MuiModal-root')) {
       var focusableTarget = target.closest('button, a, input, select, .focusable, [tabindex]') || target;

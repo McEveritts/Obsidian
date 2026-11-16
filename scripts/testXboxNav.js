@@ -493,7 +493,8 @@ test('4. ArrowDown / ArrowUp inside #filter-popover and #selectview-popover in .
     }));
     await viewPage.addScriptTag({ content: xboxNavScript });
 
-    await viewPage.evaluate(() => {
+    await viewPage.evaluate(async () => {
+      await new Promise(resolve => requestAnimationFrame(resolve));
       document.body.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'mouse' }));
       document.querySelector('#selectview-popover .MuiPopover-paper').focus();
     });
