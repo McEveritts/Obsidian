@@ -46,6 +46,12 @@ The popup is a compact horizontal glass pill, with a small speaker icon and an i
 
 The pre-fix compiled theme fails the compact-popup regression. `OBSIDIAN_CHROMIUM_PATH` and `OBSIDIAN_STYLESHEET` work as in the Live TV suite.
 
+### Player Up Next Dialog Regression Gate (Jellyfin 12.4.0)
+
+`npm run test:player-osd` also exercises Jellyfin's lazy-loaded Up Next overlay (`.upNextContainer.upNextDialog`, `.upNextDialog-nextVideoText`, `.upNextDialog-countdownText`, `.upNextDialog-title`, `.upNextDialog-mediainfo`, `.btnStartNow`, and `.btnHide`) alongside the native chunk stylesheet and `themes/dark/theme.css`.
+
+Seventeen additional checks verify the smoked Obsidian glass card (`blur(24px)`, specular bevel, and prismatic rim), tabular-numeral countdown pill, primary Indigo-to-Fuchsia `Start Now` pill vs. secondary frosted `Hide` pill (`>= 44px` WCAG 2.2 AAA hit targets with optically centered labels), right/left viewport anchoring across all six desktop/mobile/TV viewports in both `ltr` and `rtl`, TV `.show-focus` rings without `scale(1.2)` collision or dark-theme black text, safe `transitionend` container dismissal (canceling child button transitions during `.upNextDialog-hidden` fade-out so Jellyfin's `{ once: true }` listener never hides a child button instead of `.upNextContainer`), forced-color contrast, and `200%` text scaling with late-loaded chunk/theme CSS.
+
 ---
 
 ## 2. Live Runtime Verification Summary (Jellyfin 12.2.0)

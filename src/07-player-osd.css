@@ -104,6 +104,322 @@
 }
 
 /* --------------------------------------------------------------------------
+   Up Next Episode Overlay (.upNextContainer / .upNextDialog)
+   Restyles Jellyfin's end-of-episode prompt into a Floating Obsidian Glass Card
+   with primary/secondary pill buttons, tabular countdown badge, and TV focus rings
+   -------------------------------------------------------------------------- */
+.upNextContainer {
+  box-sizing: border-box !important;
+  position: fixed !important;
+  bottom: max(1rem, env(safe-area-inset-bottom)) !important;
+  right: max(1rem, env(safe-area-inset-right)) !important;
+  left: auto !important;
+  margin: 0 !important;
+  width: 27rem !important;
+  max-width: calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right))) !important;
+  padding: min(1.15rem, 4.5vw) min(1.35rem, 5vw) !important;
+  background: rgba(12, 16, 28, 0.88) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid var(--obs-chromatic-border-indigo) !important;
+  border-top-color: var(--obs-specular-top) !important;
+  border-left-color: var(--obs-chromatic-border-cyan) !important;
+  border-right-color: var(--obs-chromatic-border-fuchsia) !important;
+  border-radius: var(--obs-radius-2xl) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.72), var(--obs-chromatic-inset) !important;
+  backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  -webkit-backdrop-filter: blur(var(--obs-glass-blur-heavy)) var(--obs-glass-saturation) !important;
+  z-index: 1000 !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: opacity var(--obs-duration-card) var(--obs-ease-out-120) !important;
+}
+
+[dir="rtl"] .upNextContainer {
+  left: max(1rem, env(safe-area-inset-left)) !important;
+  right: auto !important;
+}
+
+@media (min-width: 640px) {
+  .upNextContainer {
+    bottom: max(1.5rem, env(safe-area-inset-bottom)) !important;
+    right: max(1.5rem, env(safe-area-inset-right)) !important;
+    max-width: calc(100vw - max(1.5rem, env(safe-area-inset-left)) - max(1.5rem, env(safe-area-inset-right))) !important;
+    padding: 1.25rem 1.5rem !important;
+  }
+
+  [dir="rtl"] .upNextContainer {
+    left: max(1.5rem, env(safe-area-inset-left)) !important;
+    right: auto !important;
+  }
+}
+
+.upNextContainer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: var(--obs-chromatic-edge-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none !important;
+  z-index: 2;
+}
+
+.upNextContainer.hide {
+  display: none !important;
+}
+
+.upNextContainer:not(.hide) {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.upNextContainer.upNextDialog-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.upNextDialog > .flex-direction-column {
+  width: 100% !important;
+  min-width: 0 !important;
+  gap: 0.5rem !important;
+}
+
+.upNextDialog-nextVideoText {
+  margin: 0 !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0.01em !important;
+  color: var(--obs-slate-300) !important;
+}
+
+.upNextDialog-countdownText {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 0.1rem 0.55rem !important;
+  margin-inline: 0.15rem !important;
+  border-radius: var(--obs-radius-full) !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.24) 0%, rgba(217, 70, 239, 0.18) 100%) !important;
+  border: 1px solid rgba(129, 140, 248, 0.45) !important;
+  color: var(--obs-indigo-300) !important;
+  font-family: var(--obs-font-sans) !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums !important;
+  white-space: nowrap !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.22) !important;
+}
+
+.upNextDialog-title {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.015em !important;
+  color: var(--obs-white) !important;
+  white-space: normal !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  overflow-wrap: anywhere !important;
+}
+
+.upNextDialog-mediainfo:empty {
+  display: none !important;
+}
+
+.upNextDialog-mediainfo:not(:empty) {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  margin: 0.1rem 0 0 0 !important;
+}
+
+.upNextDialog-mediainfo .mediaInfoItem {
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1.25 !important;
+}
+
+.upNextDialog-mediainfo .starIcon {
+  font-size: 1.05rem !important;
+  line-height: 1 !important;
+  margin-inline-end: 0.2rem !important;
+  margin-inline-start: 0 !important;
+}
+
+.upNextDialog-buttons {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0.45rem 0 0 0 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 0.625rem !important;
+}
+
+.upNextDialog .upNextDialog-button {
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 44px !important;
+  min-width: 5.5rem !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0.55rem 1.25rem !important;
+  border-radius: var(--obs-radius-full) !important;
+  font-family: var(--obs-font-sans) !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.01em !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  backface-visibility: hidden;
+  transition: none !important;
+}
+
+/* Cancel any child transitions inside .upNextContainer so Jellyfin's { once: true }
+   transitionend listener on .upNextContainer only ever receives the container's own fade */
+.upNextContainer * {
+  transition: none !important;
+}
+
+.upNextDialog .btnStartNow {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  color: var(--obs-white) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow: var(--obs-shadow-button-primary) !important;
+}
+
+.upNextDialog .btnHide {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--obs-slate-200) !important;
+  border: 1px solid var(--obs-glass-border) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .upNextDialog .btnStartNow:hover {
+    transform: translate3d(0, -1px, 0) scale3d(1.03, 1.03, 1) !important;
+    border-color: rgba(255, 255, 255, 0.52) !important;
+    box-shadow: var(--obs-shadow-button-hover) !important;
+  }
+
+  .upNextDialog .btnHide:hover {
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: var(--obs-white) !important;
+    border-color: var(--obs-glass-border-hover) !important;
+    transform: translate3d(0, -1px, 0) !important;
+  }
+}
+
+.upNextDialog .btnStartNow:focus,
+.upNextDialog .btnStartNow:focus-visible,
+.upNextDialog .btnStartNow.show-focus:focus {
+  background: linear-gradient(135deg, var(--obs-indigo-500) 0%, var(--obs-fuchsia-500) 100%) !important;
+  color: var(--obs-white) !important;
+  border-color: rgba(255, 255, 255, 0.88) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.48), var(--obs-shadow-button-hover) !important;
+  transform: none !important;
+}
+
+.upNextDialog .btnHide:focus,
+.upNextDialog .btnHide:focus-visible,
+.upNextDialog .btnHide.show-focus:focus {
+  background: rgba(99, 102, 241, 0.28) !important;
+  color: var(--obs-white) !important;
+  border-color: var(--obs-indigo-300) !important;
+  outline: 2px solid var(--obs-indigo-300) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.5), 0 0 18px rgba(99, 102, 241, 0.55) !important;
+  transform: none !important;
+}
+
+@media (max-width: 420px) {
+  .upNextDialog .upNextDialog-button {
+    flex: 1 1 auto !important;
+    padding: 0.55rem 0.9rem !important;
+    white-space: normal !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .upNextContainer {
+    transition-duration: 1ms !important;
+  }
+
+  .upNextDialog .upNextDialog-button,
+  .upNextDialog .btnStartNow:hover,
+  .upNextDialog .btnHide:hover {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .upNextContainer {
+    forced-color-adjust: none !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    border: 1.5px solid CanvasText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .upNextContainer::after {
+    display: none !important;
+  }
+
+  .upNextDialog-nextVideoText,
+  .upNextDialog-title {
+    color: CanvasText !important;
+  }
+
+  .upNextDialog-countdownText {
+    background: transparent !important;
+    color: Highlight !important;
+    border-color: Highlight !important;
+    box-shadow: none !important;
+  }
+
+  .upNextDialog .btnStartNow {
+    background: Highlight !important;
+    color: HighlightText !important;
+    border: 1.5px solid Highlight !important;
+    box-shadow: none !important;
+  }
+
+  .upNextDialog .btnHide {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border: 1.5px solid ButtonText !important;
+    box-shadow: none !important;
+  }
+
+  .upNextDialog .upNextDialog-button:focus,
+  .upNextDialog .upNextDialog-button:focus-visible,
+  .upNextDialog .upNextDialog-button.show-focus:focus {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
    Video Playback Controls: Floating Dynamic Dock (.videoOsdBottom)
    Modeled after Looplet & Palate's Floating Dynamic Dock
    -------------------------------------------------------------------------- */
@@ -566,6 +882,23 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
     font-size: 20px !important;
     width: 20px !important;
     height: 20px !important;
+  }
+
+  .upNextContainer {
+    bottom: max(0.75rem, env(safe-area-inset-bottom)) !important;
+    padding: 0.85rem 1.15rem !important;
+  }
+
+  .upNextDialog > .flex-direction-column {
+    gap: 0.35rem !important;
+  }
+
+  .upNextDialog-title {
+    -webkit-line-clamp: 1 !important;
+  }
+
+  .upNextDialog-buttons {
+    margin-top: 0.2rem !important;
   }
 }
 
