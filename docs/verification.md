@@ -1,17 +1,17 @@
 # 🧪 Verification, Responsive Matrix & Accessibility Audit
 
-**Obsidian v2.0** is validated through a deterministic build gate (`npm test`) and automated live browser verification against **Jellyfin Web 12.2**.
+**Obsidian v2.0** has a deterministic build gate (`npm test`), browser regression fixtures for Jellyfin Web components, and the recorded Jellyfin Web 12.2/12.4 live checks below. Fixture results and emulated viewports do not establish physical-device compatibility, a guaranteed 120fps frame rate, or blanket WCAG conformance. The [README gallery](../README.md#screenshots) uses the existing 12.2 captures, not fresh captures of every change on `main`.
 
 ---
 
 ## 1. Automated Build & Selector Contract Gates
 
-Running `npm test` (`node scripts/checkSyntax.js && node build.js`) enforces four compile-time invariants before `obsidian.css` is emitted:
+Running `npm test` (`node scripts/checkSyntax.js && node build.js`) checks tooling syntax, validates and builds all twelve CSS modules, and checks the stylesheet's external dependencies:
 
 1. **JavaScript Tooling Syntax Gate (`scripts/checkSyntax.js`):** Validates all build and audit scripts via `node --check`.
-2. **CSS Brace, Parenthesis & Comment Balance (`build.js`):** Parses every line across all 11 `src/*.css` modules to guarantee zero unclosed blocks, unbalanced `calc()`/`rgba()` parentheses, or unterminated comments.
-3. **Zero External HTTP Dependency Gate (`build.js`):** Strips CSS comments and scans every rule for active `@import` statements or external `url(http://...)` / `url(https://...)` calls. Guarantees 100% offline LAN operation with zero external network dependencies.
-4. **Upstream Jellyfin 12.2 Selector Existence Contract (`scripts/precise_audit.js`):** Extracts every CSS class and ID token from `src/01-*.css` through `src/11-*.css` and verifies whole-token existence (`rg -P`) against the upstream `jellyfin-web 12.2` source tree and `@mui/material` component mappings (**0 dead selectors**).
+2. **CSS Brace, Parenthesis & Comment Balance (`build.js`):** Checks all 12 `src/*.css` modules for unclosed blocks, unbalanced parentheses, or unterminated comments. This is a structural check, not a complete CSS parser.
+3. **Zero External HTTP Dependency Gate (`build.js`):** Strips CSS comments and scans for active `@import` statements or external HTTP URLs. Confirms the stylesheet has no required external network dependencies; server and media availability are separate from this CSS check.
+4. **Optional upstream selector audit (`scripts/precise_audit.js`):** Extracts class and ID tokens across all 12 modules. With an upstream tree present, it checks whole-token existence and MUI component mappings; without one, it reports that the live existence check was skipped. Run `npm run audit:selectors` with `OBSIDIAN_UPSTREAM_DIR` pointing to the upstream `src` directory to enable it. A successful local build alone does not prove every selector exists upstream.
 
 ---
 

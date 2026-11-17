@@ -1,6 +1,6 @@
 # ⚡ Atmospheric & Performance Presets
 
-By default, **Obsidian** runs in **Static 120Hz Hardware-Cached Mode** (`--obs-aurora-animation: none`), delivering full spatial glassmorphism and 3-orb radial aurora lighting with zero continuous GPU animation overhead.
+By default, **Obsidian** uses a static aurora (`--obs-aurora-animation: none`), preserving the glass surfaces and background lighting without a continuous aurora animation. Actual rendering performance depends on your browser and device; 120Hz is a design target rather than a measured guarantee.
 
 You can customize the atmosphere, tune performance for low-power devices, or re-theme the chromatic accent palette by appending any of the snippets below to the **very end** of your Jellyfin **Custom CSS** box (**Dashboard > General > Branding** or **User Settings > Display**).
 

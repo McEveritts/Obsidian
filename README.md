@@ -1,260 +1,149 @@
 <div align="center">
-  <img src="assets/logo/obsidian-logo.svg" alt="Obsidian Logo" width="140" />
-  <h1>Obsidian 🔮</h1>
-  <p><b>A Spatial 120Hz Glassmorphic Theme for Jellyfin Web 12.2+ &amp; Jellyfin Media Player</b></p>
+  <img src="assets/logo/obsidian-logo.svg" alt="Obsidian crystal logo" width="96" />
+  <h1>Obsidian for Jellyfin</h1>
+  <p><b>Deep blacks. Frosted glass. Indigo and fuchsia light.</b></p>
+  <p>A custom CSS theme for Jellyfin Web and clients that use its web interface.</p>
 
-  [![Jellyfin](https://img.shields.io/badge/Jellyfin-12.2%2B_%7C_10.11-6366f1?style=for-the-badge&logo=jellyfin&logoColor=white)](https://jellyfin.org/)
-  [![Architecture](https://img.shields.io/badge/Shell-MUI_%2B_Hybrid-d946ef?style=for-the-badge)](./docs/architecture.md)
-  [![Performance](https://img.shields.io/badge/Compositor-120Hz_GPU_Cached-000000?style=for-the-badge)](./docs/presets.md)
-  [![Accessibility](https://img.shields.io/badge/WCAG_2.2-AAA_44px_Targets-4f46e5?style=for-the-badge)](./docs/verification.md)
-  [![License](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](./LICENSE)
+  [![Build and verification](https://github.com/McEveritts/Obsidian/actions/workflows/ci.yml/badge.svg)](https://github.com/McEveritts/Obsidian/actions/workflows/ci.yml)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-10b981)](./LICENSE)
+
+  **[Install](#install) · [Screenshots](#screenshots) · [How it works](#how-it-works) · [Getting started](./docs/getting-started.md) · [Presets](./docs/presets.md)**
 </div>
 
----
+![Animated gallery of Obsidian's home, movie library, item details, and floating playback controls](./docs/screenshots/theme-tour.gif)
 
-## 🌌 The Vision
+*A looping slideshow of the included Jellyfin Web screenshots, not a playback recording. [Browse the full-size stills below](#screenshots). Artwork and libraries belong to the example installation; your own media appears after installing the theme.*
 
-**Obsidian** is a high-contrast spatial theme for **Jellyfin Web 12.2+** and **Jellyfin Media Player (JMP)** grounded in the **Looplet Obsidian** design specification. Engineered to replace flat dark-gray containers with true `#000000` OLED depth, Obsidian pairs a hardware-cached 3-orb radial aurora with directional specular glass bevels (`0.28` top / `0.22` left) and a strict 120Hz GPU compositor budget.
+## What you get
 
-Full dual-shell coverage ensures seamless visual continuity across Jellyfin 12.2's modern **`@mui/material`** React shell (`.MuiAppBar-root`, `.MuiDrawer-paper`, `.MuiDialog-paper`, `--mui-palette-*`) and updated **Hybrid/Legacy** views (`.cardBox`, `.itemDetailPage`, `ItemDetailsMetadataList`, `.videoOsdBottom`).
+- **A dark glass interface:** a black base, soft aurora background, highlighted card edges, and frosted navigation and dialogs.
+- **A consistent library and player:** styled posters, details, search, playback controls, volume, Up Next, and subtitle panels.
+- **More than movies:** styling for Live TV guides and channels, music and lyrics, photos, and book/comic readers where Jellyfin provides those views.
+- **Responsive layouts:** compact phone layouts, touch scrollers, desktop hover effects, and visible TV/keyboard focus.
+- **Your choice of atmosphere:** static lighting by default, plus animated, Balanced, Lite, and accent-color [presets](./docs/presets.md).
+- **Optional extras:** six matching library covers and a controller/keyboard navigation script.
 
----
+The theme is CSS-only by default. You do **not** need Node.js, a build step, or the companion script to install it.
 
-## 🖼️ Theme Gallery
+## Install
 
-### Desktop Views (`1920×1080`)
+1. Open your Jellyfin **Dashboard → Branding → Custom CSS**. Some versions place Branding under **General**. This requires an administrator and applies to web clients that load the server's custom CSS.
+2. Paste the following line **before any other CSS rules**, then save:
 
-| | |
+   ```css
+   @import url("https://cdn.jsdelivr.net/gh/McEveritts/Obsidian@main/obsidian.css");
+   ```
+
+3. Reload Jellyfin. If the old styling remains, hard refresh with **Ctrl + F5** or **Cmd + Shift + R**.
+
+The `@main` URL follows development updates, subject to CDN/browser caching. For a fixed version, replace `main` with a full Git commit SHA from the [commit history](https://github.com/McEveritts/Obsidian/commits/main/). The existing `v2.0.0` tag is an earlier snapshot and does not include every change on `main`.
+
+**Offline or CDN blocked?** Open [`obsidian.css`](./obsidian.css), select **Raw**, and paste the entire stylesheet into Custom CSS instead of the import. The stylesheet uses system fonts and inline textures, with no required external font or image requests. Jellyfin itself still needs access to your server and media.
+
+**Client-only install, upgrades, and removal:** see the [step-by-step guide](./docs/getting-started.md#install-the-theme). Save your existing custom CSS before replacing it.
+
+## Screenshots
+
+These are the repository's existing Jellyfin Web 12.2 gallery captures. They show the theme in a real web interface; newer styling on `main` can differ. Mobile images use emulated viewports. The [verification notes](./docs/verification.md) distinguish live checks from browser fixtures and physical hardware testing.
+
+### Desktop
+
+Click an image for its full-size version.
+
+| Home and libraries | Movie library |
 | :---: | :---: |
-| ![Desktop Home View](./docs/screenshots/02-desktop-home.png)<br>**Home Dashboard &amp; Media Libraries** | ![Desktop Movies Library Grid](./docs/screenshots/03-desktop-library-grid.png)<br>**Movies Library Grid &amp; A–Z Glass Rail** |
-| ![Desktop Item Detail View](./docs/screenshots/04-desktop-item-detail.png)<br>**Cinematic Glass Hero &amp; Item Detail** | ![Desktop Login Screen](./docs/screenshots/01-desktop-login.png)<br>**Spatial Aurora Authentication Screen** |
+| [![Home dashboard with library cards, Continue Watching, and recently added movies](./docs/screenshots/02-desktop-home.png)](./docs/screenshots/02-desktop-home.png) | [![Movie poster grid with glass navigation and an alphabet rail](./docs/screenshots/03-desktop-library-grid.png)](./docs/screenshots/03-desktop-library-grid.png) |
 
-<div align="center">
-  <img src="docs/screenshots/05-desktop-player-osd.png" alt="Floating Dynamic Dock Video Player OSD" width="100%" />
-  <p><b>Floating Dynamic Dock Video Player OSD</b></p>
-</div>
+| Item details | Sign in |
+| :---: | :---: |
+| [![Movie detail page with poster, metadata, audio and subtitle choices, and Play button](./docs/screenshots/04-desktop-item-detail.png)](./docs/screenshots/04-desktop-item-detail.png) | [![Sign-in screen with a centered glass panel and aurora background](./docs/screenshots/01-desktop-login.png)](./docs/screenshots/01-desktop-login.png) |
 
-### Mobile Responsive Views (`390×844` Touch Viewport)
+[![Floating glass playback dock with timeline, transport, audio, subtitle, and volume controls](./docs/screenshots/05-desktop-player-osd.png)](./docs/screenshots/05-desktop-player-osd.png)
 
-| | | |
+*The playback dock keeps Jellyfin's controls together above the bottom edge of the video.*
+
+### Mobile
+
+| Home | Library | Item details |
 | :---: | :---: | :---: |
-| ![Mobile Home View](./docs/screenshots/06-mobile-home.png)<br>**Mobile Home &amp; Touch Scrollers** | ![Mobile Library Grid](./docs/screenshots/07-mobile-library-grid.png)<br>**Mobile 2-Column Poster Grid** | ![Mobile Item Detail](./docs/screenshots/08-mobile-item-detail.png)<br>**Mobile Glass Hero &amp; Metadata** |
+| [![Mobile home with touch-scrolling media rows](./docs/screenshots/06-mobile-home.png)](./docs/screenshots/06-mobile-home.png) | [![Mobile library with a two-column poster grid](./docs/screenshots/07-mobile-library-grid.png)](./docs/screenshots/07-mobile-library-grid.png) | [![Mobile item details with poster, metadata, and playback actions](./docs/screenshots/08-mobile-item-detail.png)](./docs/screenshots/08-mobile-item-detail.png) |
 
----
+## How it works
 
-## 🚀 Quick Installation
+Jellyfin loads [`obsidian.css`](./obsidian.css) through its Custom CSS setting. The stylesheet changes the appearance of existing Jellyfin components: navigation, cards, dialogs, detail pages, and player overlays. Your server still handles your library, accounts, playback, and media metadata.
 
-You can apply **Obsidian** server-wide (**Administration Dashboard > General > Branding > Custom CSS**) or to a single client (**User Avatar > Settings > Display > Custom CSS**).
+| In Jellyfin | With Obsidian |
+| :--- | :--- |
+| Browse Home or open a library | Glass-edged cards and indigo/fuchsia highlights surround your own artwork. |
+| Open a movie, episode, or album | Details and actions sit on a dark glass surface. Use Jellyfin's normal playback and track choices. |
+| Play a video | Jellyfin's timeline and transport controls appear in a floating dock. Available controls still depend on your client and media. |
+| Use a phone or tablet | Responsive cards and touch-scrolling rows adapt to the viewport. |
+| Use a keyboard or TV remote | The CSS provides visible focus styles. The optional script below improves specific popover navigation behavior. |
 
-### Method 1: 1-Line CDN `@import` (Recommended)
+For a guided first run, follow [Browse → Details → Playback](./docs/getting-started.md#take-a-first-run-tour).
 
-Paste the following single line into your **Custom CSS** box and click **Save**:
+### Try the design without a Jellyfin server
 
-```css
-@import url("https://cdn.jsdelivr.net/gh/McEveritts/Obsidian@main/obsidian.css");
-```
+Download the repository from **Code → Download ZIP**, extract it, and open [`preview.html`](./preview.html) in a browser, keeping it beside `obsidian.css`. Use its toolbar to switch between **Home Grid**, **Item Detail**, **Video OSD**, **Login Hero**, and **Dialog**, or compare **Full**, **Balanced**, and **Lite** token settings.
 
-To pin your installation to the `v2.0.0` release tag:
+This is a small standalone design demonstrator with placeholder artwork and sample markup. It has no server connection or working media playback, and is not a complete Jellyfin client. Use the [preset snippets](./docs/presets.md) for the full configuration in Jellyfin. GitHub's file view displays the HTML source; download it to try it.
 
-```css
-@import url("https://cdn.jsdelivr.net/gh/McEveritts/Obsidian@v2.0.0/obsidian.css");
-```
+### Optional Xbox, TV, and keyboard navigation
 
-### Method 2: 100% Offline Standalone Installation (Zero External Calls)
+[`scripts/obsidian-xbox-nav.js`](./scripts/obsidian-xbox-nav.js) improves focus entry into menus, selectable view-menu items, Back/B dismissal of MUI overlays, and desktop Up/Down movement in filter/view popovers. It supplements Jellyfin's input handling; it is not a general gamepad driver.
 
-**Obsidian** is engineered with an offline system font stack (`Inter`, Apple System, Segoe UI, Roboto) and inline SVG fractal grain textures—requiring zero external HTTP requests when pasted directly:
+It requires access to Jellyfin Web's files and a script tag in `index.html`; pasting it into Custom CSS will not load it. See [installation, controls, and removal](./docs/getting-started.md#optional-controller-and-keyboard-companion).
 
-1. Open [`obsidian.css`](./obsidian.css) and copy its entire contents.
-2. Navigate to **Dashboard > General > Branding > Custom CSS** (or **Settings > Display > Custom CSS**).
-3. Paste the stylesheet, click **Save**, and perform a hard refresh (**Ctrl + F5** or **Cmd + Shift + R**).
+## Matching library covers
 
-### Optional: Xbox & TV Controller Navigation (`scripts/obsidian-xbox-nav.js`)
+![The six included Obsidian library covers: Movies, Shows, Live TV, Collections, Music, and Playlists](./docs/screenshots/library-covers.png)
 
-In TV/Xbox layouts (`.layout-tv` / `.show-focus`), `obsidian.css` unlocks spatial focus geometry (preventing clipped popover hit boxes) and applies high-contrast Obsidian focus rings across cards, drawers, and popovers.
+Each cover is a **1920 × 1080 PNG**. Download the ones you want and upload them through Jellyfin's image editor; CSS does not install them automatically.
 
-For full controller parity on **Jellyfin 12.2+**, the optional companion script [`scripts/obsidian-xbox-nav.js`](./scripts/obsidian-xbox-nav.js) fixes four upstream Jellyfin Web regressions that CSS alone cannot resolve:
-- **`#selectview-popover` item focusability:** Upgrades `<li class="MuiMenuItem-root">` entries with `.focusable` and `tabindex="0"` and handles `Enter`/`Space`/`GamepadA` independently of nested controls.
-- **`GamepadB` / Back modal dismissal:** Closes open MUI popovers and modals (`#filter-popover`, `#selectview-popover`, `#sort-popover`, `.MuiModal-root`) instead of bubbling back out of the library.
-- **Popover & legacy filter auto-entry:** Automatically moves focus from `.MuiPopover-paper` (and legacy `.dialog.filterDialog.opened` in `.layout-tv`) onto the first visible control.
-- **Desktop arrow-key roving:** Enables `ArrowUp` / `ArrowDown` roving focus inside `#filter-popover` and `#selectview-popover` in `.layout-desktop`.
+**[Movies](./assets/covers/movies.png) · [Shows](./assets/covers/tv.png) · [Live TV](./assets/covers/live-tv.png) · [Collections](./assets/covers/collections.png) · [Music](./assets/covers/music.png) · [Playlists](./assets/covers/playlists.png)**
 
-To enable it, copy `scripts/obsidian-xbox-nav.js` into your Jellyfin Web directory (or a `--webdir` overlay) and add `<script defer="defer" src="obsidian-xbox-nav.js"></script>` immediately before `</body>` in Jellyfin Web's `index.html`.
+[How to apply library artwork](./docs/getting-started.md#add-the-matching-covers)
 
-### Included Library Cover Pack (`assets/covers/`)
+## Compatibility and performance
 
-Obsidian includes six matching `1920×1080` (`16:9`) glassmorphic library cover images ready to upload as primary library artwork:
-- [`assets/covers/movies.png`](./assets/covers/movies.png) — Movies library cover
-- [`assets/covers/tv.png`](./assets/covers/tv.png) — Shows / TV library cover
-- [`assets/covers/live-tv.png`](./assets/covers/live-tv.png) — Live TV library cover
-- [`assets/covers/collections.png`](./assets/covers/collections.png) — Collections library cover
-- [`assets/covers/music.png`](./assets/covers/music.png) — Music library cover
-- [`assets/covers/playlists.png`](./assets/covers/playlists.png) — Playlists library cover
+The project targets **Jellyfin Web 12.2+**, including the 12.4 component markup covered by its regression fixtures. It also contains legacy 10.11 selectors and targets Jellyfin Media Player's embedded web UI. Coverage varies with the installed web client; native clients that do not load Jellyfin Web's Custom CSS will not inherit this theme.
 
----
+The default aurora is static, and poster cards avoid individual backdrop blurs to reduce rendering work. Actual frame rate depends on your browser, device, and library. **120Hz is a design target, not a measured guarantee.** Reduced-motion and forced-color preferences have dedicated rules; the project does not claim blanket WCAG certification or physical-device coverage.
 
-## ✨ Key Architectural Pillars
+Start with the [Balanced or Lite preset](./docs/presets.md) if your client struggles with glass effects. For exact checks and limitations, read [Verification](./docs/verification.md).
 
-### 🔮 1. Pure `#000000` Obsidian Base & 120Hz Atmospheric Engine
-- **True OLED Contrast:** Anchored on `--obs-bg-base: #000000` and `--obs-slate-950: #000000` so letterboxed 2.39:1 cinema frames and floating glass surfaces blend naturally into the display bezel.
-- **Hardware-Cached 3-Orb Radial Aurora (`body::before`):** Projects diffused `#6366f1` (Indigo), `#d946ef` (Fuchsia), and `#4f46e5` (Deep Indigo) light sources at `--obs-aurora-opacity: 0.55`. Locked into a static GPU layer by default (`--obs-aurora-animation: none`) for zero-repaint 120Hz scrolling.
-- **Unified Spatial Vignette & SVG Micro-Grain (`body::after`):** Combines a peripheral vignette with an inline SVG `feTurbulence` noise layer (`opacity: 0.028`) to eliminate gradient banding without external asset fetches.
+## Documentation and development
 
-### 🏛️ 2. Full Jellyfin 12.2 Dual-Shell Coverage
-- **Modern `@mui/material` Shell:** Bridges `:root` `--mui-palette-*` CSS variables and styles `.MuiAppBar-root`, `.MuiDrawer-paper`, `.MuiDialog-paper`, `.MuiPopover-paper`, `.MuiMenu-paper`, `.MuiButton-root`, `.MuiListItemButton-root`, and `.videoOsd-appBar`.
-- **Updated 12.2 Item Detail DOM:** Directly styles `.detailPagePrimaryContainer` (`backdrop-filter: blur(24px)`) and the React `ItemDetailsMetadataList` (`.detailsGroupItem`) introduced when Jellyfin 12.2 removed the legacy `.detailPageContent` wrapper.
+- [Getting started](./docs/getting-started.md) — installation, first-run tour, covers, controller setup, updates, removal, and troubleshooting.
+- [Presets](./docs/presets.md) — performance settings, animated aurora, and accent colors. Append snippets after the import or pasted stylesheet.
+- [Architecture](./docs/architecture.md) — design tokens and the twelve CSS modules in `src/`.
+- [Verification](./docs/verification.md) — build checks, responsive fixtures, and recorded live-browser results.
+- [Report an issue](https://github.com/McEveritts/Obsidian/issues) — include your web-client version, browser/client, viewport, and a screenshot without account details.
 
-### 🃏 3. 120Hz Zero-Blur Media Cards & Specular Bevels
-- **Compositor-Safe Card Grids:** Media libraries routinely render 100+ `.cardBox` elements simultaneously. Obsidian enforces `backdrop-filter: none !important` on individual cards, achieving glass depth via translucent obsidian fills (`rgba(12, 16, 28, 0.78)`), inset highlights, and directional `0.28` top / `0.22` left specular bevels.
-- **Pointer-Gated Kinetic Lift:** On fine-pointer devices (`@media (hover: hover) and (pointer: fine)`), cards elevate smoothly (`translateY(-4px)`) with `scale3d(1.028, 1.028, 1)` poster zoom and an Indigo rim glow (`rgba(129, 140, 248, 0.55)`).
-
-### 🎬 4. Floating Dynamic Dock OSD & WCAG 2.2 AAA Hit Targets
-- **Suspended Playback Dock:** Detaches `.videoOsdBottom .osdControls` into a floating `20px`-radius frosted glass dock (`blur(24px)`) with an Indigo-to-Fuchsia glowing timeline scrub bar and pill-shaped primary Play/Pause toggle.
-- **Short-Landscape & Compact Viewport Containment:** Automatically compresses OSD vertical padding on landscape phones (`max-height: 500px`), enforces `>= 44×44px` WCAG 2.2 AAA touch targets on interactive controls, and guarantees zero horizontal overflow down to `320×480` (`docScrollW === docClientW`).
-
----
-
-## ⚡ Atmospheric & Performance Presets
-
-Append any of the following snippets to the **very end** of your **Custom CSS** field (after the `@import` or pasted stylesheet) to customize the theme:
-
-### 1. Animated Aurora Preset (25s Cosmic Oscillation)
-*Enables continuous 3D hardware-accelerated oscillation on the radial aurora orbs.*
-
-```css
-/* --- OBSIDIAN PRESET: ANIMATED AURORA --- */
-:root {
-  --obs-aurora-opacity: 0.65 !important;
-  --obs-aurora-animation: obs-aurora-shift 25s ease-in-out infinite alternate !important;
-}
-```
-
-### 2. Balanced Preset (Laptops on Battery & Mobile Browsers)
-*Reduces blur intensity, lowers aurora opacity, and disables micro-grain rasterization.*
-
-```css
-/* --- OBSIDIAN PRESET: BALANCED --- */
-:root {
-  --obs-glass-blur: 10px !important;
-  --obs-glass-blur-heavy: 16px !important;
-  --obs-aurora-opacity: 0.25 !important;
-  --obs-aurora-animation: none !important;
-  --obs-grain-display: none !important;
-  --obs-card-lift: -2px !important;
-}
-```
-
-### 3. Lite Preset (Smart TVs, Streaming Sticks & Low-Power Hardware)
-*Removes all `backdrop-filter` calculations, disables background pseudo-elements, and applies high-contrast solid obsidian surfaces for maximum FPS.*
-
-```css
-/* --- OBSIDIAN PRESET: LITE (MAXIMUM FPS) --- */
-:root {
-  --obs-glass-blur: 0px !important;
-  --obs-glass-blur-heavy: 0px !important;
-  --obs-aurora-opacity: 0 !important;
-  --obs-aurora-animation: none !important;
-  --obs-grain-display: none !important;
-  --obs-card-lift: 0px !important;
-  --obs-card-bg: rgba(12, 16, 28, 0.94) !important;
-  --obs-panel-bg: rgba(2, 6, 23, 0.96) !important;
-  --obs-hero-bg: rgba(12, 16, 28, 0.96) !important;
-}
-
-body::before,
-body::after {
-  display: none !important;
-}
-
-.cardBox,
-.MuiCard-root,
-.dialog,
-.formDialog,
-.MuiDialog-paper,
-.MuiPopover-paper,
-.MuiMenu-paper,
-.actionSheetContent,
-.skinHeader,
-.MuiAppBar-root,
-.mainDrawer,
-.MuiDrawer-paper,
-.detailPagePrimaryContainer,
-.detailTable,
-.videoOsdBottom .osdControls,
-.volumeOsd,
-.iconOsd,
-.upNextContainer,
-.playerStats,
-.subtitleSyncContainer,
-.toast,
-.selectionCommandsPanel,
-.slideshowBottomBar,
-.bookOsdRow,
-#dialogToc,
-.nowPlayingBar,
-.sliderBubble {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-```
-
----
-
-## 📚 Documentation Portal
-
-- **[Architecture & Spatial Design System](./docs/architecture.md)** — Deep dive into `--obs-*` tokens, the 120Hz atmospheric engine, directional specular bevels, and Jellyfin 12.2 dual-shell coverage.
-- **[Atmospheric & Chromatic Presets](./docs/presets.md)** — Complete collection of performance presets and custom accent color palettes (Emerald Cyber-Glass, Crimson Eclipse).
-- **[Verification & Responsive Audit](./docs/verification.md)** — Build gates, selector contract verification against upstream `jellyfin-web 12.2`, and live Playwright Firefox telemetry across desktop and mobile viewports.
-
----
-
-## 🛠️ Building from Source
-
-Obsidian is authored as 12 modular CSS files in [`src/`](./src) and compiled into a single validated stylesheet via [`build.js`](./build.js). [`11-live-tv.css`](./src/11-live-tv.css) aligns the Guide timeline with its program grid and provides contained channel logos, two-line titles, and equal-height metadata rows, while [`12-music-readers.css`](./src/12-music-readers.css) covers synced lyrics, audio queue controls, photo slideshows, and book/comic readers.
-
-```text
-Obsidian/
-├── obsidian.css                  # Compiled standalone master stylesheet
-├── preview.html                  # Interactive standalone browser test harness
-├── build.js                      # Deterministic compiler, syntax & zero-external-dep gate
-├── package.json                  # Build & verification scripts
-├── assets/logo/obsidian-logo.svg # Spatial Obsidian crystal emblem
-├── docs/                         # Architecture, preset guides, & screenshot gallery
-├── scripts/
-│   ├── checkSyntax.js            # JS syntax validation runner
-│   ├── precise_audit.js          # Upstream jellyfin-web 12.2+ selector contract auditor
-│   ├── obsidian-xbox-nav.js      # Optional Xbox/TV controller & keyboard overlay
-│   ├── testLiveTv.js             # Responsive Guide, channel & accessibility regressions
-│   ├── testPlayerOsd.js          # Volume, Up Next, Skip, Stats, Sub Sync & Chapter regressions
-│   ├── testGlobalControls.js     # Global buttons, spinners, switches & contrast regressions
-│   ├── testShellOverlays.js      # Toasts, multi-select, banners & cast remote regressions
-│   ├── testMusicReaders.js       # Synced lyrics, audio queue, slideshow & reader regressions
-│   ├── testCardsTables.js        # Card badges, detail tables, search & cover asset checks
-│   └── testXboxNav.js            # Xbox/TV popover focus & GamepadB regressions
-└── src/
-    ├── 01-variables.css          # --obs-* tokens & --mui-palette-* / --jf-palette-* bridge
-    ├── 02-atmosphere.css         # 120Hz radial aurora orbs, vignette & inline SVG grain
-    ├── 03-typography.css         # Inter system font stack, fluid scaling & scrollbars
-    ├── 04-header-nav.css         # AppBar/Drawer, Toasts, Multi-Select, Banners & Cast Remote
-    ├── 05-cards.css              # 16px poster cards, badges, person cards & hover lift
-    ├── 06-item-detail.css        # Glass hero, ItemDetailsMetadataList, tables & search bar
-    ├── 07-player-osd.css         # Floating Dock OSD, Up Next, Skip, Stats, Sub Sync & Chapters
-    ├── 08-dialogs-inputs.css     # Modals, global buttons, spinners, switches & glass inputs
-    ├── 09-login.css              # Centered glass hero login & Quick Connect alerts
-    ├── 10-presets.css            # Reduced-motion, forced-colors & GPU compositor rules
-    ├── 11-live-tv.css            # Aligned Guide timeline & contained channel artwork
-    └── 12-music-readers.css      # Synced lyrics, audio queue, slideshow & book/comic readers
-```
+Edit the source modules in [`src/`](./src), then rebuild the committed `obsidian.css`:
 
 ```bash
-# Run syntax checks and rebuild obsidian.css
 npm test
-
-# Or run the compiler directly
-npm run build
 ```
 
----
+For browser regression suites:
 
-## 📄 License
+```bash
+npm ci
+npx playwright install chromium
+npm run test:live-tv
+npm run test:player-osd
+npm run test:global-controls
+npm run test:shell-overlays
+npm run test:music-readers
+npm run test:cards-tables
+npm run test:xbox-nav
+```
 
-This project is open-source software licensed under the [MIT License](./LICENSE).
+`npm run audit:selectors` checks selectors against an upstream tree when available; set `OBSIDIAN_UPSTREAM_DIR` to its `src` directory. See [Verification](./docs/verification.md) for browser-path overrides and audit limitations. CI runs the build and browser suites on pushes and pull requests.
+
+To regenerate the gallery slideshow and cover contact sheet, install [Pillow](https://pillow.readthedocs.io/) in your development environment and run `python3 scripts/buildShowcase.py`. This is optional documentation tooling and is not needed to use or build the theme.
+
+## License
+
+[MIT](./LICENSE). Jellyfin and the media artwork shown in screenshots belong to their respective owners.
