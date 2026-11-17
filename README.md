@@ -10,9 +10,9 @@
   **[Install](#install) · [Screenshots](#screenshots) · [How it works](#how-it-works) · [Getting started](./docs/getting-started.md) · [Presets](./docs/presets.md)**
 </div>
 
-![Animated gallery of Obsidian's home, movie library, item details, and floating playback controls](./docs/screenshots/theme-tour.gif)
+[![Obsidian movie library with poster cards and glass navigation](./docs/screenshots/03-desktop-library-grid.png)](./docs/screenshots/03-desktop-library-grid.png)
 
-*A looping slideshow of the included Jellyfin Web screenshots, not a playback recording. [Browse the full-size stills below](#screenshots). Artwork and libraries belong to the example installation; your own media appears after installing the theme.*
+*Browse the [screenshots](#screenshots) for full-size views. Your own media artwork appears after installing the theme.*
 
 ## What you get
 
@@ -44,29 +44,21 @@ The `@main` URL follows development updates, subject to CDN/browser caching. For
 
 ## Screenshots
 
-These are the repository's existing Jellyfin Web 12.2 gallery captures. They show the theme in a real web interface; newer styling on `main` can differ. Mobile images use emulated viewports. The [verification notes](./docs/verification.md) distinguish live checks from browser fixtures and physical hardware testing.
+Click an image for its full-size version. The sign-in views were captured from the live Jellyfin Web **12.4.0** interface on **17 November 2026**, with the exact CSS shipped in this repository. The movie library-grid image is retained with the owner's confirmation that it still represents the current design. See [capture notes](./docs/screenshots/README.md) for provenance.
 
-### Desktop
+### Movie library
 
-Click an image for its full-size version.
+[![Movie poster grid with glass navigation and an alphabet rail](./docs/screenshots/03-desktop-library-grid.png)](./docs/screenshots/03-desktop-library-grid.png)
 
-| Home and libraries | Movie library |
-| :---: | :---: |
-| [![Home dashboard with library cards, Continue Watching, and recently added movies](./docs/screenshots/02-desktop-home.png)](./docs/screenshots/02-desktop-home.png) | [![Movie poster grid with glass navigation and an alphabet rail](./docs/screenshots/03-desktop-library-grid.png)](./docs/screenshots/03-desktop-library-grid.png) |
+### Desktop sign in — 1920 × 1080
 
-| Item details | Sign in |
-| :---: | :---: |
-| [![Movie detail page with poster, metadata, audio and subtitle choices, and Play button](./docs/screenshots/04-desktop-item-detail.png)](./docs/screenshots/04-desktop-item-detail.png) | [![Sign-in screen with a centered glass panel and aurora background](./docs/screenshots/01-desktop-login.png)](./docs/screenshots/01-desktop-login.png) |
+[![Current desktop sign-in screen with glass form, gradient Sign In button, and aurora background](./docs/screenshots/desktop-login.png)](./docs/screenshots/desktop-login.png)
 
-[![Floating glass playback dock with timeline, transport, audio, subtitle, and volume controls](./docs/screenshots/05-desktop-player-osd.png)](./docs/screenshots/05-desktop-player-osd.png)
+### Mobile sign in — 390 × 844
 
-*The playback dock keeps Jellyfin's controls together above the bottom edge of the video.*
+<img src="docs/screenshots/mobile-login.png" alt="Current mobile sign-in screen with responsive glass form and large controls" width="300" />
 
-### Mobile
-
-| Home | Library | Item details |
-| :---: | :---: | :---: |
-| [![Mobile home with touch-scrolling media rows](./docs/screenshots/06-mobile-home.png)](./docs/screenshots/06-mobile-home.png) | [![Mobile library with a two-column poster grid](./docs/screenshots/07-mobile-library-grid.png)](./docs/screenshots/07-mobile-library-grid.png) | [![Mobile item details with poster, metadata, and playback actions](./docs/screenshots/08-mobile-item-detail.png)](./docs/screenshots/08-mobile-item-detail.png) |
+The sign-in screenshots include the example server's custom background branding; that artwork is separate from the theme. The mobile capture uses an emulated touch viewport.
 
 ## How it works
 
@@ -95,8 +87,6 @@ This is a small standalone design demonstrator with placeholder artwork and samp
 It requires access to Jellyfin Web's files and a script tag in `index.html`; pasting it into Custom CSS will not load it. See [installation, controls, and removal](./docs/getting-started.md#optional-controller-and-keyboard-companion).
 
 ## Matching library covers
-
-![The six included Obsidian library covers: Movies, Shows, Live TV, Collections, Music, and Playlists](./docs/screenshots/library-covers.png)
 
 Each cover is a **1920 × 1080 PNG**. Download the ones you want and upload them through Jellyfin's image editor; CSS does not install them automatically.
 
@@ -141,8 +131,6 @@ npm run test:xbox-nav
 ```
 
 `npm run audit:selectors` checks selectors against an upstream tree when available; set `OBSIDIAN_UPSTREAM_DIR` to its `src` directory. See [Verification](./docs/verification.md) for browser-path overrides and audit limitations. CI runs the build and browser suites on pushes and pull requests.
-
-To regenerate the gallery slideshow and cover contact sheet, install [Pillow](https://pillow.readthedocs.io/) in your development environment and run `python3 scripts/buildShowcase.py`. This is optional documentation tooling and is not needed to use or build the theme.
 
 ## License
 

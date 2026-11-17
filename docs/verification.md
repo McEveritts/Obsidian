@@ -1,6 +1,6 @@
 # 🧪 Verification, Responsive Matrix & Accessibility Audit
 
-**Obsidian v2.0** has a deterministic build gate (`npm test`), browser regression fixtures for Jellyfin Web components, and the recorded Jellyfin Web 12.2/12.4 live checks below. Fixture results and emulated viewports do not establish physical-device compatibility, a guaranteed 120fps frame rate, or blanket WCAG conformance. The [README gallery](../README.md#screenshots) uses the existing 12.2 captures, not fresh captures of every change on `main`.
+**Obsidian v2.0** has a deterministic build gate (`npm test`), browser regression fixtures for Jellyfin Web components, and the recorded Jellyfin Web 12.2/12.4 live checks below. Fixture results and emulated viewports do not establish physical-device compatibility, a guaranteed 120fps frame rate, or blanket WCAG conformance. The [README gallery](../README.md#screenshots) now contains fresh 12.4.0 sign-in captures plus the movie library-grid image confirmed current by the owner. Outdated home, detail, player, login, and mobile captures and the derived slideshow have been removed. [Capture notes](./screenshots/README.md) record the live stylesheet hash; the older runtime results below remain historical evidence.
 
 ---
 

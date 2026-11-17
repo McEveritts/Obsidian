@@ -45,21 +45,17 @@ Open Home. Your existing libraries, Continue Watching, and recently added rows u
 
 On touch devices, swipe horizontal media rows. Open a library to browse its poster grid; compact portrait layouts use smaller grids. Library contents, sorting, and filtering continue to come from Jellyfin.
 
-[![Desktop home with library cards and recently added movies](./screenshots/02-desktop-home.png)](./screenshots/02-desktop-home.png)
+[![Movie library with poster cards and glass navigation](./screenshots/03-desktop-library-grid.png)](./screenshots/03-desktop-library-grid.png)
 
 ### 2. Open an item
 
 Select a movie or episode. Its poster, metadata, track selectors, and playback actions sit on a dark glass panel. Choose your audio/subtitle options and use Jellyfin's normal **Play** or **Resume** action. Available options depend on the item and client.
-
-[![Item details with playback actions and track selectors](./screenshots/04-desktop-item-detail.png)](./screenshots/04-desktop-item-detail.png)
 
 ### 3. Use the player
 
 During playback, reveal the controls using your client's normal pointer, touch, or remote interaction. Obsidian styles the timeline and transport controls as a floating dock. Volume, subtitle sync, chapter previews, playback statistics, and Up Next have matching surfaces when Jellyfin displays them.
 
 Obsidian styles these controls; your client and server still determine playback capabilities, codecs, transcoding, and stream quality.
-
-[![Playback dock with timeline, transport buttons, audio, subtitles, and volume](./screenshots/05-desktop-player-osd.png)](./screenshots/05-desktop-player-osd.png)
 
 ### 4. Tune the look for your device
 
@@ -75,13 +71,11 @@ Open [Presets](./presets.md) and append your chosen snippet **after** the import
 
 Save and refresh after changing presets. Choose one performance configuration at a time; restore the default by removing its override snippet. Actual rendering performance varies by device.
 
-The screenshots above are the existing Jellyfin Web 12.2 gallery captures. Newer components on `main` can differ; see [Verification](./verification.md) for the distinction between recorded live checks and browser fixtures.
+See the [current gallery](../README.md#screenshots) and [capture notes](./screenshots/README.md) for verified images. [Verification](./verification.md) distinguishes recorded live checks from browser fixtures.
 
 ## Add the matching covers
 
 The [cover pack](../assets/covers) includes Movies, Shows, Live TV, Collections, Music, and Playlists at 1920 × 1080.
-
-![Preview of all six library covers](./screenshots/library-covers.png)
 
 1. Open a cover's file page and use **Download raw file** to save the PNG.
 2. In Jellyfin, open the target library/item's **… → Edit images** menu as an administrator. For a library, this may also be available through **Dashboard → Libraries**.
