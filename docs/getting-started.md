@@ -57,6 +57,10 @@ During playback, reveal the controls using your client's normal pointer, touch, 
 
 Obsidian styles these controls; your client and server still determine playback capabilities, codecs, transcoding, and stream quality.
 
+[![Current-CSS component preview of the floating playback controls](./screenshots/playback-controls-preview.png)](./screenshots/playback-controls-preview.png)
+
+This is a component preview rendered from the shipped stylesheet with sample markup, not a live playback screenshot. [More player previews](./gallery.md#playback-controls).
+
 ### 4. Tune the look for your device
 
 Open [Presets](./presets.md) and append your chosen snippet **after** the import or full stylesheet:
@@ -76,6 +80,8 @@ See the [current gallery](../README.md#screenshots) and [capture notes](./screen
 ## Add the matching covers
 
 The [cover pack](../assets/covers) includes Movies, Shows, Live TV, Collections, Music, and Playlists at 1920 × 1080.
+
+[**See all six covers and download the originals →**](../assets/covers/README.md)
 
 1. Open a cover's file page and use **Download raw file** to save the PNG.
 2. In Jellyfin, open the target library/item's **… → Edit images** menu as an administrator. For a library, this may also be available through **Dashboard → Libraries**.
