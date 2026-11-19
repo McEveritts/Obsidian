@@ -175,6 +175,86 @@ after(async () => {
   if (browser) await browser.close();
 });
 
+for (const direction of ['ltr', 'rtl']) {
+  test(`Person detail keeps the name and biography beside the portrait (${direction})`, async () => {
+    const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+    try {
+      await page.setContent(`<!doctype html>
+        <html dir="${direction}">
+        <style>
+          ${upstreamStyles}
+          /* A wide artwork wrapper must not size the desktop grid track. */
+          .detailImageContainer.hide-mobile { width: 82vw; }
+        </style>
+        <style>${theme}</style>
+        <main class="itemDetailPage">
+          <div class="detailPageWrapperContainer">
+            <div class="detailPagePrimaryContainer">
+              <div class="detailImageContainer hide-mobile">
+                <div class="card portraitCard"><div class="cardPadder cardPadder-portrait"></div></div>
+              </div>
+              <div class="detailRibbon padded-left padded-right">
+                <div class="infoWrapper">
+                  <div class="nameContainer"><h1 class="itemName"><bdi>Philip Glenister</bdi></h1></div>
+                </div>
+                <div class="mainDetailButtons"></div>
+              </div>
+              <div class="detailPagePrimaryContent padded-right">
+                <div class="detailSection">
+                  <div class="detailSectionContent">
+                    <p class="overview">Philip Glenister has appeared in television, film, and theatre.</p>
+                  </div>
+                  <div class="itemDetailsGroup"></div>
+                  <div id="listChildrenCollapsible" class="verticalSection detailVerticalSection">
+                    <div id="childrenContent"><h2>Filmography</h2></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        </html>`);
+
+      const measure = () => page.evaluate(dir => {
+        const bounds = selector => {
+          const { left, right, width, top, bottom, height } = document.querySelector(selector).getBoundingClientRect();
+          return dir === 'rtl'
+            ? { start: -right, end: -left, width, top, bottom, height }
+            : { start: left, end: right, width, top, bottom, height };
+        };
+
+        return {
+          panel: bounds('.detailPagePrimaryContainer'),
+          artwork: bounds('.detailImageContainer'),
+          title: bounds('.itemName'),
+          bio: bounds('.overview'),
+          credits: bounds('#listChildrenCollapsible')
+        };
+      }, direction);
+
+      for (const artClass of ['portraitCard', 'backdropCard', 'bannerCard']) {
+        await page.locator('.detailImageContainer > .card').evaluate((card, name) => {
+          card.className = `card ${name}`;
+        }, artClass);
+        const { panel, artwork, title, bio, credits } = await measure();
+        assert.ok(title.width > 400 && title.height < 80, 'Name must fit on one line');
+        assert.equal(artwork.width, artClass === 'portraitCard' ? 288 : 400);
+        assert.equal(bio.start, title.start, 'Name and biography must start at the same edge');
+        assert.ok(title.start > artwork.end && bio.end < panel.end, 'Text must fit beside the artwork');
+        assert.equal(credits.start, artwork.start, 'Filmography must span both columns');
+        assert.ok(credits.bottom > credits.top && credits.top > Math.max(artwork.bottom, bio.bottom));
+      }
+
+      await page.locator('.detailImageContainer').evaluate(artwork => artwork.replaceChildren());
+      const { title, bio, credits } = await measure();
+      assert.equal(title.start, credits.start, 'Without artwork, the text starts at the panel inset');
+      assert.equal(bio.start, title.start);
+    } finally {
+      await page.close();
+    }
+  });
+}
+
 test('Library cover pack includes valid 1920x1080 PNG headers for Music & Playlists and synced docs', () => {
   const expectedCovers = ['movies.png', 'tv.png', 'live-tv.png', 'collections.png', 'music.png', 'playlists.png'];
   const pngMagic = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
@@ -196,7 +276,7 @@ test('Library cover pack includes valid 1920x1080 PNG headers for Music & Playli
   const presetsDoc = fs.readFileSync(path.join(ROOT_DIR, 'docs', 'presets.md'), 'utf8');
   assert.ok(readme.includes('assets/covers/music.png'), 'README.md must document assets/covers/music.png');
   assert.ok(readme.includes('assets/covers/playlists.png'), 'README.md must document assets/covers/playlists.png');
-  assert.ok(readme.includes('.upNextContainer'), 'README.md Lite Preset must include .upNextContainer');
+  assert.ok(readme.includes('](./docs/presets.md)'), 'README.md must link to the presets guide');
   assert.ok(presetsDoc.includes('.upNextContainer'), 'docs/presets.md Lite Preset must include .upNextContainer');
 });
 
