@@ -104,6 +104,46 @@ Install this only if you administer the Jellyfin Web files. The CSS already prov
 
 4. Reload the web client. If you use a container or web-directory overlay, make sure the file and index edit persist through your deployment process. A Jellyfin upgrade may replace them.
 
+<details>
+<summary><b>Optional: persist across Debian/Ubuntu apt upgrades</b></summary>
+
+On Debian and Ubuntu package installations (`/usr/share/jellyfin/web`), `apt` upgrades of `jellyfin-web` replace `index.html`. Because `DPkg::Post-Invoke` runs as `root`, install both the companion script and [`scripts/ensure-obsidian-jellyfin-web.sh`](../scripts/ensure-obsidian-jellyfin-web.sh) into root-owned system paths rather than referencing a user home directory:
+
+1. From a local Obsidian checkout, install the root-owned files and run the helper once:
+
+   ```bash
+   sudo install -m 0644 -o root -g root scripts/obsidian-xbox-nav.js /etc/jellyfin/obsidian-xbox-nav.js
+   sudo install -m 0755 -o root -g root scripts/ensure-obsidian-jellyfin-web.sh /usr/local/sbin/ensure-obsidian-jellyfin-web
+   sudo /usr/local/sbin/ensure-obsidian-jellyfin-web
+   ```
+
+2. Register an APT post-invoke hook so `jellyfin-web` upgrades re-apply the companion automatically:
+
+   ```bash
+   sudo tee /etc/apt/apt.conf.d/99-obsidian-jellyfin-web >/dev/null <<'EOF'
+   DPkg::Post-Invoke { "if [ -x /usr/local/sbin/ensure-obsidian-jellyfin-web ]; then /usr/local/sbin/ensure-obsidian-jellyfin-web || true; fi"; };
+   EOF
+   sudo chmod 0644 /etc/apt/apt.conf.d/99-obsidian-jellyfin-web
+   ```
+
+3. To update the companion later, copy the new file to `/etc/jellyfin/obsidian-xbox-nav.js` and re-run the helper:
+
+   ```bash
+   sudo install -m 0644 -o root -g root scripts/obsidian-xbox-nav.js /etc/jellyfin/obsidian-xbox-nav.js
+   sudo /usr/local/sbin/ensure-obsidian-jellyfin-web
+   ```
+
+4. To remove the companion and APT hook completely:
+
+   ```bash
+   sudo /usr/local/sbin/ensure-obsidian-jellyfin-web --remove
+   sudo rm -f /etc/apt/apt.conf.d/99-obsidian-jellyfin-web \
+     /usr/local/sbin/ensure-obsidian-jellyfin-web \
+     /etc/jellyfin/obsidian-xbox-nav.js
+   ```
+
+</details>
+
 | Situation | Companion behavior |
 | :--- | :--- |
 | Open a supported popover with keyboard/TV navigation | Moves focus into its first visible usable control when appropriate. |

@@ -1,5 +1,7 @@
 const assert = require('node:assert/strict');
+const { execFileSync } = require('node:child_process');
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
 const { before, after, test } = require('node:test');
 const { chromium } = require('playwright');
@@ -537,5 +539,124 @@ test('5. Legacy .dialog.filterDialog.opened in .layout-tv focuses first visible 
     assert.equal(await page.evaluate(() => document.activeElement.id), 'legacy-collapsible');
   } finally {
     await page.close();
+  }
+});
+
+test('6. ensure-obsidian-jellyfin-web.sh idempotently installs, self-heals after simulated upgrade, removes cleanly, and contains no private paths', () => {
+  const helperPath = path.join(__dirname, 'ensure-obsidian-jellyfin-web.sh');
+  const helperContent = fs.readFileSync(helperPath, 'utf8');
+
+  assert.equal(new RegExp('/ho' + 'me/', 'i').test(helperContent), false);
+  assert.equal(/\/Users\//i.test(helperContent), false);
+  assert.equal(/\b(?:\d{1,3}\.){3}\d{1,3}\b/.test(helperContent), false);
+  assert.equal(/(?:ghp_|github_pat_)/.test(helperContent), false);
+
+  const helpOut = execFileSync(helperPath, ['--help'], { encoding: 'utf8' });
+  assert.match(helpOut, /--remove/);
+  assert.match(helpOut, /JELLYFIN_WEB_DIR/);
+
+  assert.throws(
+    () => execFileSync(helperPath, ['--invalid-flag'], { encoding: 'utf8', stdio: 'pipe' }),
+    err => err && err.status === 2
+  );
+
+  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'obsidian-xbox-helper-'));
+  try {
+    const webDir = path.join(tmpRoot, 'web');
+    const backupDir = path.join(tmpRoot, 'backups');
+    const srcDirTmp = path.join(tmpRoot, 'src');
+    const srcJsPath = path.join(srcDirTmp, 'obsidian-xbox-nav.js');
+    const indexHtmlPath = path.join(webDir, 'index.html');
+    const deployedJsPath = path.join(webDir, 'obsidian-xbox-nav.js');
+
+    fs.mkdirSync(webDir, { recursive: true });
+    fs.mkdirSync(srcDirTmp, { recursive: true });
+    fs.writeFileSync(srcJsPath, xboxNavScript, 'utf8');
+
+    const baseEnv = {
+      ...process.env,
+      JELLYFIN_WEB_DIR: webDir,
+      JELLYFIN_BACKUP_DIR: backupDir,
+      OBSIDIAN_XBOX_JS: srcJsPath
+    };
+
+    // Absent index.html: graceful exit 0 with no writes
+    execFileSync(helperPath, [], { env: baseEnv, encoding: 'utf8' });
+    assert.equal(fs.existsSync(deployedJsPath), false);
+    assert.equal(fs.existsSync(backupDir), false);
+
+    // Absent source JS: graceful exit 0 leaving index.html untouched
+    const originalHtml = '<!doctype html><html><head><title>Jellyfin</title></head><body dir="ltr"><div id="reactRoot"><div class="splashLogo"></div></div></body></html>';
+    fs.writeFileSync(indexHtmlPath, originalHtml, 'utf8');
+    execFileSync(helperPath, [], {
+      env: { ...baseEnv, OBSIDIAN_XBOX_JS: path.join(tmpRoot, 'missing-obsidian-xbox-nav.js') },
+      encoding: 'utf8'
+    });
+    assert.equal(fs.readFileSync(indexHtmlPath, 'utf8'), originalHtml);
+    assert.equal(fs.existsSync(deployedJsPath), false);
+    assert.equal(fs.existsSync(backupDir), false);
+
+    // Run 1: install JS, write 1 backup, inject <script> directly before </body>
+    execFileSync(helperPath, [], { env: baseEnv, encoding: 'utf8' });
+    assert.equal(fs.readFileSync(deployedJsPath, 'utf8'), xboxNavScript);
+
+    const expectedTag = '<script defer="defer" src="obsidian-xbox-nav.js"></script>';
+    const expectedInjectedHtml = originalHtml.replace('</body>', `${expectedTag}</body>`);
+    assert.equal(fs.readFileSync(indexHtmlPath, 'utf8'), expectedInjectedHtml);
+    assert.equal(fs.readFileSync(indexHtmlPath, 'utf8').endsWith('</html>'), true);
+
+    const backupsAfterRun1 = fs.readdirSync(backupDir);
+    assert.equal(backupsAfterRun1.length, 1);
+    assert.match(backupsAfterRun1[0], /^index\.html\.pre-obsidian-\d{14}$/);
+    assert.equal(fs.readFileSync(path.join(backupDir, backupsAfterRun1[0]), 'utf8'), originalHtml);
+
+    // Run 2: backdate mtimes slightly and assert idempotency (no file rewrites or new backups)
+    const backdatedSec = Math.floor(Date.now() / 1000) - 10;
+    fs.utimesSync(indexHtmlPath, backdatedSec, backdatedSec);
+    fs.utimesSync(deployedJsPath, backdatedSec, backdatedSec);
+    const beforeHtmlMtime = fs.statSync(indexHtmlPath).mtimeMs;
+    const beforeJsMtime = fs.statSync(deployedJsPath).mtimeMs;
+
+    execFileSync(helperPath, [], { env: baseEnv, encoding: 'utf8' });
+    assert.equal(fs.statSync(indexHtmlPath).mtimeMs, beforeHtmlMtime);
+    assert.equal(fs.statSync(deployedJsPath).mtimeMs, beforeJsMtime);
+    assert.equal(fs.readFileSync(indexHtmlPath, 'utf8').split('obsidian-xbox-nav.js').length - 1, 1);
+    assert.equal(fs.readdirSync(backupDir).length, 1);
+
+    // Run 3: simulate apt upgrade overwriting index.html + updating source JS
+    fs.writeFileSync(indexHtmlPath, originalHtml, 'utf8');
+    const updatedJs = xboxNavScript + '\n/* updated */\n';
+    fs.writeFileSync(srcJsPath, updatedJs, 'utf8');
+
+    execFileSync(helperPath, [], { env: baseEnv, encoding: 'utf8' });
+    assert.equal(fs.readFileSync(indexHtmlPath, 'utf8'), expectedInjectedHtml);
+    assert.equal(fs.readFileSync(deployedJsPath, 'utf8'), updatedJs);
+
+    // Remove: restores exact original upstream bytes and deletes deployed JS
+    execFileSync(helperPath, ['--remove'], { env: baseEnv, encoding: 'utf8' });
+    assert.equal(Buffer.compare(fs.readFileSync(indexHtmlPath), Buffer.from(originalHtml, 'utf8')), 0);
+    assert.equal(fs.existsSync(deployedJsPath), false);
+
+    // Case-insensitive </BODY> handling check
+    const upperWebDir = path.join(tmpRoot, 'web-upper');
+    const upperBackupDir = path.join(tmpRoot, 'backups-upper');
+    fs.mkdirSync(upperWebDir, { recursive: true });
+    const upperHtml = '<HTML><BODY><DIV>Test</DIV></BODY></HTML>';
+    fs.writeFileSync(path.join(upperWebDir, 'index.html'), upperHtml, 'utf8');
+    const upperEnv = {
+      ...baseEnv,
+      JELLYFIN_WEB_DIR: upperWebDir,
+      JELLYFIN_BACKUP_DIR: upperBackupDir
+    };
+    execFileSync(helperPath, [], { env: upperEnv, encoding: 'utf8' });
+    assert.equal(
+      fs.readFileSync(path.join(upperWebDir, 'index.html'), 'utf8'),
+      `<HTML><BODY><DIV>Test</DIV>${expectedTag}</BODY></HTML>`
+    );
+    execFileSync(helperPath, ['--remove'], { env: upperEnv, encoding: 'utf8' });
+    assert.equal(fs.readFileSync(path.join(upperWebDir, 'index.html'), 'utf8'), upperHtml);
+    assert.equal(fs.existsSync(path.join(upperWebDir, 'obsidian-xbox-nav.js')), false);
+  } finally {
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
   }
 });

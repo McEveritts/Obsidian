@@ -8,7 +8,7 @@
 
 Running `npm test` (`node scripts/checkSyntax.js && node build.js`) checks tooling syntax, validates and builds all twelve CSS modules, and checks the stylesheet's external dependencies:
 
-1. **JavaScript Tooling Syntax Gate (`scripts/checkSyntax.js`):** Validates all build and audit scripts via `node --check`.
+1. **Tooling Syntax Gate (`scripts/checkSyntax.js`):** Validates all build, test, and audit JavaScript files via `node --check` and shell helpers (`scripts/*.sh`) via `bash -n`.
 2. **CSS Brace, Parenthesis & Comment Balance (`build.js`):** Checks all 12 `src/*.css` modules for unclosed blocks, unbalanced parentheses, or unterminated comments. This is a structural check, not a complete CSS parser.
 3. **Zero External HTTP Dependency Gate (`build.js`):** Strips CSS comments and scans for active `@import` statements or external HTTP URLs. Confirms the stylesheet has no required external network dependencies; server and media availability are separate from this CSS check.
 4. **Optional upstream selector audit (`scripts/precise_audit.js`):** Extracts class and ID tokens across all 12 modules. With an upstream tree present, it checks whole-token existence and MUI component mappings; without one, it reports that the live existence check was skipped. Run `npm run audit:selectors` with `OBSIDIAN_UPSTREAM_DIR` pointing to the upstream `src` directory to enable it. A successful local build alone does not prove every selector exists upstream.
@@ -54,7 +54,7 @@ In addition to `npm run test:live-tv` (`27` checks), CI and local development ru
 - **`npm run test:global-controls` (`5` checks):** Verifies live upstream selector auditing (`0` dead selectors across all 12 modules), `:root` `--jf-palette-*` / `--mui-palette-*` contrast tokens, unscoped `.raised` / `.button-submit` / `.button-delete` / TV `.emby-button.show-focus:focus`, chromatic `.mdl-spinner`, `.progressring`, `.mdl-switch`, `<progress>`, and `.emby-select-withcolor`.
 - **`npm run test:shell-overlays` (`29` checks):** Verifies `.toast`, `.selectionCommandsPanel` / `.itemSelectionPanel`, `.infoBanner`, `.quickConnectError`, SyncPlay group sheets, and Cast Remote D-pad controls (`>= 48px`) across six viewports (`ltr` & `rtl`), reduced motion, and forced colors.
 - **`npm run test:music-readers` (`22` checks):** Verifies synced `.lyricPage` states, `.nowPlayingBar` sub-controls & queue pills, `.slideshowDialog` / `.slideshowBottomBar`, `#bookPlayer` / `#dialogToc` dark glass overrides, `#comicsPlayer .swiper-pagination`, and `.logoScreenSaver`.
-- **`npm run test:cards-tables` (`18` checks) & `npm run test:xbox-nav` (`6` checks):** Verifies `.mediaSourceIndicator`, `.fullSyncIndicator`, `.itemProgressBarForeground-recording`, `.personCard`, `.detailTable`, `.searchFieldsInner`, `1920x1080` library cover PNG headers, and Xbox/TV popover controller navigation.
+- **`npm run test:cards-tables` (`18` checks) & `npm run test:xbox-nav` (`7` checks):** Verifies `.mediaSourceIndicator`, `.fullSyncIndicator`, `.itemProgressBarForeground-recording`, `.personCard`, `.detailTable`, `.searchFieldsInner`, `1920x1080` library cover PNG headers, Xbox/TV popover controller navigation, and the `ensure-obsidian-jellyfin-web.sh` APT persistence helper.
 
 ---
 
