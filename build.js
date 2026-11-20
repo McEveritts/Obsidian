@@ -1,8 +1,6 @@
 /**
- * ============================================================================
- * OBSIDIAN DESIGN SYSTEM - DETERMINISTIC BUILD SCRIPT
- * File: build.js
- * ============================================================================
+ * Build script for obsidian.css.
+ * Concatenates src/*.css in order and checks syntax and external URLs.
  */
 
 const fs = require('fs');
@@ -10,7 +8,6 @@ const path = require('path');
 
 const SRC_DIR = path.join(__dirname, 'src');
 const OUTPUT_FILE = path.join(__dirname, 'obsidian.css');
-const LEGACY_OUTPUT_FILE = path.join(__dirname, 'aetherflow.css');
 
 // Strict concatenation order of modules
 const MODULE_ORDER = [
@@ -29,22 +26,13 @@ const MODULE_ORDER = [
 ];
 
 const BANNER = `/**
- * ============================================================================
- * JELLYFIN OBSIDIAN THEME (Looplet Obsidian Design System)
- * Version: 2.0.0
- * Architecture: Pure #000000 Obsidian Glassmorphism & 120Hz Hardware-Cached Aurora
- * Compatibility: Jellyfin Web 12.2.x+ (Modern MUI & Legacy Views), 10.11.x; JMP
+ * Obsidian — Dark glass Custom CSS theme for Jellyfin Web 12.2+ & Jellyfin Media Player
+ * https://github.com/McEveritts/Obsidian
+ * License: MIT
  *
- * Grounded in the Looplet Obsidian CSS Specification
- * ============================================================================
- *
- * OPTIONAL ENHANCEMENT:
- * To load Inter directly from Google Fonts, uncomment the following line.
- * (Note: Deployed theme defaults to offline system fonts without external calls)
- *
+ * Uses system fonts and inline SVG textures by default (no external requests).
+ * Optional: uncomment below to load Inter from Google Fonts:
  * @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
- *
- * ============================================================================
  */
 
 `;
@@ -183,14 +171,11 @@ function build() {
   }
 
   fs.writeFileSync(OUTPUT_FILE, combinedCSS, 'utf8');
-  if (fs.existsSync(LEGACY_OUTPUT_FILE)) {
-    fs.unlinkSync(LEGACY_OUTPUT_FILE);
-  }
 
   const stats = fs.statSync(OUTPUT_FILE);
-  console.log(`\n🎉 Successfully generated ${OUTPUT_FILE}`);
-  console.log(`   Total Size: ${(stats.size / 1024).toFixed(2)} KB`);
-  console.log(`   Total Lines: ${combinedCSS.split('\n').length}`);
+  console.log(`\nBuilt ${OUTPUT_FILE}`);
+  console.log(`  Size: ${(stats.size / 1024).toFixed(2)} KB`);
+  console.log(`  Lines: ${combinedCSS.split('\n').length}`);
 }
 
 build();

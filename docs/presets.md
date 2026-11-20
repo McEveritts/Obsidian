@@ -1,13 +1,10 @@
-# ⚡ Atmospheric & Performance Presets
+# Presets
 
-By default, **Obsidian** uses a static aurora (`--obs-aurora-animation: none`), preserving the glass surfaces and background lighting without a continuous aurora animation. Actual rendering performance depends on your browser and device; 120Hz is a design target rather than a measured guarantee.
+Obsidian uses a static aurora by default (`--obs-aurora-animation: none`) to avoid constant background repaints. Append any snippet below to the **end** of your Jellyfin **Custom CSS** (**Dashboard → Branding → Custom CSS** or **Settings → Display → Custom CSS**).
 
-You can customize the atmosphere, tune performance for low-power devices, or re-theme the chromatic accent palette by appending any of the snippets below to the **very end** of your Jellyfin **Custom CSS** box (**Dashboard > General > Branding** or **User Settings > Display**).
+## Animated aurora
 
----
-
-## 1. Animated Aurora Preset (25s Cosmic Oscillation)
-Enables continuous 3D hardware-accelerated oscillation (`obs-aurora-shift`) on the three radial aurora orbs and boosts atmospheric glow intensity.
+Enables a slow background animation across the three radial aurora layers.
 
 ```css
 /* --- OBSIDIAN PRESET: ANIMATED AURORA --- */
@@ -17,10 +14,9 @@ Enables continuous 3D hardware-accelerated oscillation (`obs-aurora-shift`) on t
 }
 ```
 
----
+## Balanced (laptops on battery & mobile)
 
-## 2. Balanced Preset (Laptops on Battery & Mobile Browsers)
-Reduces `backdrop-filter` blur radii, lowers aurora opacity, and disables the SVG fractal micro-grain overlay while preserving frosted glass headers and directional specular card bevels.
+Lowers `backdrop-filter` blur radii and aurora opacity, and turns off the SVG grain overlay.
 
 ```css
 /* --- OBSIDIAN PRESET: BALANCED --- */
@@ -34,13 +30,12 @@ Reduces `backdrop-filter` blur radii, lowers aurora opacity, and disables the SV
 }
 ```
 
----
+## Lite (TVs, streaming sticks & low-power devices)
 
-## 3. Lite Preset (Smart TVs, Streaming Sticks & Low-Power Hardware)
-Completely disables all `backdrop-filter` calculations, removes `body::before` and `body::after` atmospheric pseudo-elements, and switches containers to high-contrast opaque obsidian surfaces for maximum frame rate on embedded TV GPUs.
+Disables `backdrop-filter` and the background pseudo-elements, switching surfaces to mostly opaque dark panels.
 
 ```css
-/* --- OBSIDIAN PRESET: LITE (MAXIMUM FPS) --- */
+/* --- OBSIDIAN PRESET: LITE --- */
 :root {
   --obs-glass-blur: 0px !important;
   --obs-glass-blur-heavy: 0px !important;
@@ -90,15 +85,14 @@ body::after {
 }
 ```
 
----
+## Accent colors
 
-## 4. Custom Chromatic Accent Presets
+Override the `:root` palette variables to change highlights, focus rings, progress bars, and primary buttons.
 
-Because all interactive highlights, focus rings, progress bars, and primary CTAs reference `:root` variables, you can re-tint Obsidian's accent palette with a few lines:
+### Emerald
 
-### Emerald Cyber-Glass
 ```css
-/* --- OBSIDIAN ACCENT: EMERALD CYBER-GLASS --- */
+/* --- OBSIDIAN ACCENT: EMERALD --- */
 :root {
   --obs-accent-primary: #10b981 !important;
   --obs-accent-secondary: #06b6d4 !important;
@@ -115,9 +109,10 @@ Because all interactive highlights, focus rings, progress bars, and primary CTAs
 }
 ```
 
-### Crimson Eclipse
+### Crimson
+
 ```css
-/* --- OBSIDIAN ACCENT: CRIMSON ECLIPSE --- */
+/* --- OBSIDIAN ACCENT: CRIMSON --- */
 :root {
   --obs-accent-primary: #f43f5e !important;
   --obs-accent-secondary: #fb923c !important;

@@ -2,7 +2,7 @@
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - ITEM DETAIL PAGE (CINEMATIC HERO)
  * File: 06-item-detail.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -99,7 +99,7 @@
   background-color: transparent !important;
 }
 
-/* Detail Poster Thumbnail (Looplet .af-poster-frame parity with Chromatic Rim) */
+/* Detail Poster Thumbnail */
 .detailImageContainer .cardBox {
   border-radius: var(--obs-radius-2xl) !important;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.75), var(--obs-chromatic-inset-card) !important;

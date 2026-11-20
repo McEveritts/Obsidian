@@ -1,7 +1,7 @@
 {
   "name": "jellyfin-obsidian",
   "version": "2.0.0",
-  "description": "Obsidian — A Spatial 120Hz Glassmorphic Theme for Jellyfin Web 12.2+ and Jellyfin Media Player",
+  "description": "Dark glass Custom CSS theme for Jellyfin Web 12.2+ and Jellyfin Media Player",
   "main": "obsidian.css",
   "scripts": {
     "build": "node build.js",
@@ -31,7 +31,6 @@
     "jellyfin-css",
     "obsidian",
     "glassmorphism",
-    "spatial-ui",
     "mui",
     "jellyfin-12"
   ],

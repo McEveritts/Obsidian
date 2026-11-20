@@ -1,13 +1,13 @@
 /**
  * ============================================================================
- * OBSIDIAN DESIGN SYSTEM - PERFORMANCE PRESETS, 120HZ PRIMITIVES & ACCESSIBILITY
+ * OBSIDIAN THEME - PERFORMANCE PRESETS, GPU UTILITIES & ACCESSIBILITY
  * File: 10-presets.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
 /* --------------------------------------------------------------------------
-   Looplet 120Hz GPU Primitives, Touch Targets & Connection Beacons
+   GPU Utilities, Touch Targets & Connection Beacons
    -------------------------------------------------------------------------- */
 .obs-gpu-120hz-rail {
   transform: translate3d(0, 0, 0);
@@ -69,7 +69,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Reduced Motion Accessibility (WCAG 2.2 Phase 4 & Looplet Parity)
+   Reduced Motion Accessibility
    Stops continuous GPU animation loops and eliminates kinetic hover jumps
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {

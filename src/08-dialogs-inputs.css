@@ -65,7 +65,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   layout-tv Spatial Focus Geometry Unlocks (#filter-popover, #selectview-popover, .filterDialog)
+   layout-tv Focus Geometry (#filter-popover, #selectview-popover, .filterDialog)
    MUI TrapFocus / dialogHelper focuses the outer container first; collapsing the
    outer wrapper while keeping children visually styled lets focusManager moveDown
    step inside instead of skipping internal controls to background cards.
@@ -439,7 +439,7 @@ a[data-role="button"]:focus-visible,
 }
 
 /* --------------------------------------------------------------------------
-   Tier 4 Glass Inputs & Recessed Dark Wells (Looplet .glass-input parity)
+   Tier 4 Glass Inputs & Recessed Dark Wells
    -------------------------------------------------------------------------- */
 .emby-input,
 .emby-textarea,

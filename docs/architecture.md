@@ -1,68 +1,44 @@
-# 🏛️ Obsidian Architecture & Spatial Design System
+# Architecture
 
-**Obsidian v2.0** is a modular, zero-dependency spatial stylesheet engineered for **Jellyfin Web 12.2+** and **Jellyfin Media Player (JMP)**. Grounded in the **Looplet Obsidian** design specification, it bridges Jellyfin 12.2's dual-shell architecture—styling both the modern `@mui/material` React views and legacy/hybrid Emby DOM surfaces under a single unified visual language.
+Obsidian is a modular Custom CSS theme built for **Jellyfin Web 12.2+** and **Jellyfin Media Player**. It styles both the Material UI (`@mui/material`) shell and Jellyfin's hybrid/legacy views from a shared set of CSS variables, with no external font or image dependencies.
 
----
+## Visual approach
 
-## 1. Visual Foundations
+- **Pure `#000000` canvas (`02-atmosphere.css`):** Uses `#000000` as the base background, layered with a static radial gradient aurora on `body::before` (`--obs-aurora-animation: none` by default so scrolling doesn't trigger constant repaints) and a vignette plus inline SVG noise texture on `body::after` to avoid gradient banding.
+- **Glass borders & blur (`01-variables.css`):** Floating panels (`.detailPagePrimaryContainer`, `.videoOsdBottom .osdControls`, `.MuiDialog-paper`, `.dialog`, `.skinHeader`, `.MuiAppBar-root`) use translucent backgrounds, backdrop blur (`16px` / `24px`), and subtle top/left highlight borders.
+- **No blur on poster cards (`05-cards.css`):** Library grids can render 50–200 `.cardBox` nodes at once, where per-card `backdrop-filter` causes heavy frame drops. Cards explicitly set `backdrop-filter: none !important` and use translucent dark fills with border highlights instead.
 
-### Pure `#000000` Obsidian Canvas & 120Hz Atmospheric Engine
-Unlike conventional dark themes that wash the viewport in flat mid-tone grays, Obsidian anchors its depth hierarchy on true OLED `#000000` (`--obs-bg-base: #000000`, `--obs-slate-950: #000000`) layered with two hardware-cached atmospheric pseudo-elements:
+## Jellyfin 12.2+ dual-shell coverage
 
-- **`body::before` — Static 120Hz 3-Orb Radial Aurora:** Renders three diffused chromatic light sources (`#6366f1` Indigo at top-left, `#d946ef` Fuchsia at center-right, and `#4f46e5` Deep Indigo at bottom-center) at `--obs-aurora-opacity: 0.55`. By default, `--obs-aurora-animation: none` locks the aurora into a static GPU texture (`transform: translate3d(0, 0, 0)`), eliminating per-frame compositor repaints during 120Hz scrolling.
-- **`body::after` — Unified Spatial Vignette & Fractal Micro-Grain:** Combines an edge-darkening radial vignette with an inline SVG `feTurbulence` fractal noise overlay (`opacity: 0.028`) to prevent color banding on 8-bit and 10-bit displays without external image requests.
+Jellyfin 12.2+ splits the UI between Material UI React components (header, drawers, dialogs, dashboard) and custom/legacy DOM views (carousels, library grids, item details, video OSD).
 
-### Directional Specular Bevels
-Every floating glass container (`.cardBox`, `.detailPagePrimaryContainer`, `.videoOsdBottom .osdControls`, `.MuiDialog-paper`, `.dialog`) simulates physical overhead-left illumination using directional border tokens:
-
-| Token | Value | Role |
-| :--- | :--- | :--- |
-| `--obs-glass-border` | `rgba(129, 140, 248, 0.34)` | Base chromatic Indigo perimeter glass border |
-| `--obs-specular-top` | `rgba(255, 255, 255, 0.28)` | Top edge overhead specular highlight |
-| `--obs-specular-left` | `rgba(56, 189, 248, 0.38)` | Left edge Cyan chromatic specular highlight |
-| `--obs-glass-border-hover` | `rgba(168, 85, 247, 0.68)` | Active / pointer-hover Purple-Fuchsia rim glow |
-| `--obs-glass-blur` | `16px` | Standard navigation & surface backdrop blur |
-| `--obs-glass-blur-heavy` | `24px` | Hero containers, OSD dock, & modal dialogs |
-
----
-
-## 2. Dual-Shell Jellyfin 12.2 Coverage
-
-Jellyfin 12.2 introduced a hybrid architecture where top-level navigation, drawers, dialogs, and admin dashboards render via **Material UI (`@mui/material`)** while media carousels, library grids, item detail pages, and the video player OSD use updated custom DOM components.
+- **MUI variable bridge (`01-variables.css`):** Overrides `--mui-palette-*` and `--jf-palette-*` on `:root` so MUI components inherit Obsidian's colors directly.
+- **Item details (`06-item-detail.css`):** Targets `.detailPagePrimaryContainer` and the React metadata list (`.detailsGroupItem`, `.label`, `.content`) introduced after `.detailPageContent` was removed in 12.2.
 
 ```mermaid
 flowchart TD
-    Root[":root Design Tokens<br/>(01-variables.css)"] --> TokensObs["--obs-* Spatial Tokens"]
-    Root --> TokensMui["--mui-palette-* Bridge Variables"]
-    TokensObs --> ShellMUI["Modern MUI Shell<br/>(.MuiAppBar-root, .MuiDrawer-paper,<br/>.MuiDialog-paper, .MuiPopover-paper)"]
+    Root[":root Variables<br/>(01-variables.css)"] --> TokensObs["--obs-* Theme Tokens"]
+    Root --> TokensMui["--mui-palette-* / --jf-palette-*"]
+    TokensObs --> ShellMUI["MUI Shell<br/>(.MuiAppBar-root, .MuiDrawer-paper,<br/>.MuiDialog-paper, .MuiPopover-paper)"]
     TokensMui --> ShellMUI
-    TokensObs --> ShellHybrid["Jellyfin 12.2 Hybrid Views<br/>(.skinHeader, .cardBox, .itemDetailPage,<br/>ItemDetailsMetadataList, .videoOsdBottom)"]
-    ShellMUI --> GPU["120Hz GPU Compositor Budget<br/>(Zero-Blur Cards + Hardware-Cached Atmosphere)"]
-    ShellHybrid --> GPU
+    TokensObs --> ShellHybrid["Jellyfin Views<br/>(.skinHeader, .cardBox, .itemDetailPage,<br/>ItemDetailsMetadataList, .videoOsdBottom)"]
 ```
 
-### Key 12.2 Structural Adaptations
-1. **Material UI CSS Variable Bridge:** Overrides `--mui-palette-background-default`, `--mui-palette-background-paper`, `--mui-palette-primary-main`, and `--mui-palette-AppBar-darkBg` directly at `:root` so React components inherit Obsidian's palette before runtime emotion styles evaluate.
-2. **Updated 12.2 Item Detail DOM (`06-item-detail.css`):** Jellyfin 12.2 removed the legacy `.detailPageContent` wrapper in `src/controllers/itemDetails/index.html` and migrated metadata rows to the React `ItemDetailsMetadataList` component (`.detailsGroupItem`, `.label`, `.content`). Obsidian targets `.detailPagePrimaryContainer` directly as the frosted glass hero card and aligns `.detailPageSecondaryContainer` seamlessly underneath.
-3. **120Hz Card Compositor Budget (`05-cards.css`):** Media grids routinely mount 50–200 `.cardBox` elements simultaneously. Applying `backdrop-filter: blur()` to individual cards causes severe frame drops on 4K displays. Obsidian enforces `backdrop-filter: none !important` on `.cardBox`, achieving its glassmorphic depth via rich translucent fills (`--obs-card-bg: rgba(12, 16, 28, 0.78)`), inner inset highlights, and directional `0.28`/`0.22` specular borders.
+## Source modules
 
----
+The 12 ordered modules in [`src/`](../src) concatenate into [`obsidian.css`](../obsidian.css) via [`build.js`](../build.js):
 
-## 3. Modular Source Pipeline
-
-All styling is authored across 12 ordered modules in [`src/`](../src) and compiled into [`obsidian.css`](../obsidian.css) via [`build.js`](../build.js):
-
-| Module | Responsibility |
+| Module | Scope |
 | :--- | :--- |
-| [`01-variables.css`](../src/01-variables.css) | `--obs-*` design tokens, `--mui-palette-*` & `--jf-palette-*` contrast bridge, and Jellyfin root variables |
-| [`02-atmosphere.css`](../src/02-atmosphere.css) | Pure `#000000` canvas, `body::before` 3-orb radial aurora, `body::after` vignette + SVG micro-grain |
-| [`03-typography.css`](../src/03-typography.css) | Offline `Inter` system font stack, fluid typographic scale, section title alignment, custom scrollbars |
-| [`04-header-nav.css`](../src/04-header-nav.css) | `.MuiAppBar-root` & `.skinHeader`, drawers, toasts, multi-select toolbar, info banners, SyncPlay, & Cast Remote |
-| [`05-cards.css`](../src/05-cards.css) | 16px rounded media cards, multi-version/sync/recording badges, `.personCard` portraits, & hover lift |
-| [`06-item-detail.css`](../src/06-item-detail.css) | `.detailPagePrimaryContainer` glass hero, metadata pills, primary Play CTA, `.detailTable`, & search bar |
-| [`07-player-osd.css`](../src/07-player-osd.css) | Floating Dynamic Dock, Volume/Brightness OSD, Up Next, Skip button, Player Stats, Subtitle Sync, & Chapters |
-| [`08-dialogs-inputs.css`](../src/08-dialogs-inputs.css) | `.MuiDialog-paper`, `.dialog`, global `.raised`/`.button-submit`/`.button-delete`, spinners, switches, & inputs |
-| [`09-login.css`](../src/09-login.css) | Centered glass hero authentication card (`#loginPage`) & `.quickConnectError` glass callout |
-| [`10-presets.css`](../src/10-presets.css) | `prefers-reduced-motion: reduce`, `forced-colors: active` accessibility fallbacks, and preset hooks |
-| [`11-live-tv.css`](../src/11-live-tv.css) | Glass home-screen shortcuts, aligned Guide time headers, contained channel logos, & equal-height channel cards |
-| [`12-music-readers.css`](../src/12-music-readers.css) | Synced `.lyricPage`, expanded `.nowPlayingBar` & queue, `.slideshowDialog`, `#bookPlayer` / `#dialogToc`, `#comicsPlayer`, & `.logoScreenSaver` |
+| [`01-variables.css`](../src/01-variables.css) | `--obs-*` tokens, `--mui-palette-*` / `--jf-palette-*` overrides, and root variables |
+| [`02-atmosphere.css`](../src/02-atmosphere.css) | `#000000` base canvas, `body::before` aurora, `body::after` vignette + inline SVG grain |
+| [`03-typography.css`](../src/03-typography.css) | System font stack, heading/body scale, section alignment, custom scrollbars |
+| [`04-header-nav.css`](../src/04-header-nav.css) | `.MuiAppBar-root`, `.skinHeader`, drawers, toasts, multi-select toolbar, banners, SyncPlay, Cast Remote |
+| [`05-cards.css`](../src/05-cards.css) | Rounded poster cards, media/sync/recording badges, `.personCard`, hover states |
+| [`06-item-detail.css`](../src/06-item-detail.css) | `.detailPagePrimaryContainer` glass hero, metadata pills, Play CTA, `.detailTable`, search bar |
+| [`07-player-osd.css`](../src/07-player-osd.css) | Floating playback dock, volume/brightness OSD, Up Next, skip button, stats, subtitle sync, chapters |
+| [`08-dialogs-inputs.css`](../src/08-dialogs-inputs.css) | `.MuiDialog-paper`, `.dialog`, global buttons, spinners, switches, inputs |
+| [`09-login.css`](../src/09-login.css) | Centered glass login card (`#loginPage`) and `.quickConnectError` |
+| [`10-presets.css`](../src/10-presets.css) | `prefers-reduced-motion`, `forced-colors` fallbacks, and preset hooks |
+| [`11-live-tv.css`](../src/11-live-tv.css) | Home shortcuts, aligned Guide headers, contained channel logos, equal-height channel cards |
+| [`12-music-readers.css`](../src/12-music-readers.css) | Synced `.lyricPage`, `.nowPlayingBar` & queue, `.slideshowDialog`, `#bookPlayer` / `#dialogToc`, `#comicsPlayer`, `.logoScreenSaver` |

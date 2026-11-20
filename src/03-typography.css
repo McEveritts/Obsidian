@@ -2,7 +2,7 @@
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - TYPOGRAPHY & SCROLLBAR ENGINE
  * File: 03-typography.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -93,7 +93,7 @@ div:not(.sectionTitleContainer-cards) > .sectionTitle-cards {
 }
 
 /* --------------------------------------------------------------------------
-   Desktop Sleek Thin Glass Scrollbars (from Looplet globals.css)
+   Desktop Thin Glass Scrollbars
    -------------------------------------------------------------------------- */
 @media (min-width: 1024px) {
   * {
@@ -124,7 +124,7 @@ div:not(.sectionTitleContainer-cards) > .sectionTitle-cards {
 }
 
 /* --------------------------------------------------------------------------
-   Multi-Tier Studio Display & 4K TV Fluid Typography Scaling (Looplet Contract)
+   High-DPI & 4K TV Fluid Typography Scaling
    -------------------------------------------------------------------------- */
 /* 24-Inch to 27-Inch Full HD & Wide Studio Displays (>= 1920px) */
 @media (min-width: 1920px) {

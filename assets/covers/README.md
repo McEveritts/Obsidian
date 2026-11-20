@@ -1,6 +1,6 @@
-# Obsidian library artwork
+# Library covers
 
-Six matching covers, ready to upload as **Primary** library artwork. Every original is a **1920 × 1080 PNG**. Click an image or its name, then use GitHub's download button to save the full-resolution file.
+Six optional 1920 × 1080 PNG covers matching Obsidian's dark glass look. Click any cover to open the full-resolution file and download it.
 
 | [Movies](./movies.png) | [Shows](./tv.png) | [Live TV](./live-tv.png) |
 | :---: | :---: | :---: |
@@ -10,12 +10,10 @@ Six matching covers, ready to upload as **Primary** library artwork. Every origi
 | :---: | :---: | :---: |
 | [![Collections cover](../../docs/images/covers/collections.png)](./collections.png) | [![Music cover](../../docs/images/covers/music.png)](./music.png) | [![Playlists cover](../../docs/images/covers/playlists.png)](./playlists.png) |
 
-## Apply a cover
+## How to apply
 
-1. Download the PNG for the library you want to customize.
-2. In Jellyfin, open that library's **… → Edit images** menu as an administrator. This may also be available through **Dashboard → Libraries**.
-3. Upload the PNG as the **Primary** image, save, and reload Home.
+1. Download the PNG you want.
+2. In Jellyfin, open the library's **… → Edit images** menu (or via **Dashboard → Libraries**).
+3. Upload it as the **Primary** image, save, and refresh Home.
 
-Some built-in shortcuts do not expose an image editor in every Jellyfin version. Uploads are optional and separate from the CSS installation; they do not replace individual movie or episode posters.
-
-[Detailed artwork instructions](../../docs/getting-started.md#add-the-matching-covers) · [Theme overview](../../README.md)
+[Setup guide](../../docs/getting-started.md#add-the-matching-covers) · [Overview](../../README.md)

@@ -2,7 +2,7 @@
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - ATMOSPHERIC BACKGROUND ENGINE
  * File: 02-atmosphere.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -105,8 +105,8 @@ body::before {
 }
 
 /* --------------------------------------------------------------------------
-   Layer 2 & 3: Unified Tactile Micro-Grain + Spatial Edge Vignette (body::after)
-   Ported from Looplet's globals.css: combines the obsidian edge vignette and
+   Layer 2 & 3: Micro-Grain + Edge Vignette (body::after)
+   Combines the dark edge vignette and
    SVG fractal micro-grain into a single GPU-cached fixed pseudo-element.
    -------------------------------------------------------------------------- */
 body::after {

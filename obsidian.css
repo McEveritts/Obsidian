@@ -1,20 +1,11 @@
 /**
- * ============================================================================
- * JELLYFIN OBSIDIAN THEME (Looplet Obsidian Design System)
- * Version: 2.0.0
- * Architecture: Pure #000000 Obsidian Glassmorphism & 120Hz Hardware-Cached Aurora
- * Compatibility: Jellyfin Web 12.2.x+ (Modern MUI & Legacy Views), 10.11.x; JMP
+ * Obsidian — Dark glass Custom CSS theme for Jellyfin Web 12.2+ & Jellyfin Media Player
+ * https://github.com/McEveritts/Obsidian
+ * License: MIT
  *
- * Grounded in the Looplet Obsidian CSS Specification
- * ============================================================================
- *
- * OPTIONAL ENHANCEMENT:
- * To load Inter directly from Google Fonts, uncomment the following line.
- * (Note: Deployed theme defaults to offline system fonts without external calls)
- *
+ * Uses system fonts and inline SVG textures by default (no external requests).
+ * Optional: uncomment below to load Inter from Google Fonts:
  * @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
- *
- * ============================================================================
  */
 
 
@@ -23,12 +14,12 @@
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - CORE DESIGN TOKENS
  * File: 01-variables.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
 :root {
-  /* --- Obsidian Foundations (Pure #000000 Contrast from Looplet) --- */
+  /* --- Obsidian Foundations (Pure #000000 Base) --- */
   --obs-bg-base: #000000;
   --obs-bg-primary: #000000;
   --obs-bg-secondary: #0f172a;
@@ -134,13 +125,13 @@
   --obs-shell-rail-width-tablet: 68px;      /* 68px */
   --obs-content-max-width: 112.5rem;        /* 1800px */
 
-  /* --- 120Hz High-Refresh Motion Curves & Atmospheric Tuning --- */
+  /* --- Motion Curves & Atmospheric Tuning --- */
   --obs-ease-out-120: cubic-bezier(0.22, 1, 0.36, 1);
   --obs-ease-spring-120: cubic-bezier(0.25, 1, 0.5, 1);
   --obs-duration-fast: 160ms;
   --obs-duration-card: 200ms;
 
-  /* --- Tunable Switches & Controls (Default: Static 120Hz Hardware-Cached Obsidian Mode) --- */
+  /* --- Tunable Switches & Controls (Default: Static Aurora Mode) --- */
   --obs-glass-blur: 16px;
   --obs-card-blur: 0px;
   --obs-glass-blur-heavy: 24px;
@@ -203,7 +194,7 @@
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - ATMOSPHERIC BACKGROUND ENGINE
  * File: 02-atmosphere.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -306,8 +297,8 @@ body::before {
 }
 
 /* --------------------------------------------------------------------------
-   Layer 2 & 3: Unified Tactile Micro-Grain + Spatial Edge Vignette (body::after)
-   Ported from Looplet's globals.css: combines the obsidian edge vignette and
+   Layer 2 & 3: Micro-Grain + Edge Vignette (body::after)
+   Combines the dark edge vignette and
    SVG fractal micro-grain into a single GPU-cached fixed pseudo-element.
    -------------------------------------------------------------------------- */
 body::after {
@@ -360,7 +351,7 @@ body:has(.videoPlayerContainer:not(.hide))::after {
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - TYPOGRAPHY & SCROLLBAR ENGINE
  * File: 03-typography.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -451,7 +442,7 @@ div:not(.sectionTitleContainer-cards) > .sectionTitle-cards {
 }
 
 /* --------------------------------------------------------------------------
-   Desktop Sleek Thin Glass Scrollbars (from Looplet globals.css)
+   Desktop Thin Glass Scrollbars
    -------------------------------------------------------------------------- */
 @media (min-width: 1024px) {
   * {
@@ -482,7 +473,7 @@ div:not(.sectionTitleContainer-cards) > .sectionTitle-cards {
 }
 
 /* --------------------------------------------------------------------------
-   Multi-Tier Studio Display & 4K TV Fluid Typography Scaling (Looplet Contract)
+   High-DPI & 4K TV Fluid Typography Scaling
    -------------------------------------------------------------------------- */
 /* 24-Inch to 27-Inch Full HD & Wide Studio Displays (>= 1920px) */
 @media (min-width: 1920px) {
@@ -926,7 +917,7 @@ main .MuiToolbar-root .MuiButtonGroup-grouped.Mui-focusVisible {
   transform: none !important;
 }
 
-/* Active Tab with Luminescent Indicator (Looplet .af-tab-pill-active parity) */
+/* Active Tab Indicator */
 .emby-tab-button-active {
   color: var(--obs-white) !important;
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.24) 0%, rgba(217, 70, 239, 0.14) 100%) !important;
@@ -1825,7 +1816,7 @@ body .infoBanner,
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - MEDIA CARDS & POSTER SURFACES
  * File: 05-cards.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -1855,7 +1846,7 @@ body .infoBanner,
   touch-action: pan-x pan-y;
 }
 
-/* Pre-promote horizontal carousel tracks to a single composited GPU layer for 120Hz scrolling */
+/* Pre-promote horizontal carousel tracks to a single composited GPU layer for smooth scrolling */
 .scrollSlider {
   backface-visibility: hidden;
   transform: translate3d(0, 0, 0);
@@ -1888,7 +1879,7 @@ body .infoBanner,
 
 /* Pre-allocated composited chromatic prism rim & hover neon bloom layer
    Renders a continuous 360-degree chromatic refraction edge around the card
-   and animates purely via GPU opacity at 120Hz on pointer hover */
+   and animates via GPU opacity on pointer hover */
 .cardBox::after {
   content: "";
   position: absolute;
@@ -1940,7 +1931,7 @@ body .infoBanner,
 }
 
 /* --------------------------------------------------------------------------
-   Hover Physics - Gated to Pointer Devices (WCAG 2.2 / Looplet Parity)
+   Hover Effects - Gated to Pointer Devices
    -------------------------------------------------------------------------- */
 @media (hover: hover) and (pointer: fine) {
   .card:hover .cardBox {
@@ -2046,7 +2037,7 @@ body .infoBanner,
 }
 
 /* --------------------------------------------------------------------------
-   Card Indicators & Badges (Played, Unplayed, Progress - Looplet Calibration)
+   Card Indicators & Badges (Played, Unplayed, Progress)
    -------------------------------------------------------------------------- */
 /* Unplayed Count Bubble */
 .countIndicator {
@@ -2136,7 +2127,7 @@ body .infoBanner,
 }
 
 /* Card Hover Action Buttons Overlay
-   Uses composited alpha scrim instead of per-card backdrop-filter to sustain 120Hz */
+   Uses composited alpha scrim instead of per-card backdrop-filter for smooth scrolling */
 .cardOverlayContainer {
   background: rgba(2, 6, 23, 0.56) !important;
   backdrop-filter: none !important;
@@ -2323,7 +2314,7 @@ body .infoBanner,
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - ITEM DETAIL PAGE (CINEMATIC HERO)
  * File: 06-item-detail.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -2420,7 +2411,7 @@ body .infoBanner,
   background-color: transparent !important;
 }
 
-/* Detail Poster Thumbnail (Looplet .af-poster-frame parity with Chromatic Rim) */
+/* Detail Poster Thumbnail */
 .detailImageContainer .cardBox {
   border-radius: var(--obs-radius-2xl) !important;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.75), var(--obs-chromatic-inset-card) !important;
@@ -3153,7 +3144,7 @@ body .infoBanner,
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - PLAYBACK OSD & AUDIO DOCK
  * File: 07-player-osd.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -4328,7 +4319,7 @@ body .infoBanner,
 
 /* --------------------------------------------------------------------------
    Video Playback Controls: Floating Dynamic Dock (.videoOsdBottom)
-   Modeled after Looplet & Palate's Floating Dynamic Dock
+   Floating Playback Dock
    -------------------------------------------------------------------------- */
 .videoOsdBottom,
 .videoOsdBottom.videoOsdBottom-maincontrols,
@@ -4890,7 +4881,7 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
 }
 
 /* --------------------------------------------------------------------------
-   Short-Landscape Compact Viewport Optimizations (<= 500px Height - Looplet)
+   Short-Landscape Compact Viewport Optimizations (<= 500px Height)
    Maintains 44px interactive hit targets while scaling inner visual glyphs
    -------------------------------------------------------------------------- */
 @media (max-height: 500px) and (orientation: landscape) {
@@ -5072,7 +5063,7 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
 }
 
 /* --------------------------------------------------------------------------
-   layout-tv Spatial Focus Geometry Unlocks (#filter-popover, #selectview-popover, .filterDialog)
+   layout-tv Focus Geometry (#filter-popover, #selectview-popover, .filterDialog)
    MUI TrapFocus / dialogHelper focuses the outer container first; collapsing the
    outer wrapper while keeping children visually styled lets focusManager moveDown
    step inside instead of skipping internal controls to background cards.
@@ -5446,7 +5437,7 @@ a[data-role="button"]:focus-visible,
 }
 
 /* --------------------------------------------------------------------------
-   Tier 4 Glass Inputs & Recessed Dark Wells (Looplet .glass-input parity)
+   Tier 4 Glass Inputs & Recessed Dark Wells
    -------------------------------------------------------------------------- */
 .emby-input,
 .emby-textarea,
@@ -5934,7 +5925,7 @@ progress[aria-valuenow]::before,
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - LOGIN SCREEN HERO
  * File: 09-login.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -6074,7 +6065,7 @@ progress[aria-valuenow]::before,
 }
 
 /* --------------------------------------------------------------------------
-   Narrow-Screen Login Container Fitting (<= 360px - Looplet Pocket Viewport)
+   Narrow-Screen Login Container Fitting (<= 360px)
    Corrects horizontal document overflow on compact viewports
    -------------------------------------------------------------------------- */
 @media (max-width: 360px) {
@@ -6132,14 +6123,14 @@ progress[aria-valuenow]::before,
 /* >>> MODULE: 10-presets.css <<< */
 /**
  * ============================================================================
- * OBSIDIAN DESIGN SYSTEM - PERFORMANCE PRESETS, 120HZ PRIMITIVES & ACCESSIBILITY
+ * OBSIDIAN THEME - PERFORMANCE PRESETS, GPU UTILITIES & ACCESSIBILITY
  * File: 10-presets.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
 /* --------------------------------------------------------------------------
-   Looplet 120Hz GPU Primitives, Touch Targets & Connection Beacons
+   GPU Utilities, Touch Targets & Connection Beacons
    -------------------------------------------------------------------------- */
 .obs-gpu-120hz-rail {
   transform: translate3d(0, 0, 0);
@@ -6201,7 +6192,7 @@ progress[aria-valuenow]::before,
 }
 
 /* --------------------------------------------------------------------------
-   Reduced Motion Accessibility (WCAG 2.2 Phase 4 & Looplet Parity)
+   Reduced Motion Accessibility
    Stops continuous GPU animation loops and eliminates kinetic hover jumps
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -6660,7 +6651,7 @@ progress[aria-valuenow]::before,
 
 /* --------------------------------------------------------------------------
    1. Synced Lyrics Experience (.lyricPage, .lyricsContainer, .lyricsLine)
-   Spatial Apple-Music / Looplet-grade centered stage with luminescent active
+   Centered lyric stage with highlighted active
    line, dimmed past/future hierarchy, and interactive dynamicLyric pills
    -------------------------------------------------------------------------- */
 .lyricPage {

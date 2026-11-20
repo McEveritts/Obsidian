@@ -2,7 +2,7 @@
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - LOGIN SCREEN HERO
  * File: 09-login.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -142,7 +142,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Narrow-Screen Login Container Fitting (<= 360px - Looplet Pocket Viewport)
+   Narrow-Screen Login Container Fitting (<= 360px)
    Corrects horizontal document overflow on compact viewports
    -------------------------------------------------------------------------- */
 @media (max-width: 360px) {

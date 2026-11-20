@@ -2,7 +2,7 @@
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - MEDIA CARDS & POSTER SURFACES
  * File: 05-cards.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -32,7 +32,7 @@
   touch-action: pan-x pan-y;
 }
 
-/* Pre-promote horizontal carousel tracks to a single composited GPU layer for 120Hz scrolling */
+/* Pre-promote horizontal carousel tracks to a single composited GPU layer for smooth scrolling */
 .scrollSlider {
   backface-visibility: hidden;
   transform: translate3d(0, 0, 0);
@@ -65,7 +65,7 @@
 
 /* Pre-allocated composited chromatic prism rim & hover neon bloom layer
    Renders a continuous 360-degree chromatic refraction edge around the card
-   and animates purely via GPU opacity at 120Hz on pointer hover */
+   and animates via GPU opacity on pointer hover */
 .cardBox::after {
   content: "";
   position: absolute;
@@ -117,7 +117,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Hover Physics - Gated to Pointer Devices (WCAG 2.2 / Looplet Parity)
+   Hover Effects - Gated to Pointer Devices
    -------------------------------------------------------------------------- */
 @media (hover: hover) and (pointer: fine) {
   .card:hover .cardBox {
@@ -223,7 +223,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Card Indicators & Badges (Played, Unplayed, Progress - Looplet Calibration)
+   Card Indicators & Badges (Played, Unplayed, Progress)
    -------------------------------------------------------------------------- */
 /* Unplayed Count Bubble */
 .countIndicator {
@@ -313,7 +313,7 @@
 }
 
 /* Card Hover Action Buttons Overlay
-   Uses composited alpha scrim instead of per-card backdrop-filter to sustain 120Hz */
+   Uses composited alpha scrim instead of per-card backdrop-filter for smooth scrolling */
 .cardOverlayContainer {
   background: rgba(2, 6, 23, 0.56) !important;
   backdrop-filter: none !important;

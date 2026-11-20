@@ -2,12 +2,12 @@
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - CORE DESIGN TOKENS
  * File: 01-variables.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
 :root {
-  /* --- Obsidian Foundations (Pure #000000 Contrast from Looplet) --- */
+  /* --- Obsidian Foundations (Pure #000000 Base) --- */
   --obs-bg-base: #000000;
   --obs-bg-primary: #000000;
   --obs-bg-secondary: #0f172a;
@@ -113,13 +113,13 @@
   --obs-shell-rail-width-tablet: 68px;      /* 68px */
   --obs-content-max-width: 112.5rem;        /* 1800px */
 
-  /* --- 120Hz High-Refresh Motion Curves & Atmospheric Tuning --- */
+  /* --- Motion Curves & Atmospheric Tuning --- */
   --obs-ease-out-120: cubic-bezier(0.22, 1, 0.36, 1);
   --obs-ease-spring-120: cubic-bezier(0.25, 1, 0.5, 1);
   --obs-duration-fast: 160ms;
   --obs-duration-card: 200ms;
 
-  /* --- Tunable Switches & Controls (Default: Static 120Hz Hardware-Cached Obsidian Mode) --- */
+  /* --- Tunable Switches & Controls (Default: Static Aurora Mode) --- */
   --obs-glass-blur: 16px;
   --obs-card-blur: 0px;
   --obs-glass-blur-heavy: 24px;

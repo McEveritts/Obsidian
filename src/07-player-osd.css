@@ -2,7 +2,7 @@
  * ============================================================================
  * OBSIDIAN DESIGN SYSTEM - PLAYBACK OSD & AUDIO DOCK
  * File: 07-player-osd.css
- * Grounded in the Looplet Obsidian CSS Implementation & Jellyfin 12.2
+ * Jellyfin Web 12.2+
  * ============================================================================
  */
 
@@ -1177,7 +1177,7 @@
 
 /* --------------------------------------------------------------------------
    Video Playback Controls: Floating Dynamic Dock (.videoOsdBottom)
-   Modeled after Looplet & Palate's Floating Dynamic Dock
+   Floating Playback Dock
    -------------------------------------------------------------------------- */
 .videoOsdBottom,
 .videoOsdBottom.videoOsdBottom-maincontrols,
@@ -1739,7 +1739,7 @@ body:has(.videoOsdBottom:not(.videoOsdBottom-hidden):not(.hide)) .videoSubtitles
 }
 
 /* --------------------------------------------------------------------------
-   Short-Landscape Compact Viewport Optimizations (<= 500px Height - Looplet)
+   Short-Landscape Compact Viewport Optimizations (<= 500px Height)
    Maintains 44px interactive hit targets while scaling inner visual glyphs
    -------------------------------------------------------------------------- */
 @media (max-height: 500px) and (orientation: landscape) {

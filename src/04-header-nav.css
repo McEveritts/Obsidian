@@ -402,7 +402,7 @@ main .MuiToolbar-root .MuiButtonGroup-grouped.Mui-focusVisible {
   transform: none !important;
 }
 
-/* Active Tab with Luminescent Indicator (Looplet .af-tab-pill-active parity) */
+/* Active Tab Indicator */
 .emby-tab-button-active {
   color: var(--obs-white) !important;
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.24) 0%, rgba(217, 70, 239, 0.14) 100%) !important;
