@@ -414,6 +414,13 @@ main .MuiToolbar-root .MuiButtonGroup-grouped.Mui-focusVisible {
   display: none !important;
 }
 
+@media (max-width: 600px) {
+  .verticalSection .emby-tab-button {
+    padding: 0.35rem 0.55rem !important;
+    font-size: 0.85rem !important;
+  }
+}
+
 /* --------------------------------------------------------------------------
    5. Legacy Left Drawer Navigation Shell (.mainDrawer)
    -------------------------------------------------------------------------- */

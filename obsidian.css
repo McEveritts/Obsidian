@@ -929,6 +929,13 @@ main .MuiToolbar-root .MuiButtonGroup-grouped.Mui-focusVisible {
   display: none !important;
 }
 
+@media (max-width: 600px) {
+  .verticalSection .emby-tab-button {
+    padding: 0.35rem 0.55rem !important;
+    font-size: 0.85rem !important;
+  }
+}
+
 /* --------------------------------------------------------------------------
    5. Legacy Left Drawer Navigation Shell (.mainDrawer)
    -------------------------------------------------------------------------- */
@@ -2635,6 +2642,7 @@ body .infoBanner,
 
   .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) {
     grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto !important;
     column-gap: 0 !important;
   }
 
@@ -2777,9 +2785,24 @@ body .infoBanner,
   .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailSection > .detailSectionContent,
   .itemDetailPage .detailPagePrimaryContainer:has(> .detailImageContainer.hide-mobile:empty) .detailSection > .itemDetailsGroup {
     grid-column: 1 !important;
+    grid-row: auto !important;
   }
 
-  /* Full-width child collections & episode lists span across both columns below poster */
+  /* Any direct child outside the hero metadata blocks (including third-party plugin
+     sections and jump links such as Jellyfin Enhanced / Jellyseerr) spans both grid
+     columns below the poster/bio hero instead of collapsing into the artwork column. */
+  .itemDetailPage .detailPagePrimaryContent > :not(.detailSection),
+  .itemDetailPage .detailSection > :not(.trackSelections):not(.recordingFields):not(.detailSectionContent):not(.itemDetailsGroup) {
+    grid-column: 1 / -1 !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Full-width child collections, episode lists & vertical sections span across both columns below poster */
+  .itemDetailPage .detailPagePrimaryContent > .verticalSection,
+  .itemDetailPage .detailPagePrimaryContent > .detailVerticalSection,
+  .itemDetailPage .detailSection > .verticalSection,
+  .itemDetailPage .detailSection > .detailVerticalSection,
   .itemDetailPage .detailSection > #seriesTimerScheduleSection,
   .itemDetailPage .detailSection > .collectionItems,
   .itemDetailPage .detailSection > .nextUpSection,
@@ -2933,7 +2956,9 @@ body .infoBanner,
   }
 
   /* Episode list, stream selectors, & series templates */
+  .detailPagePrimaryContent,
   .detailSection,
+  .detailSection > .verticalSection,
   .detailVerticalSection,
   .detailSectionContent,
   .itemDetailsGroup,
@@ -2942,6 +2967,10 @@ body .infoBanner,
     max-width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
+  }
+
+  .detailPagePrimaryContent {
+    padding: 0 !important;
   }
 
   .selectContainer {

@@ -249,8 +249,159 @@ for (const direction of ['ltr', 'rtl']) {
       const { title, bio, credits } = await measure();
       assert.equal(title.start, credits.start, 'Without artwork, the text starts at the panel inset');
       assert.equal(bio.start, title.start);
+      assert.ok(credits.top > bio.bottom, 'Without artwork, filmography must remain below the biography');
     } finally {
       await page.close();
+    }
+  });
+
+  test(`Detail page plugin discovery sections span full width across desktop and mobile (${direction})`, async () => {
+    const discoveryHtml = `<!doctype html>
+      <html dir="${direction}">
+      <style>
+        ${upstreamStyles}
+        .vertical-wrap { display: flex; flex-direction: row; flex-wrap: wrap; }
+        .overflowPortraitCard { width: 10vw; min-width: 170px; }
+        @media (max-width: 767px) { .overflowPortraitCard { width: 40vw; min-width: 140px; } }
+        .jellyseerr-discovery-section { margin-top: 1.5em; }
+        .jellyseerr-discovery-meta { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: .4em; }
+        .jellyseerr-discovery-summary { grid-area: 1 / 1; min-width: 0; margin: 0; }
+        .jellyseerr-discovery-bar { grid-area: 1 / 2; justify-self: end; display: flex; align-items: center; gap: .5em 1em; min-width: 0; }
+        .jellyseerr-discovery-filter { display: inline-flex; align-items: center; min-width: 0; }
+        .jellyseerr-sort-btn.emby-tab-button, .jellyseerr-filters-btn.emby-tab-button { flex: none; }
+        @media (max-width: 34em) {
+          .jellyseerr-discovery-bar[data-has-filter] { grid-area: 2 / 1 / 3 / -1; justify-self: stretch; }
+          .jellyseerr-discovery-filter { flex: 1 1 auto; }
+        }
+        .jellyseerr-join-jump { display: block; width: fit-content; max-width: 100%; }
+      </style>
+      <style>${theme}</style>
+      <main id="itemDetailPage" class="page libraryPage itemDetailPage">
+        <div class="detailPageWrapperContainer">
+          <div class="detailPagePrimaryContainer">
+            <div class="detailImageContainer hide-mobile">
+              <div class="card portraitCard"><div class="cardPadder cardPadder-portrait"></div></div>
+            </div>
+            <div class="detailRibbon padded-left padded-right">
+              <div class="infoWrapper">
+                <div class="nameContainer"><h1 class="itemName"><bdi>Tom Holland</bdi></h1></div>
+              </div>
+              <div class="mainDetailButtons"></div>
+            </div>
+            <div class="detailPagePrimaryContent padded-right">
+              <div class="detailSection">
+                <form class="trackSelections hide focuscontainer-x"></form>
+                <div class="recordingFields hide"></div>
+                <div class="detailSectionContent">
+                  <p class="overview">Thomas Stanley Holland is an English actor.</p>
+                </div>
+                <div class="itemDetailsGroup"></div>
+                <button type="button" class="jellyseerr-join-jump jellyseerr-join-jump-start">Go to More with Tom Holland</button>
+                <div id="listChildrenCollapsible" class="verticalSection detailVerticalSection">
+                  <h2 class="sectionTitle sectionTitle-cards"><span>Movies</span></h2>
+                  <div id="childrenContent"><div class="itemsContainer vertical-wrap">
+                    <div class="card overflowPortraitCard"><div class="cardBox"><div class="cardScalable"><div class="cardPadder cardPadder-overflowPortrait"></div></div></div></div>
+                  </div></div>
+                </div>
+                <div class="verticalSection jellyseerr-person-discovery-section jellyseerr-discovery-section detailVerticalSection" style="order: 99;">
+                  <div class="jellyseerr-discovery-header" data-has-filter="">
+                    <h2 class="sectionTitle sectionTitle-cards">More with <span class="jellyseerr-discovery-name">Tom Holland</span></h2>
+                    <div class="jellyseerr-discovery-meta">
+                      <p class="jellyseerr-discovery-summary">Not in the library</p>
+                      <div class="jellyseerr-discovery-bar" data-has-filter="">
+                        <div class="jellyseerr-discovery-filter" role="group">
+                          <button type="button" class="jellyseerr-filter-btn emby-tab-button emby-tab-button-active">All</button>
+                          <button type="button" class="jellyseerr-filter-btn emby-tab-button">Movies</button>
+                          <button type="button" class="jellyseerr-filter-btn emby-tab-button">Series</button>
+                        </div>
+                        <button type="button" class="jellyseerr-filters-btn emby-tab-button emby-button">F</button>
+                        <button type="button" class="jellyseerr-sort-btn emby-tab-button emby-button">Popular</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div is="emby-itemscontainer" class="itemsContainer vertical-wrap">
+                    ${Array.from({ length: 8 }, (_, idx) => `<div class="card card-hoverable jellyseerr-card overflowPortraitCard"><div class="cardBox"><div class="cardScalable"><div class="cardPadder cardPadder-overflowPortrait"></div></div><div class="cardText cardText-first">Item ${idx + 1}</div></div></div>`).join('')}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      </html>`;
+
+    for (const viewport of [
+      { width: 1920, height: 1080 },
+      { width: 768, height: 1024 },
+      { width: 390, height: 844 }
+    ]) {
+      const page = await browser.newPage({ viewport });
+      try {
+        await page.setContent(discoveryHtml);
+        const measure = () => page.evaluate(dir => {
+          const bounds = sel => {
+            const { left, right, width, top, bottom, height } = document.querySelector(sel).getBoundingClientRect();
+            return dir === 'rtl'
+              ? { start: -right, end: -left, left, right, width, top, bottom, height }
+              : { start: left, end: right, left, right, width, top, bottom, height };
+          };
+          const cards = [...document.querySelectorAll('.jellyseerr-discovery-section .card')];
+          const firstRowTop = cards[0].getBoundingClientRect().top;
+          const cardsPerRow = cards.filter(c => Math.abs(c.getBoundingClientRect().top - firstRowTop) < 5).length;
+          const tabBtns = [...document.querySelectorAll('.jellyseerr-discovery-bar .emby-tab-button')].map(el => el.getBoundingClientRect());
+          let tabsOverlap = false;
+          for (let i = 0; i < tabBtns.length; i++) {
+            for (let j = i + 1; j < tabBtns.length; j++) {
+              const a = tabBtns[i];
+              const b = tabBtns[j];
+              if (a.left < b.right - 0.5 && b.left < a.right - 0.5 && a.top < b.bottom - 0.5 && b.top < a.bottom - 0.5) {
+                tabsOverlap = true;
+              }
+            }
+          }
+          return {
+            docOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+            panel: bounds('.detailPagePrimaryContainer'),
+            artwork: bounds('.detailImageContainer'),
+            bio: bounds('.overview'),
+            jump: bounds('.jellyseerr-join-jump'),
+            credits: bounds('#listChildrenCollapsible'),
+            discovery: bounds('.jellyseerr-discovery-section'),
+            summary: bounds('.jellyseerr-discovery-summary'),
+            bar: bounds('.jellyseerr-discovery-bar'),
+            cardsPerRow,
+            tabsOverlap
+          };
+        }, direction);
+
+        const m = await measure();
+        assert.equal(m.docOverflow, 0, `No horizontal overflow at ${viewport.width}x${viewport.height}`);
+        assert.ok(Math.abs(m.discovery.width - m.credits.width) <= 1, `Discovery section width (${m.discovery.width}) must match #listChildrenCollapsible (${m.credits.width}) at ${viewport.width}px`);
+        assert.ok(Math.abs(m.discovery.start - m.credits.start) <= 1, 'Discovery section must align with #listChildrenCollapsible');
+        assert.ok(m.discovery.top >= m.credits.bottom, 'Discovery section must render below #listChildrenCollapsible');
+        assert.ok(m.bar.left >= m.panel.left - 0.5 && m.bar.right <= m.panel.right + 0.5, 'Discovery controls must stay inside the hero panel');
+        assert.equal(m.tabsOverlap, false, `Discovery filter/sort tabs must not overlap at ${viewport.width}px`);
+
+        if (viewport.width >= 768) {
+          assert.ok(m.discovery.width > m.artwork.width * 2, 'Discovery section must span both grid columns, not just the artwork column');
+          assert.ok(m.cardsPerRow >= (viewport.width >= 1920 ? 6 : 3), `Expected multi-column card grid at ${viewport.width}px, got ${m.cardsPerRow}`);
+          assert.ok(m.summary.height < 40, 'Summary label must stay on a single line on desktop');
+          assert.ok(m.jump.top >= Math.max(m.artwork.bottom, m.bio.bottom) - 0.5, 'Jump link must sit below hero artwork and biography');
+          assert.ok(m.jump.width < m.credits.width, 'Jump link must preserve intrinsic fit-content width');
+        } else {
+          assert.ok(m.cardsPerRow >= 2, `Expected >=2 cards per row on mobile (${viewport.width}px), got ${m.cardsPerRow}`);
+        }
+
+        if (viewport.width === 1920) {
+          await page.locator('.detailImageContainer').evaluate(artwork => artwork.replaceChildren());
+          const noArt = await measure();
+          assert.equal(noArt.docOverflow, 0);
+          assert.ok(noArt.jump.top >= noArt.bio.bottom - 0.5 && noArt.credits.top >= noArt.jump.bottom - 0.5 && noArt.discovery.top >= noArt.credits.bottom - 0.5, 'Without artwork, hero bio, jump link, credits, and discovery must stay in order');
+          assert.ok(Math.abs(noArt.discovery.width - noArt.credits.width) <= 1);
+        }
+      } finally {
+        await page.close();
+      }
     }
   });
 }
